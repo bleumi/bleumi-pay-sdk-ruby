@@ -1,0 +1,318 @@
+# BleumiPay::Erc20PaymentsApi
+
+## create_wallet
+
+> WalletCreateOutput create_wallet(wallet_create_input, opts)
+
+Create an unique wallet address to accept payments for an ERC-20 token from a buyer
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# Setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::Erc20PaymentsApi.new
+wallet_create_input = BleumiPay::WalletCreateInput.new # WalletCreateInput |
+opts = {
+  chain: BleumiPay::EthNetwork::ROPSTEN # EthNetwork | Ethereum network in which wallet is to be created.
+}
+
+buyer_address = BleumiPay::EthAddress.new('<BUYER_ADDR>')
+transfer_address = BleumiPay::EthAddress.new('<MERCHANT_ADDR>')
+
+wallet_create_input.id = '<ID>'
+wallet_create_input.buyer_address = buyer_address
+wallet_create_input.transfer_address = transfer_address
+
+begin
+  #Create an unique wallet address to accept payments for an ERC-20 token from a buyer
+  result = api_instance.create_wallet(wallet_create_input, opts)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling Erc20PaymentsApi->create_wallet: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wallet_create_input** | [**WalletCreateInput**](WalletCreateInput.md)|  |
+ **chain** | [**EthNetwork**](.md)| Ethereum network in which wallet is to be created. | [optional]
+
+### Return type
+
+[**WalletCreateOutput**](WalletCreateOutput.md)
+
+## get_wallet
+
+> Wallet get_wallet(id)
+
+Return a specific wallet
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::Erc20PaymentsApi.new
+id = '<ID>' # String | Unique ID identifying the wallet in your system
+
+begin
+  #Return a specific wallet
+  result = api_instance.get_wallet(id)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling Erc20PaymentsApi->get_wallet: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Unique ID identifying the wallet in your system |
+
+### Return type
+
+[**Wallet**](Wallet.md)
+
+
+## list_wallets
+
+> PaginatedWallets list_wallets(opts)
+
+Returns a list of wallets
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::Erc20PaymentsApi.new
+opts = {
+  next_token: '', # String | Cursor to start results from
+  sort_by: '<SORT_BY>', # String | Sort wallets by (optional) | Eg. "createdAt"
+  start_at: '<START_TIMESTAMP>', # String | Get wallets from this timestamp (optional) | Eg. 1546300800 for 1-JAN-2019
+  end_at: '' # String | Get wallets till this timestamp (optional) 
+}
+
+begin
+  #Returns a list of wallets
+  result = api_instance.list_wallets(opts)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling Erc20PaymentsApi->list_wallets: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **next_token** | **String**| Cursor to start results from | [optional]
+ **sort_by** | **String**| Sort wallets by | [optional]
+ **start_at** | **String**| Get wallets from this timestamp | [optional]
+ **end_at** | **String**| Get wallets till this timestamp | [optional]
+
+### Return type
+
+[**PaginatedWallets**](PaginatedWallets.md)
+
+
+## settle_wallet
+
+> WalletOperationOutput settle_wallet(id, wallet_settle_operation_input)
+
+Settle a wallet, amount received will be transferred even if less than payment amount
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::Erc20PaymentsApi.new
+id = '<ID>' # String | Unique ID identifying this record in your system
+wallet_settle_operation_input = BleumiPay::WalletSettleOperationInput.new 
+wallet_settle_operation_input.amount = '<AMT>' # String | Replace <AMT> with settle amount
+wallet_settle_operation_input.token = BleumiPay::EthAddress.new('<TOKEN_ADDR>') # String | Replace <TOKEN_ADDR> with ECR-20 token address
+
+begin
+  #Settle a wallet, amount received will be transferred even if less than payment amount
+  result = api_instance.settle_wallet(id, wallet_settle_operation_input)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling Erc20PaymentsApi->settle_wallet: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Unique ID identifying this record in your system |
+ **wallet_settle_operation_input** | [**WalletSettleOperationInput**](WalletSettleOperationInput.md)| Request body - used to specify the amount to settle. |
+
+### Return type
+
+[**WalletOperationOutput**](WalletOperationOutput.md)
+
+## refund_wallet
+
+> WalletOperationOutput refund_wallet(id, wallet_refund_operation_input)
+
+Refund wallet
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::Erc20PaymentsApi.new
+id = '<ID>' # String | Unique ID identifying this record in your system
+wallet_refund_operation_input = BleumiPay::WalletRefundOperationInput.new 
+wallet_refund_operation_input.token = BleumiPay::EthAddress.new('<TOKEN_ADDR>') # String | Replace <TOKEN_ADDR> with ECR-20 token address
+
+begin
+  #Refund wallet
+  result = api_instance.refund_wallet(id, wallet_refund_operation_input)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling Erc20PaymentsApi->refund_wallet: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Unique ID identifying this record in your system |
+ **wallet_refund_operation_input** | [**WalletRefundOperationInput**](WalletRefundOperationInput.md)| Request body - used to specify the token to refund. |
+
+### Return type
+
+[**WalletOperationOutput**](WalletOperationOutput.md)
+
+
+## get_wallet_operation
+
+> WalletOperation get_wallet_operation(id, txid)
+
+Return a specific operation of the wallet
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::Erc20PaymentsApi.new
+id = '<ID>' # String | Unique ID identifying the wallet in your system
+txid = '<TXID>' # String | ID of a specific operation of the wallet
+
+begin
+  #Return a specific operation of the wallet
+  result = api_instance.get_wallet_operation(id, txid)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling Erc20PaymentsApi->get_wallet_operation: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Unique ID identifying the wallet in your system |
+ **txid** | **String**| ID of a specific operation of the wallet |
+
+### Return type
+
+[**WalletOperation**](WalletOperation.md)
+
+
+
+## get_wallet_operations
+
+> PaginatedWalletOperations get_wallet_operations(id, opts)
+
+Return the list of operations performed by the mechant on a specific wallet
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::Erc20PaymentsApi.new
+id = '<ID>' # String | Unique ID identifying the wallet in your system
+opts = {
+  next_token: '' # String | Cursor to start results from
+}
+
+begin
+  #Return the list of operations performed by the mechant on a specific wallet
+  result = api_instance.get_wallet_operations(id, opts)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling Erc20PaymentsApi->get_wallet_operations: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Unique ID identifying the wallet in your system |
+ **next_token** | **String**| Cursor to start results from | [optional]
+
+### Return type
+
+[**PaginatedWalletOperations**](PaginatedWalletOperations.md)
