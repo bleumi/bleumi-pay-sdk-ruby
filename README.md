@@ -23,7 +23,7 @@ Bleumi Pay SDK uses API keys to authenticate requests. You can obtain an API key
 
 To install,
 ```bash
-gem 'bleumi_pay_sdk_ruby', '~> 1.0.1'
+gem install bleumi_pay_sdk_ruby
 ```
 
 ### Install from Git
@@ -32,13 +32,6 @@ Add the following in the Gemfile:
 
     gem 'bleumi_pay_sdk_ruby', :git => 'https://github.com/bleumi/bleumi_pay_sdk_ruby.git'
 
-### Include the Ruby code directly
-
-Include the Ruby code directly using `-I` as follows:
-
-```shell
-ruby -Ilib script.rb
-```
 
 ### Run Sample Code
 
