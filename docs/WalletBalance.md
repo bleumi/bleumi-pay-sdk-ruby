@@ -9,15 +9,3 @@ Name | Type | Description | Notes
 **token_decimals** | **Integer** | Wallet Library address | 
 **block_num** | **String** | Wallet Proxy address | 
 
-## Code Sample
-
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::WalletBalance.new(balance: null,
-                                 token_balance: null,
-                                 token_decimals: null,
-                                 block_num: null)
-```
-
-

@@ -11,19 +11,3 @@ Name | Type | Description | Notes
 **inputs** | [**WalletInputs**](WalletInputs.md) |  | 
 **created_at** | **Integer** | UNIX timestamp when the wallet was created | 
 **updated_at** | **Integer** | UNIX timestamp when the lastest operation was performed | 
-
-## Code Sample
-
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::Wallet.new(id: null,
-                                 chain: null,
-                                 addr: null,
-                                 balances: null,
-                                 inputs: null,
-                                 created_at: null,
-                                 updated_at: null)
-```
-
-

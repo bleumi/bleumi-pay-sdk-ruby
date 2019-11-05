@@ -9,4 +9,3 @@ Name | Type | Description | Notes
 **status** | **Boolean** | &lt;b&gt;null&lt;/b&gt; - operation in progress &lt;br/&gt; &lt;b&gt;true&lt;/b&gt; - operation completed successfuly &lt;br/&gt; &lt;b&gt;false&lt;/b&gt; - operation failed to process | 
 **inputs** | [**WalletOperationInputs**](WalletOperationInputs.md) |  | 
 **hash** | **String** | Transaction hash of operation submitted to the network. This field is blank when operation is in progress. | 
-

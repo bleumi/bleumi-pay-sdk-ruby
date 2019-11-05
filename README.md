@@ -1,4 +1,4 @@
-# bleumi_pay_sdk_ruby
+# Bleumi Pay SDK for Ruby
 
 The Bleumi Pay SDK is a one-stop shop to help you integrate ECR-20 payments into your business or application. The SDK bundles [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction) into one SDK to ease implementation and support.
 
@@ -60,8 +60,8 @@ opts = {
   chain: BleumiPay::EthNetwork::ROPSTEN # EthNetwork | Ethereum network in which wallet is to be created.
 }
 
-buyer_address = BleumiPay::EthAddress.new('<BUYER_ADDR>')
-transfer_address = BleumiPay::EthAddress.new('<MERCHANT_ADDR>')
+buyer_address = BleumiPay::EthAddress.new('<BUYER_ADDR>') # Replace <BUYER_ADDR> with the Buyer's Enthereum Network Address
+transfer_address = BleumiPay::EthAddress.new('<MERCHANT_ADDR>') # Replace <MERCHANT_ADDR> with the Merchant's Enthereum Network Address
 
 wallet_create_input.id = '<ID>'
 wallet_create_input.buyer_address = buyer_address
@@ -83,32 +83,32 @@ More examples can be found under each method in [SDK Classes](README.md#sdk-clas
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-BleumiPay::Erc20PaymentsApi | [**create_wallet**](docs/Erc20PaymentsApi.md#create_wallet) | **POST** /v1/payment/erc20/wallet | Create an unique wallet address to accept payments for an ERC-20 token from a buyer
-BleumiPay::Erc20PaymentsApi | [**get_wallet**](docs/Erc20PaymentsApi.md#get_wallet) | **GET** /v1/payment/erc20/wallet/{id} | Return a specific wallet
-BleumiPay::Erc20PaymentsApi | [**get_wallet_operation**](docs/Erc20PaymentsApi.md#get_wallet_operation) | **GET** /v1/payment/erc20/wallet/{id}/operation/{txid} | Return a specific operation of the wallet
-BleumiPay::Erc20PaymentsApi | [**get_wallet_operations**](docs/Erc20PaymentsApi.md#get_wallet_operations) | **GET** /v1/payment/erc20/wallet/{id}/operation | Return the list of operations performed by the mechant on a specific wallet
-BleumiPay::Erc20PaymentsApi | [**list_wallets**](docs/Erc20PaymentsApi.md#list_wallets) | **GET** /v1/payment/erc20/wallet | Returns a list of wallets
-BleumiPay::Erc20PaymentsApi | [**refund_wallet**](docs/Erc20PaymentsApi.md#refund_wallet) | **POST** /v1/payment/erc20/wallet/{id}/refund | Refund wallet
-BleumiPay::Erc20PaymentsApi | [**settle_wallet**](docs/Erc20PaymentsApi.md#settle_wallet) | **POST** /v1/payment/erc20/wallet/{id}/settle | Settle a wallet, amount received will be transferred even if less than payment amount
+Erc20PaymentsApi | [**create_wallet**](docs/Erc20PaymentsApi.md#create_wallet) | **POST** /v1/payment/erc20/wallet | Create an unique wallet address to accept payments for an ERC-20 token from a buyer
+Erc20PaymentsApi | [**get_wallet**](docs/Erc20PaymentsApi.md#get_wallet) | **GET** /v1/payment/erc20/wallet/{id} | Return a specific wallet
+Erc20PaymentsApi | [**get_wallet_operation**](docs/Erc20PaymentsApi.md#get_wallet_operation) | **GET** /v1/payment/erc20/wallet/{id}/operation/{txid} | Return a specific operation of the wallet
+Erc20PaymentsApi | [**get_wallet_operations**](docs/Erc20PaymentsApi.md#get_wallet_operations) | **GET** /v1/payment/erc20/wallet/{id}/operation | Return the list of operations performed by the mechant on a specific wallet
+Erc20PaymentsApi | [**list_wallets**](docs/Erc20PaymentsApi.md#list_wallets) | **GET** /v1/payment/erc20/wallet | Returns a list of wallets
+Erc20PaymentsApi | [**refund_wallet**](docs/Erc20PaymentsApi.md#refund_wallet) | **POST** /v1/payment/erc20/wallet/{id}/refund | Refund wallet
+Erc20PaymentsApi | [**settle_wallet**](docs/Erc20PaymentsApi.md#settle_wallet) | **POST** /v1/payment/erc20/wallet/{id}/settle | Settle a wallet, amount received will be transferred even if less than payment amount
 
 
 ## Documentation for Models
 
- - [BleumiPay::BadRequest](docs/BadRequest.md)
- - [BleumiPay::EthAddress](docs/EthAddress.md)
- - [BleumiPay::EthNetwork](docs/EthNetwork.md)
- - [BleumiPay::PaginatedWalletOperations](docs/PaginatedWalletOperations.md)
- - [BleumiPay::PaginatedWallets](docs/PaginatedWallets.md)
- - [BleumiPay::Wallet](docs/Wallet.md)
- - [BleumiPay::WalletBalance](docs/WalletBalance.md)
- - [BleumiPay::WalletCreateInput](docs/WalletCreateInput.md)
- - [BleumiPay::WalletCreateOutput](docs/WalletCreateOutput.md)
- - [BleumiPay::WalletInputs](docs/WalletInputs.md)
- - [BleumiPay::WalletOperation](docs/WalletOperation.md)
- - [BleumiPay::WalletOperationInputs](docs/WalletOperationInputs.md)
- - [BleumiPay::WalletOperationOutput](docs/WalletOperationOutput.md)
- - [BleumiPay::WalletRefundOperationInput](docs/WalletRefundOperationInput.md)
- - [BleumiPay::WalletSettleOperationInput](docs/WalletSettleOperationInput.md)
+ - [BadRequest](docs/BadRequest.md)
+ - [EthAddress](docs/EthAddress.md)
+ - [EthNetwork](docs/EthNetwork.md)
+ - [PaginatedWalletOperations](docs/PaginatedWalletOperations.md)
+ - [PaginatedWallets](docs/PaginatedWallets.md)
+ - [Wallet](docs/Wallet.md)
+ - [WalletBalance](docs/WalletBalance.md)
+ - [WalletCreateInput](docs/WalletCreateInput.md)
+ - [WalletCreateOutput](docs/WalletCreateOutput.md)
+ - [WalletInputs](docs/WalletInputs.md)
+ - [WalletOperation](docs/WalletOperation.md)
+ - [WalletOperationInputs](docs/WalletOperationInputs.md)
+ - [WalletOperationOutput](docs/WalletOperationOutput.md)
+ - [WalletRefundOperationInput](docs/WalletRefundOperationInput.md)
+ - [WalletSettleOperationInput](docs/WalletSettleOperationInput.md)
 
 ## Limitations
 

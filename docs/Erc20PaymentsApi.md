@@ -23,10 +23,10 @@ opts = {
   chain: BleumiPay::EthNetwork::ROPSTEN # EthNetwork | Ethereum network in which wallet is to be created.
 }
 
-buyer_address = BleumiPay::EthAddress.new('<BUYER_ADDR>')
-transfer_address = BleumiPay::EthAddress.new('<MERCHANT_ADDR>')
+buyer_address = BleumiPay::EthAddress.new('<BUYER_ADDR>') # Replace <BUYER_ADDR> with the Buyer Address
+transfer_address = BleumiPay::EthAddress.new('<MERCHANT_ADDR>') # Replace <MERCHANT_ADDR> with the Merchant's Enthereum Network Address
 
-wallet_create_input.id = '<ID>'
+wallet_create_input.id = '<ID>' # String | Unique ID identifying the wallet in your system
 wallet_create_input.buyer_address = buyer_address
 wallet_create_input.transfer_address = transfer_address
 
@@ -69,7 +69,7 @@ BleumiPay.configure do |config|
 end
 
 api_instance = BleumiPay::Erc20PaymentsApi.new
-id = '<ID>' # String | Unique ID identifying the wallet in your system
+id = '<ID>' # String | The ID of the wallet to get the details
 
 begin
   #Return a specific wallet
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 > PaginatedWallets list_wallets(opts)
 
-Returns a list of wallets
+This method retrieves a list of wallets. The list of wallets is returned as an array in the 'results' field. The list is restricted to a maximum of 10 wallets. If there are more wallets a cursor is passed in the 'nextToken' field. Passing this as the 'nextToken' query parameter will fetch the next page. When the value of 'nextToken' field is an empty string, there are no more wallets.
 
 ### Example
 
@@ -132,9 +132,9 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **next_token** | **String**| Cursor to start results from | [optional]
- **sort_by** | **String**| Sort wallets by | [optional]
- **start_at** | **String**| Get wallets from this timestamp | [optional]
- **end_at** | **String**| Get wallets till this timestamp | [optional]
+ **sort_by** | **String**| Sort wallets by | [optional] 'createdAt' - results will be sorted by created time in ascending order. 'updatedAt' - results will be sorted by last updated time in ascending order.
+ **start_at** | **String**| Get wallets from this timestamp | [optional] Get wallets from this timestamp (UNIX). Will be compared to created or updated time based on the value of sortBy parameter.
+ **end_at** | **String**| Get wallets till this timestamp | [optional] Get wallets till this timestamp (UNIX). Will be compared to created or updated time based on the value of sortBy parameter.
 
 ### Return type
 
@@ -145,7 +145,11 @@ Name | Type | Description  | Notes
 
 > WalletOperationOutput settle_wallet(id, wallet_settle_operation_input)
 
-Settle a wallet, amount received will be transferred even if less than payment amount
+Settle a wallet, settle amount will be transferred to the payment processor or the merchant as specified at the time of creation of the wallet. Supply the unique id that was used when the wallet was created.
+
+If the settle amount is less than the current wallet balance, the requested amount will be sent to the seller. The remaining amount will be refunded to the buyer. At the end of settle operation, the wallet balance will be zero.
+
+If the settle amount is more than the current wallet balance, no action is performed.
 
 ### Example
 
@@ -178,8 +182,8 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique ID identifying this record in your system |
- **wallet_settle_operation_input** | [**WalletSettleOperationInput**](WalletSettleOperationInput.md)| Request body - used to specify the amount to settle. |
+ **id** | **String**| The ID of the wallet to settle (withdraw) the funds from |
+ **wallet_settle_operation_input** | [**WalletSettleOperationInput**](WalletSettleOperationInput.md)| Request body - specify the ERC-20 token,amount to settle. |
 
 ### Return type
 
@@ -189,7 +193,9 @@ Name | Type | Description  | Notes
 
 > WalletOperationOutput refund_wallet(id, wallet_refund_operation_input)
 
-Refund wallet
+Refund wallet. The entire wallet amount will be transferred to the buyer. Supply the unique id that was used when the wallet was created.
+
+At the end of refund operation, the wallet balance will be zero.
 
 ### Example
 
@@ -221,7 +227,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique ID identifying this record in your system |
+ **id** | **String**| The ID of the wallet to refund the funds to the Buyer |
  **wallet_refund_operation_input** | [**WalletRefundOperationInput**](WalletRefundOperationInput.md)| Request body - used to specify the token to refund. |
 
 ### Return type
@@ -264,8 +270,8 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique ID identifying the wallet in your system |
- **txid** | **String**| ID of a specific operation of the wallet |
+ **id** | **String**| Unique ID of the wallet for which you need the wallet operation detail  |
+ **txid** | **String**| Transaction ID of a specific operation of the wallet |
 
 ### Return type
 
@@ -277,7 +283,10 @@ Name | Type | Description  | Notes
 
 > PaginatedWalletOperations get_wallet_operations(id, opts)
 
-Return the list of operations performed by the mechant on a specific wallet
+This method retrieves the list of wallet operations performed by the mechant on a specific wallet.
+The list of wallet operations is returned as an array in the 'results' field. The list is restricted to a maximum of 10 wallet operations.
+If there are more wallet operations a cursor is passed in the 'nextToken' field. Passing this as the 'nextToken' query parameter will fetch the next page.
+When the value of 'nextToken' field is an empty string, there are no more wallet operations.
 
 ### Example
 
@@ -310,8 +319,8 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique ID identifying the wallet in your system |
- **next_token** | **String**| Cursor to start results from | [optional]
+ **id** | **String**| Unique ID of the wallet for which you need the list of operations that was performed by the merchant |
+ **next_token** | **String**| The token to fetch the next page, supply blank value to get the first page of wallet operations | [optional]
 
 ### Return type
 

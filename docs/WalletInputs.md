@@ -9,4 +9,3 @@ Name | Type | Description | Notes
 **wallet_library** | **String** | Wallet Library address | 
 **wallet_proxy** | **String** | Wallet Proxy address | 
 **salt** | **String** | Salt used to create the wallet | 
-

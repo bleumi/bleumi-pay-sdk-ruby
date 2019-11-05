@@ -13,5 +13,3 @@ require 'BleumiPay'
 
 instance = BleumiPay::EthAddress.new(addr: null)
 ```
-
-

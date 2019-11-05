@@ -11,5 +11,7 @@ Name | Type | Description | Notes
 ```ruby
 require 'BleumiPay'
 
-instance = BleumiPay::WalletRefundOperationInput.new(token: null)
+token = BleumiPay::EthAddress.new('<TOKEN_ADDR>')
+
+instance = BleumiPay::WalletRefundOperationInput.new(token)
 ```
