@@ -4,18 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Unique ID identifying the wallet; specified here to create the wallet by your system | 
-**buyer_address** | [**EthAddress**](EthAddress.md) |  | 
-**transfer_address** | [**EthAddress**](EthAddress.md) |  | 
-
-## Code Sample
-
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::WalletCreateInput.new(id: null,
-                                 buyer_address: null,
-                                 transfer_address: null)
-```
-
-
+**id** | **String** | Unique identifier for this wallet |
+**buyer_address** | [**EthAddress**](EthAddress.md) | Ethereum address of buyer. Refund operations on this wallet will use this address. |
+**transfer_address** | [**EthAddress**](EthAddress.md) | The Ethereum network address of merchant. |

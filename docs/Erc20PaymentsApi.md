@@ -1,10 +1,10 @@
 # BleumiPay::Erc20PaymentsApi
 
-## create_wallet
+## generate_wallet
 
-> WalletCreateOutput create_wallet(wallet_create_input, opts)
+> WalletCreateOutput generate_wallet(wallet_create_input, opts)
 
-Create an unique wallet address to accept payments for an ERC-20 token from a buyer
+Generate an unique wallet address to accept payments for an ERC-20 token from a buyer.
 
 ### Example
 
@@ -31,11 +31,11 @@ wallet_create_input.buyer_address = buyer_address
 wallet_create_input.transfer_address = transfer_address
 
 begin
-  #Create an unique wallet address to accept payments for an ERC-20 token from a buyer
-  result = api_instance.create_wallet(wallet_create_input, opts)
+  #Generate an unique wallet address to accept payments for an ERC-20 token from a buyer
+  result = api_instance.generate_wallet(wallet_create_input, opts)
   p result
 rescue BleumiPay::ApiError => e
-  puts "Exception when calling Erc20PaymentsApi->create_wallet: #{e}"
+  puts "Exception when calling Erc20PaymentsApi->generate_wallet: #{e}"
 end
 ```
 
@@ -44,8 +44,8 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **wallet_create_input** | [**WalletCreateInput**](WalletCreateInput.md)|  |
- **chain** | [**EthNetwork**](.md)| Ethereum network in which wallet is to be created. | [optional]
+ **wallet_create_input** | [**WalletCreateInput**](WalletCreateInput.md)| Specify the parameters for the wallet generation.  |
+ **chain** | [**EthNetwork**](EthNetwork.md)| Ethereum network in which the wallet is to be created. Please refer to the [Supported Ethereum Networks](https://pay.bleumi.com/docs/#supported-ethereum-networks) |
 
 ### Return type
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 > Wallet get_wallet(id)
 
-Return a specific wallet
+This method retrieves a wallet.
 
 ### Example
 
@@ -96,7 +96,15 @@ Name | Type | Description  | Notes
 
 > PaginatedWallets list_wallets(opts)
 
-This method retrieves a list of wallets. The list of wallets is returned as an array in the 'results' field. The list is restricted to a maximum of 10 wallets. If there are more wallets a cursor is passed in the 'nextToken' field. Passing this as the 'nextToken' query parameter will fetch the next page. When the value of 'nextToken' field is an empty string, there are no more wallets.
+This method retrieves a list of wallets.
+
+### Pagination
+
+The list of wallets is returned as an array in the 'results' field. The list is restricted to a maximum of 100 wallets per page.
+
+If there are more than 100 wallets generated for an ethereum network, a cursor is returned in the 'nextToken' field. Passing this as the 'nextToken' query parameter will fetch the next page.
+
+When the value of 'nextToken' field is an empty string, there are no more wallets.
 
 ### Example
 
@@ -131,7 +139,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **next_token** | **String**| Cursor to start results from | [optional]
+ **next_token** | **String**| The token to fetch the next page, supply blank value to get the first page of wallet operations | [optional]
  **sort_by** | **String**| Sort wallets by | [optional] 'createdAt' - results will be sorted by created time in ascending order. 'updatedAt' - results will be sorted by last updated time in ascending order.
  **start_at** | **String**| Get wallets from this timestamp | [optional] Get wallets from this timestamp (UNIX). Will be compared to created or updated time based on the value of sortBy parameter.
  **end_at** | **String**| Get wallets till this timestamp | [optional] Get wallets till this timestamp (UNIX). Will be compared to created or updated time based on the value of sortBy parameter.
@@ -145,11 +153,7 @@ Name | Type | Description  | Notes
 
 > WalletOperationOutput settle_wallet(id, wallet_settle_operation_input)
 
-Settle a wallet, settle amount will be transferred to the payment processor or the merchant as specified at the time of creation of the wallet. Supply the unique id that was used when the wallet was created.
-
-If the settle amount is less than the current wallet balance, the requested amount will be sent to the seller. The remaining amount will be refunded to the buyer. At the end of settle operation, the wallet balance will be zero.
-
-If the settle amount is more than the current wallet balance, no action is performed.
+This method settles a specific amount of an ERC-20 token of a wallet to the transferAddress specified during [Generate Wallet](#generate_wallet). And remaining balance (if any) will be refunded to the buyerAddress specified during [Generate Wallet](#generate_wallet).
 
 ### Example
 
@@ -182,8 +186,8 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| The ID of the wallet to settle (withdraw) the funds from |
- **wallet_settle_operation_input** | [**WalletSettleOperationInput**](WalletSettleOperationInput.md)| Request body - specify the ERC-20 token,amount to settle. |
+ **id** | **String**| Unique identifier of the wallet (specified during [Generate Wallet](#generatewallet)) to settle
+ **wallet_settle_operation_input** | [**WalletSettleOperationInput**](WalletSettleOperationInput.md)| Specify the token and amount to settle. |
 
 ### Return type
 
@@ -193,9 +197,7 @@ Name | Type | Description  | Notes
 
 > WalletOperationOutput refund_wallet(id, wallet_refund_operation_input)
 
-Refund wallet. The entire wallet amount will be transferred to the buyer. Supply the unique id that was used when the wallet was created.
-
-At the end of refund operation, the wallet balance will be zero.
+This method refunds the balance of an ERC-20 token of a wallet to the buyerAddress specified during [Generate Wallet](#generate_wallet).
 
 ### Example
 
@@ -227,8 +229,8 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| The ID of the wallet to refund the funds to the Buyer |
- **wallet_refund_operation_input** | [**WalletRefundOperationInput**](WalletRefundOperationInput.md)| Request body - used to specify the token to refund. |
+ **id** | **String**| Unique identifier of the wallet (specified during [Generate Wallet](#generate_wallet)) to refund |
+ **wallet_refund_operation_input** | [**WalletRefundOperationInput**](WalletRefundOperationInput.md)| Specify the token to refund. |
 
 ### Return type
 
@@ -239,7 +241,7 @@ Name | Type | Description  | Notes
 
 > WalletOperation get_wallet_operation(id, txid)
 
-Return a specific operation of the wallet
+This method retrieves an operation of a wallet.
 
 ### Example
 
@@ -270,8 +272,8 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique ID of the wallet for which you need the wallet operation detail  |
- **txid** | **String**| Transaction ID of a specific operation of the wallet |
+ **id** | **String**| Unique identifier of the wallet (specified during [Generate Wallet](#generate_wallet)) |
+ **txid** | **String**| Transaction ID of the operation (returned during [Refund Wallet](#refundwallet) / [Settle Wallet](#settlewallet)) to retrieve |
 
 ### Return type
 
@@ -279,14 +281,19 @@ Name | Type | Description  | Notes
 
 
 
-## get_wallet_operations
+## list_wallet_operations
 
-> PaginatedWalletOperations get_wallet_operations(id, opts)
+> PaginatedWalletOperations list_wallet_operations(id, opts)
 
-This method retrieves the list of wallet operations performed by the mechant on a specific wallet.
-The list of wallet operations is returned as an array in the 'results' field. The list is restricted to a maximum of 10 wallet operations.
-If there are more wallet operations a cursor is passed in the 'nextToken' field. Passing this as the 'nextToken' query parameter will fetch the next page.
-When the value of 'nextToken' field is an empty string, there are no more wallet operations.
+This method retrieves all operations of a wallet.
+
+### Pagination
+
+The list of operations is returned as an array in the 'results' field. The list is restricted to a maximum of 100 operations per page.
+
+If there are more than 100 operations for a wallet, a cursor is passed in the 'nextToken' field. Passing this as the 'nextToken' query parameter will fetch the next page.
+
+When the value of 'nextToken' field is an empty string, there are no more operations.
 
 ### Example
 
@@ -307,10 +314,10 @@ opts = {
 
 begin
   #Return the list of operations performed by the mechant on a specific wallet
-  result = api_instance.get_wallet_operations(id, opts)
+  result = api_instance.list_wallet_operations(id, opts)
   p result
 rescue BleumiPay::ApiError => e
-  puts "Exception when calling Erc20PaymentsApi->get_wallet_operations: #{e}"
+  puts "Exception when calling Erc20PaymentsApi->list_wallet_operations: #{e}"
 end
 ```
 
@@ -319,7 +326,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique ID of the wallet for which you need the list of operations that was performed by the merchant |
+ **id** | **String**| Unique identifier of the wallet (specified during [Generate Wallet](#generate_wallet)) |
  **next_token** | **String**| The token to fetch the next page, supply blank value to get the first page of wallet operations | [optional]
 
 ### Return type

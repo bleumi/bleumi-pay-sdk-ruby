@@ -4,16 +4,5 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | [**EthAddress**](EthAddress.md) |  | 
-**amount** | **String** | Amount to be settled | 
-
-## Code Sample
-
-```ruby
-require 'BleumiPay'
-token = BleumiPay::EthAddress.new('<TOKEN_ADDR>')
-amount = '<AMT>'
-instance = BleumiPay::WalletSettleOperationInput.new(token, amount)
-```
-
-
+**token** | [**EthAddress**](EthAddress.md) | Address of the ERC-20 token to be settled |
+**amount** | **String** | ERC-20 token amount to be settled to the transferAddress specified during [Generate Wallet](/docs/Erc20PaymentsApi.md#generate_wallet) |

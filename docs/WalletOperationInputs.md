@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amount** | **String** | Amount to be settled | 
-**token** | **String** | Address of the ERC-20 token | 
-**token_amount** | **String** | Amount in full precision | 
-**token_decimals** | **String** |  | 
+**amount** | **String** | ERC-20 token amount to be settled incase of 'createAndSettleWallet' operation |
+**token** | **String** | ERC-20 token address |
+**token_amount** | **String** | ERC-20 token amount to be settled incase of 'createAndSettleWallet' operation (in Ethereum format) | 
+**token_decimals** | **String** | ERC-20 token decimal places incase of 'createAndSettleWallet' operation|

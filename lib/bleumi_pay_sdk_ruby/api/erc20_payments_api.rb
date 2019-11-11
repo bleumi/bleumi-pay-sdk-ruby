@@ -24,8 +24,8 @@ module BleumiPay
     # @param [Hash] opts the optional parameters
     # @option opts [EthNetwork] :chain Ethereum network in which wallet is to be created.
     # @return [WalletCreateOutput]
-    def create_wallet(wallet_create_input, opts = {})
-      data, _status_code, _headers = create_wallet_with_http_info(wallet_create_input, opts)
+    def generate_wallet(wallet_create_input, opts = {})
+      data, _status_code, _headers = generate_wallet_with_http_info(wallet_create_input, opts)
       data
     end
 
@@ -34,13 +34,13 @@ module BleumiPay
     # @param [Hash] opts the optional parameters
     # @option opts [EthNetwork] :chain Ethereum network in which wallet is to be created.
     # @return [Array<(WalletCreateOutput, Integer, Hash)>] WalletCreateOutput data, response status code and response headers
-    def create_wallet_with_http_info(wallet_create_input, opts = {})
+    def generate_wallet_with_http_info(wallet_create_input, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: Erc20PaymentsApi.create_wallet ...'
+        @api_client.config.logger.debug 'Calling API: Erc20PaymentsApi.generate_wallet ...'
       end
       # verify the required parameter 'wallet_create_input' is set
       if @api_client.config.client_side_validation && wallet_create_input.nil?
-        fail ArgumentError, "Missing the required parameter 'wallet_create_input' when calling Erc20PaymentsApi.create_wallet"
+        fail ArgumentError, "Missing the required parameter 'wallet_create_input' when calling Erc20PaymentsApi.generate_wallet"
       end
       # resource path
       local_var_path = '/v1/payment/erc20/wallet'
@@ -79,7 +79,7 @@ module BleumiPay
 
       data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: Erc20PaymentsApi#create_wallet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Erc20PaymentsApi#generate_wallet\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -215,8 +215,8 @@ module BleumiPay
     # @param [Hash] opts the optional parameters
     # @option opts [String] :next_token Cursor to start results from
     # @return [PaginatedWalletOperations]
-    def get_wallet_operations(id, opts = {})
-      data, _status_code, _headers = get_wallet_operations_with_http_info(id, opts)
+    def list_wallet_operations(id, opts = {})
+      data, _status_code, _headers = list_wallet_operations_with_http_info(id, opts)
       data
     end
 
@@ -225,13 +225,13 @@ module BleumiPay
     # @param [Hash] opts the optional parameters
     # @option opts [String] :next_token Cursor to start results from
     # @return [Array<(PaginatedWalletOperations, Integer, Hash)>] PaginatedWalletOperations data, response status code and response headers
-    def get_wallet_operations_with_http_info(id, opts = {})
+    def list_wallet_operations_with_http_info(id, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: Erc20PaymentsApi.get_wallet_operations ...'
+        @api_client.config.logger.debug 'Calling API: Erc20PaymentsApi.list_wallet_operations ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
-        fail ArgumentError, "Missing the required parameter 'id' when calling Erc20PaymentsApi.get_wallet_operations"
+        fail ArgumentError, "Missing the required parameter 'id' when calling Erc20PaymentsApi.list_wallet_operations"
       end
       # resource path
       local_var_path = '/v1/payment/erc20/wallet/{id}/operation'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
@@ -268,7 +268,7 @@ module BleumiPay
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: Erc20PaymentsApi#get_wallet_operations\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: Erc20PaymentsApi#list_wallet_operations\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

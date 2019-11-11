@@ -4,14 +4,4 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | [**EthAddress**](EthAddress.md) |  | 
-
-## Code Sample
-
-```ruby
-require 'BleumiPay'
-
-token = BleumiPay::EthAddress.new('<TOKEN_ADDR>')
-
-instance = BleumiPay::WalletRefundOperationInput.new(token)
-```
+**token** | [**EthAddress**](EthAddress.md) | Unique identifier of the wallet (specified during [Generate Wallet](/docs/Erc20PaymentsApi.md#generate_wallet)) to refund |

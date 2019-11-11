@@ -1,5 +1,7 @@
 # Bleumi Pay SDK for Ruby
 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/bleumi/bleumi-pay-sdk-ruby/master/LICENSE.txt)
+
 The Bleumi Pay SDK is a one-stop shop to help you integrate ECR-20 payments into your business or application. The SDK bundles [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction) into one SDK to ease implementation and support.
 
 bleumi-pay-sdk-ruby is a Ruby library that provides an interface between your Rubu=y application and [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction). This tutorial covers the basics, including examples, needed to use the SDK.
@@ -14,7 +16,7 @@ Ruby 1.9+
 
 #### Obtain An API Key
 
-Bleumi Pay SDK uses API keys to authenticate requests. You can obtain an API key through the [Bleumi Pay developer portal](https://pay.bleumi.com/app/).
+Bleumi Pay SDK uses API keys to authenticate requests. You can obtain an API key through the [Bleumi Pay Dashboard](https://pay.bleumi.com/app/).
 
 ### Install Package
 
@@ -35,7 +37,7 @@ Add the following in the Gemfile:
 
 ### Run Sample Code
 
-The following code creates a wallet to accept payment from the buyer specific for the ECR-20 Token.
+The following code generates a wallet to accept payment from the buyer specific for the ECR-20 Token.
 
 ```ruby
 # Load the gem
@@ -61,29 +63,28 @@ wallet_create_input.buyer_address = buyer_address
 wallet_create_input.transfer_address = transfer_address
 
 begin
-  #Create an unique wallet address to accept payments for an ERC-20 token from a buyer
-  result = api_instance.create_wallet(wallet_create_input, opts)
+  #Generate an unique wallet address to accept payments for an ERC-20 token from a buyer
+  result = api_instance.generate_wallet(wallet_create_input, opts)
   p result
 rescue BleumiPay::ApiError => e
-  puts "Exception when calling Erc20PaymentsApi->create_wallet: #{e}"
+  puts "Exception when calling Erc20PaymentsApi->generate_wallet: #{e}"
 end
 
 ```
 
-More examples can be found under each method in [SDK Classes](README.md#sdk-classes) section.
+More examples can be found under each method in [SDK Classes](#sdk-classes) section.
 
 ## SDK Classes
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-Erc20PaymentsApi | [**create_wallet**](docs/Erc20PaymentsApi.md#create_wallet) | **POST** /v1/payment/erc20/wallet | Create an unique wallet address to accept payments for an ERC-20 token from a buyer
-Erc20PaymentsApi | [**get_wallet**](docs/Erc20PaymentsApi.md#get_wallet) | **GET** /v1/payment/erc20/wallet/{id} | Return a specific wallet
-Erc20PaymentsApi | [**get_wallet_operation**](docs/Erc20PaymentsApi.md#get_wallet_operation) | **GET** /v1/payment/erc20/wallet/{id}/operation/{txid} | Return a specific operation of the wallet
-Erc20PaymentsApi | [**get_wallet_operations**](docs/Erc20PaymentsApi.md#get_wallet_operations) | **GET** /v1/payment/erc20/wallet/{id}/operation | Return the list of operations performed by the mechant on a specific wallet
-Erc20PaymentsApi | [**list_wallets**](docs/Erc20PaymentsApi.md#list_wallets) | **GET** /v1/payment/erc20/wallet | Returns a list of wallets
-Erc20PaymentsApi | [**refund_wallet**](docs/Erc20PaymentsApi.md#refund_wallet) | **POST** /v1/payment/erc20/wallet/{id}/refund | Refund wallet
-Erc20PaymentsApi | [**settle_wallet**](docs/Erc20PaymentsApi.md#settle_wallet) | **POST** /v1/payment/erc20/wallet/{id}/settle | Settle a wallet, amount received will be transferred even if less than payment amount
-
+Erc20PaymentsApi | [**generate_wallet**](docs/Erc20PaymentsApi.md#generate_wallet) | **POST** /v1/payment/erc20/wallet | Generates an unique wallet address to accept payments for an ERC-20 token.
+Erc20PaymentsApi | [**get_wallet**](docs/Erc20PaymentsApi.md#get_wallet) | **GET** /v1/payment/erc20/wallet/{id} | Retrieve a wallet.
+Erc20PaymentsApi | [**list_wallets**](docs/Erc20PaymentsApi.md#list_wallets) | **GET** /v1/payment/erc20/wallet | Retrieve all wallets.
+Erc20PaymentsApi | [**settle_wallet**](docs/Erc20PaymentsApi.md#settle_wallet) | **POST** /v1/payment/erc20/wallet/{id}/settle | This method settles a specific amount of an ERC-20 token of a wallet to the transferAddress specified during [Generate Wallet](/docs/Erc20PaymentsApi.md#generatewallet)
+Erc20PaymentsApi | [**refund_wallet**](docs/Erc20PaymentsApi.md#refund_wallet) | **POST** /v1/payment/erc20/wallet/{id}/refund | This method refunds the balance of an ERC-20 token of a wallet to the buyerAddress specified during [Generate Wallet](/docs/Erc20PaymentsApi.md#generatewallet).
+Erc20PaymentsApi | [**get_wallet_operation**](docs/Erc20PaymentsApi.md#get_wallet_operation) | **GET** /v1/payment/erc20/wallet/{id}/operation/{txid} | Retrieve an operation of a wallet
+Erc20PaymentsApi | [**list_wallet_operations**](docs/Erc20PaymentsApi.md#list_wallet_operations) | **GET** /v1/payment/erc20/wallet/{id}/operation | Retrieve all operations of a wallet.
 
 ## Documentation for Models
 
@@ -111,4 +112,4 @@ Erc20PaymentsApi | [**settle_wallet**](docs/Erc20PaymentsApi.md#settle_wallet) |
 
 Copyright 2019 Bleumi, Inc.
 
-Code licensed under the [MIT License](docs/MITLicense.md).
+Code licensed under the [MIT License](License.md).

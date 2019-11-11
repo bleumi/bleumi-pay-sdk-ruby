@@ -4,5 +4,5 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**results** | [**Array&lt;WalletOperation&gt;**](WalletOperation.md) | List of operations of the wallet in the current page | 
-**next_token** | **String** | Cursor to fetch next page of results, empty if no more results | [optional] 
+**results** | [**Array&lt;WalletOperation&gt;**](WalletOperation.md) | Array of Wallet Operations |
+**next_token** | **String** | Cursor to fetch next set of results. (if next set is available) |

@@ -4,10 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | Unique ID identifying the wallet; specified when it was created by your system | 
-**chain** | **String** | Ethereum network in which wallet is to be created. Please refer to the [network list](https://pay.bleumi.com/docs/#supported-ethereum-networks) | 
+**id** | **String** | Unique ID identifying the wallet |
+**chain** | **String** | Ethereum network of the wallet. Please refer to the [Supported Ethereum Networks.](https://pay.bleumi.com/docs/#supported-ethereum-networks) |
 **addr** | **String** | Wallet address | 
-**balances** | [**Hash&lt;String, WalletBalance&gt;**](WalletBalance.md) | The current token balance | 
-**inputs** | [**WalletInputs**](WalletInputs.md) |  | 
-**created_at** | **Integer** | UNIX timestamp when the wallet was created | 
-**updated_at** | **Integer** | UNIX timestamp when the lastest operation was performed | 
+**balances** | [**Hash&lt;String, WalletBalance&gt;**](WalletBalance.md) | A dictionary which gives the balance, token-digits and token-balance for each ERC-20 token in the wallet. |
+updated.<br>'0' - No incoming/outgoing transactions recorded. |
+**inputs** | [**WalletInputs**](WalletInputs.md) | Parameters required to interact with the  [Payment Processor](https://pay.bleumi.com/docs/#payment-processor-address) |
+**created_at** | **Integer** | The created UNIX timestamp of the wallet |
+**updated_at** | **Integer** | The last updated UNIX timestamp of the wallet |
