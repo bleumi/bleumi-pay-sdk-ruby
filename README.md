@@ -2,7 +2,7 @@
 
 # Bleumi Pay SDK for Ruby
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/bleumi/bleumi-pay-sdk-ruby/master/LICENSE.txt)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/bleumi/bleumi-pay-sdk-ruby/master/LICENSE)
 
 The Bleumi Pay SDK is a one-stop shop to help you integrate ECR-20 payments into your business or application. The SDK bundles [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction) into one SDK to ease implementation and support.
 
