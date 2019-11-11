@@ -114,4 +114,4 @@ Erc20PaymentsApi | [**list_wallet_operations**](docs/Erc20PaymentsApi.md#list_wa
 
 Copyright 2019 Bleumi, Inc.
 
-Code licensed under the [MIT License](License.md).
+Code licensed under the [MIT License](LICENSE).
