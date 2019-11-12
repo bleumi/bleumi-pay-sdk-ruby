@@ -80,13 +80,13 @@ More examples can be found under each method in [SDK Classes](#sdk-classes) sect
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-Erc20PaymentsApi | [**generate_wallet**](docs/Erc20PaymentsApi.md#generate_wallet) | **POST** /v1/payment/erc20/wallet | Generates an unique wallet address to accept payments for an ERC-20 token.
-Erc20PaymentsApi | [**get_wallet**](docs/Erc20PaymentsApi.md#get_wallet) | **GET** /v1/payment/erc20/wallet/{id} | Retrieve a wallet.
-Erc20PaymentsApi | [**list_wallets**](docs/Erc20PaymentsApi.md#list_wallets) | **GET** /v1/payment/erc20/wallet | Retrieve all wallets.
-Erc20PaymentsApi | [**settle_wallet**](docs/Erc20PaymentsApi.md#settle_wallet) | **POST** /v1/payment/erc20/wallet/{id}/settle | This method settles a specific amount of an ERC-20 token of a wallet to the transferAddress specified during [Generate Wallet](/docs/Erc20PaymentsApi.md#generatewallet)
-Erc20PaymentsApi | [**refund_wallet**](docs/Erc20PaymentsApi.md#refund_wallet) | **POST** /v1/payment/erc20/wallet/{id}/refund | This method refunds the balance of an ERC-20 token of a wallet to the buyerAddress specified during [Generate Wallet](/docs/Erc20PaymentsApi.md#generatewallet).
-Erc20PaymentsApi | [**get_wallet_operation**](docs/Erc20PaymentsApi.md#get_wallet_operation) | **GET** /v1/payment/erc20/wallet/{id}/operation/{txid} | Retrieve an operation of a wallet
-Erc20PaymentsApi | [**list_wallet_operations**](docs/Erc20PaymentsApi.md#list_wallet_operations) | **GET** /v1/payment/erc20/wallet/{id}/operation | Retrieve all operations of a wallet.
+Erc20PaymentsApi | [**generate_wallet**](docs/Erc20PaymentsApi.md#generate_wallet) | **POST** /v1/payment/eth/wallet | Generates an unique wallet address to accept payments for an ERC-20 token.
+Erc20PaymentsApi | [**get_wallet**](docs/Erc20PaymentsApi.md#get_wallet) | **GET** /v1/payment/eth/wallet/{id} | Retrieve a wallet.
+Erc20PaymentsApi | [**list_wallets**](docs/Erc20PaymentsApi.md#list_wallets) | **GET** /v1/payment/eth/wallet | Retrieve all wallets.
+Erc20PaymentsApi | [**settle_wallet**](docs/Erc20PaymentsApi.md#settle_wallet) | **POST** /v1/payment/eth/wallet/{id}/settle | This method settles a specific amount of an ERC-20 token of a wallet to the transferAddress specified during [Generate Wallet](/docs/Erc20PaymentsApi.md#generatewallet)
+Erc20PaymentsApi | [**refund_wallet**](docs/Erc20PaymentsApi.md#refund_wallet) | **POST** /v1/payment/eth/wallet/{id}/refund | This method refunds the balance of an ERC-20 token of a wallet to the buyerAddress specified during [Generate Wallet](/docs/Erc20PaymentsApi.md#generatewallet).
+Erc20PaymentsApi | [**get_wallet_operation**](docs/Erc20PaymentsApi.md#get_wallet_operation) | **GET** /v1/payment/eth/wallet/{id}/operation/{txid} | Retrieve an operation of a wallet
+Erc20PaymentsApi | [**list_wallet_operations**](docs/Erc20PaymentsApi.md#list_wallet_operations) | **GET** /v1/payment/eth/wallet/{id}/operation | Retrieve all operations of a wallet.
 
 ## Documentation for Models
 

@@ -43,7 +43,7 @@ module BleumiPay
         fail ArgumentError, "Missing the required parameter 'wallet_create_input' when calling Erc20PaymentsApi.generate_wallet"
       end
       # resource path
-      local_var_path = '/v1/payment/erc20/wallet'
+      local_var_path = '/v1/payment/eth/wallet'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -106,7 +106,7 @@ module BleumiPay
         fail ArgumentError, "Missing the required parameter 'id' when calling Erc20PaymentsApi.get_wallet"
       end
       # resource path
-      local_var_path = '/v1/payment/erc20/wallet/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+      local_var_path = '/v1/payment/eth/wallet/{id}'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -172,7 +172,7 @@ module BleumiPay
         fail ArgumentError, "Missing the required parameter 'txid' when calling Erc20PaymentsApi.get_wallet_operation"
       end
       # resource path
-      local_var_path = '/v1/payment/erc20/wallet/{id}/operation/{txid}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'txid' + '}', CGI.escape(txid.to_s))
+      local_var_path = '/v1/payment/eth/wallet/{id}/operation/{txid}'.sub('{' + 'id' + '}', CGI.escape(id.to_s)).sub('{' + 'txid' + '}', CGI.escape(txid.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -234,7 +234,7 @@ module BleumiPay
         fail ArgumentError, "Missing the required parameter 'id' when calling Erc20PaymentsApi.list_wallet_operations"
       end
       # resource path
-      local_var_path = '/v1/payment/erc20/wallet/{id}/operation'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+      local_var_path = '/v1/payment/eth/wallet/{id}/operation'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -301,7 +301,7 @@ module BleumiPay
         fail ArgumentError, "invalid value for \"sort_by\", must be one of #{allowable_values}"
       end
       # resource path
-      local_var_path = '/v1/payment/erc20/wallet'
+      local_var_path = '/v1/payment/eth/wallet'
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -371,7 +371,7 @@ module BleumiPay
         fail ArgumentError, "Missing the required parameter 'wallet_refund_operation_input' when calling Erc20PaymentsApi.refund_wallet"
       end
       # resource path
-      local_var_path = '/v1/payment/erc20/wallet/{id}/refund'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+      local_var_path = '/v1/payment/eth/wallet/{id}/refund'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
@@ -439,7 +439,7 @@ module BleumiPay
         fail ArgumentError, "Missing the required parameter 'wallet_settle_operation_input' when calling Erc20PaymentsApi.settle_wallet"
       end
       # resource path
-      local_var_path = '/v1/payment/erc20/wallet/{id}/settle'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
+      local_var_path = '/v1/payment/eth/wallet/{id}/settle'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
