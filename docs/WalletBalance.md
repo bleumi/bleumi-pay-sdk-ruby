@@ -9,15 +9,13 @@ Name | Type | Description | Notes
 **token_decimals** | **Integer** | Token decimal places | 
 **block_num** | **String** | Block in which the balance was last updated | 
 
-## Code Sample
+## Example
 
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::WalletBalance.new(balance: null,
-                                 token_balance: null,
-                                 token_decimals: null,
-                                 block_num: null)
+```json
+{
+    "balance": "1",
+    "token_decimals": 15,
+    "blockNum": "1698324",
+    "token_balance": "1000000000000000"
+}
 ```
-
-

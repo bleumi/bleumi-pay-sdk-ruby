@@ -6,12 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **txid** | **String** | Unique identifier for the payment operation transaction | 
 
-## Code Sample
+## Example
 
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::PaymentOperationResponse.new(txid: null)
+```json
+{
+  "txid": "1574502130940"
+}
 ```
-
-

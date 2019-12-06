@@ -4,14 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**addr** | **String** | Address of the newly created payment | 
+**addr** | **String** | Wallet address | The unique wallet address generated
 
-## Code Sample
+## Example
 
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::CreatePaymentResponse.new(addr: null)
+```json
+{
+  "addr": "0xbea2f9d56c3cc7f2c7e17d294200dd75708eecd8"
+}
 ```
-
-

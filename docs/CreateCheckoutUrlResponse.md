@@ -7,13 +7,11 @@ Name | Type | Description | Notes
 **id** | **String** | Unique identifier generated for this checkout URL | 
 **url** | **String** | URL for buyer to complete payment | 
 
-## Code Sample
+## Example
 
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::CreateCheckoutUrlResponse.new(id: null,
-                                 url: null)
+```json
+{
+  "id": "TBCItOjmR52dFo1a6JxCqQ",
+  "url": "https://pay.bleumi.io/?id=TBCItOjmR52dFo1a6JxCqQ"
+}
 ```
-
-

@@ -4,14 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**addr** | **String** | ETH - for Ethereum ; XDAI - for xDai ; XDAIT - for xDai Testnet ; &lt;contract address of ERC-20 token&gt; - for ERC-20 Tokens; | 
+**addr** | **String** | <b>ETH</b> - for Ethereum  <br/> <b>XDAI</b> - for xDai <br/> <b>XDAIT</b> - for xDai Testnet <br/> <b> &lt;contract address of ERC-20 token&gt;</b> - for ERC-20 Tokens  | 
 
-## Code Sample
+## Example
 
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::Token.new(addr: null)
+```json
+{
+    "addr": "0x84df8548086ec9025e9c93297058bed706e90ddd"
+}
 ```
-
-

@@ -4,14 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ethereum** | [**NetworkBalance**](NetworkBalance.md) |  | [optional] 
+**ethereum** | [**Hash&lt;String, NetworkBalance&gt;**](NetworkBalance.md) | A dictionary which gives the token balances in each network | [optional] 
 
-## Code Sample
+## Example
 
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::PaymentBalances.new(ethereum: null)
+```json
+{
+    "ethereum": {
+        "xdai_testnet": {
+            "XDAIT": {
+                "balance": "1",
+                "token_decimals": 15,
+                "blockNum": "1698324",
+                "token_balance": "1000000000000000"
+            }
+        }
+    }
+}
 ```
-
-

@@ -8,18 +8,16 @@ Name | Type | Description | Notes
 **transfer_address** | **String** | The destination address when payments are received in this token | 
 **name** | **String** | Name of the token | 
 **symbol** | **String** | Symbol of the token | 
-**decimals** | **Integer** | Token decimal places | 
+**decimals** | **String** | The decimal places supported | 
 
-## Code Sample
+## Example
 
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::CheckoutToken.new(chain: null,
-                                 transfer_address: null,
-                                 name: null,
-                                 symbol: null,
-                                 decimals: null)
+```json
+{
+      "chain": "ropsten",
+      "transferAddress": "0xd15bdd17175825742a5904b21008dd3a019a060e",
+      "name": "USD p18",
+      "symbol": "USD18",
+      "decimals": 18
+}
 ```
-
-

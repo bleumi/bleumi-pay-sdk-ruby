@@ -1,24 +1,11 @@
 # BleumiPay::PaymentsApi
 
-All URIs are relative to *https://api.pay.bleumi.com*
-
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**create_payment**](PaymentsApi.md#create_payment) | **POST** /v1/payment | Generate a unique wallet address in the specified network to accept payment
-[**get_payment**](PaymentsApi.md#get_payment) | **GET** /v1/payment/{id} | Retrieve the wallet addresses &amp; token balances for a given payment
-[**get_payment_operation**](PaymentsApi.md#get_payment_operation) | **GET** /v1/payment/{id}/operation/{txid} | Retrieve a payment operation for a specific payment.
-[**list_payment_operations**](PaymentsApi.md#list_payment_operations) | **GET** /v1/payment/{id}/operation | Retrieve all payment operations for a specific payment.
-[**list_payments**](PaymentsApi.md#list_payments) | **GET** /v1/payment | Retrieve all payments created.
-[**refund_payment**](PaymentsApi.md#refund_payment) | **POST** /v1/payment/{id}/refund | Refund the balance of a token for a given payment to the buyerAddress
-[**settle_payment**](PaymentsApi.md#settle_payment) | **POST** /v1/payment/{id}/settle | Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
-
-
 
 ## create_payment
 
 > CreatePaymentResponse create_payment(create_payment_request, opts)
 
-Generate a unique wallet address in the specified network to accept payment
+This method generates a unique wallet address in the specified network to accept payment.
 
 ### Example
 
@@ -28,23 +15,26 @@ require 'bleumi_pay_sdk_ruby'
 # setup authorization
 BleumiPay.configure do |config|
   # Configure API key authorization: ApiKeyAuth
-  config.api_key['x-api-key'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['x-api-key'] = 'Bearer'
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
 end
 
-api_instance = BleumiPay::PaymentsApi.new
+api_instance = BleumiPay::PayoutsApi.new
 create_payment_request = BleumiPay::CreatePaymentRequest.new # CreatePaymentRequest | 
 opts = {
-  chain: BleumiPay::Chain.new # Chain | Ethereum network in which payment is to be created. Please refer documentation for Supported Networks
+  chain: BleumiPay::Chain::ROPSTEN # Chain | Ethereum network in which payment is to be created.
 }
 
 begin
-  #Generate a unique wallet address in the specified network to accept payment
+  
+  create_payment_request.id = '<ID>'
+  create_payment_request.buyer_address = BleumiPay::EthAddress.new('<BUYER_ADDR>') # Replace <BUYER_ADDR> with the Buyer's Enthereum Network Address
+  create_payment_request.transfer_address = BleumiPay::EthAddress.new('<MERCHANT_ADDR>') # Replace <MERCHANT_ADDR> with the Merchant's Enthereum Network Address
+
+  #Create a payout.
   result = api_instance.create_payment(create_payment_request, opts)
   p result
 rescue BleumiPay::ApiError => e
-  puts "Exception when calling PaymentsApi->create_payment: #{e}"
+  puts "Exception when calling PayoutsApi->create_payment: #{e}"
 end
 ```
 
@@ -53,28 +43,30 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_payment_request** | [**CreatePaymentRequest**](CreatePaymentRequest.md)|  | 
- **chain** | [**Chain**](.md)| Ethereum network in which payment is to be created. Please refer documentation for Supported Networks | [optional] 
+ **create_payment_request** | [**CreatePaymentRequest**](CreatePaymentRequest.md)| Specify checkout URL creation parameters. | 
 
 ### Return type
 
 [**CreatePaymentResponse**](CreatePaymentResponse.md)
 
-### Authorization
+Field | Type | Description
+----- | ----- | -----
+addr | string | Wallet address
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+### 400 Errors
 
-### HTTP request headers
+The following table is a list of possible error codes that can be returned, along with additional information about how to resolve them for a response with 400 status code.
 
-- **Content-Type**: application/json
-- **Accept**: application/json
-
+errorCode <br> <i>errorMessage</i> | Description
+---- | ---- 
+ValidationError <br> <i>&lt;details&gt;</i> | Details on input which does not conform to the above schema
+ValidationError <br> <i>wallet_already_exists&#124;&lt;addr&gt;</i> | A wallet with address &lt;addr&gt; has already been created with the specified payment 'id' for the given network
 
 ## get_payment
 
 > Payment get_payment(id)
 
-Retrieve the wallet addresses & token balances for a given payment
+This method retrieves the wallet addresses & token balances for a given payment.
 
 ### Example
 
@@ -84,13 +76,11 @@ require 'bleumi_pay_sdk_ruby'
 # setup authorization
 BleumiPay.configure do |config|
   # Configure API key authorization: ApiKeyAuth
-  config.api_key['x-api-key'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['x-api-key'] = 'Bearer'
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
 end
 
 api_instance = BleumiPay::PaymentsApi.new
-id = 'id_example' # String | Unique identifier of the payment (specified during [Create a Payment](#createPayment)) to retrieve
+id = '<ID>' # String | Unique identifier of the payment (specified during create payment) to retrieve
 
 begin
   #Retrieve the wallet addresses & token balances for a given payment
@@ -106,137 +96,42 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#createPayment)) to retrieve | 
+ **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#create_payment)) to retrieve | 
 
 ### Return type
 
 [**Payment**](Payment.md)
 
-### Authorization
+Field | Type | Description
+----- | ----- | -----
+addresses | dictionary | A dictionary which gives the address of the wallet generated for each network
+balances | dictionary | A dictionary which gives the token balances in each network
+createdAt | integer | The created UNIX timestamp of the payment
+updatedAt | integer | The last updated UNIX timestamp of the payment
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+### 400 Errors
 
-### HTTP request headers
+The following table is a list of possible error codes that can be returned, along with additional information about how to resolve them for a response with 400 status code.
 
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## get_payment_operation
-
-> PaymentOperation get_payment_operation(id, txid)
-
-Retrieve a payment operation for a specific payment.
-
-### Example
-
-```ruby
-# load the gem
-require 'bleumi_pay_sdk_ruby'
-# setup authorization
-BleumiPay.configure do |config|
-  # Configure API key authorization: ApiKeyAuth
-  config.api_key['x-api-key'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['x-api-key'] = 'Bearer'
-end
-
-api_instance = BleumiPay::PaymentsApi.new
-id = 'id_example' # String | Unique identifier of the payment (specified during [Create a Payment](#createPayment))
-txid = 'txid_example' # String | ID of a specific operation of the payment
-
-begin
-  #Retrieve a payment operation for a specific payment.
-  result = api_instance.get_payment_operation(id, txid)
-  p result
-rescue BleumiPay::ApiError => e
-  puts "Exception when calling PaymentsApi->get_payment_operation: #{e}"
-end
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#createPayment)) | 
- **txid** | **String**| ID of a specific operation of the payment | 
-
-### Return type
-
-[**PaymentOperation**](PaymentOperation.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## list_payment_operations
-
-> PaginatedPaymentOperations list_payment_operations(id, opts)
-
-Retrieve all payment operations for a specific payment.
-
-### Example
-
-```ruby
-# load the gem
-require 'bleumi_pay_sdk_ruby'
-# setup authorization
-BleumiPay.configure do |config|
-  # Configure API key authorization: ApiKeyAuth
-  config.api_key['x-api-key'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['x-api-key'] = 'Bearer'
-end
-
-api_instance = BleumiPay::PaymentsApi.new
-id = 'id_example' # String | Unique identifier of the payment (specified during [Create a Payment](#createPayment))
-opts = {
-  next_token: 'next_token_example' # String | Cursor to start results from
-}
-
-begin
-  #Retrieve all payment operations for a specific payment.
-  result = api_instance.list_payment_operations(id, opts)
-  p result
-rescue BleumiPay::ApiError => e
-  puts "Exception when calling PaymentsApi->list_payment_operations: #{e}"
-end
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#createPayment)) | 
- **next_token** | **String**| Cursor to start results from | [optional] 
-
-### Return type
-
-[**PaginatedPaymentOperations**](PaginatedPaymentOperations.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
+errorCode <br> <i>errorMessage</i> | Description
+---- | ----
+ValidationError <br> <i>&lt;details&gt;</i> | Details on input which does not conform to the above schema
 
 
 ## list_payments
 
 > PaginatedPayments list_payments(opts)
 
-Retrieve all payments created.
+This method retrieves all payments created.
+
+### Pagination
+
+The list of payments is returned as an array in the 'results' field. The list is restricted to a maximum of 10 per page.
+
+If there are more than 10 payments, a cursor is returned in the 'nextToken' field. Passing this as the 'nextToken' query parameter will fetch the next page.
+
+When the value of 'nextToken' field is an empty string, there are no more payments.
+
 
 ### Example
 
@@ -246,17 +141,15 @@ require 'bleumi_pay_sdk_ruby'
 # setup authorization
 BleumiPay.configure do |config|
   # Configure API key authorization: ApiKeyAuth
-  config.api_key['x-api-key'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['x-api-key'] = 'Bearer'
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
 end
 
 api_instance = BleumiPay::PaymentsApi.new
 opts = {
-  next_token: 'next_token_example', # String | Cursor to start results from
-  sort_by: 'sort_by_example', # String | Sort payments by
-  start_at: 'start_at_example', # String | Get payments from this timestamp (unix)
-  end_at: 'end_at_example' # String | Get payments till this timestamp (unix)
+  next_token: '', # String | Cursor to start results from
+  sort_by: '<SORT_BY>', # String | Sort wallets by (optional) | Eg. "createdAt"
+  start_at: '<START_TIMESTAMP>', # String | Get wallets from this timestamp (optional) | Eg. 1546300800 for 1-JAN-2019
+  end_at: '' # String | Get wallets till this timestamp (optional) 
 }
 
 begin
@@ -282,79 +175,26 @@ Name | Type | Description  | Notes
 
 [**PaginatedPayments**](PaginatedPayments.md)
 
-### Authorization
+Parameter | Type | Description
+--------- | ------- | -----------
+nextToken |  | Cursor to fetch next set of results (if next set is available)
+results[] |  | Array of payments, output format is similar to the response of the [Retrieve a Payment](#get_payment) endpoint
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+### 400 Errors
 
-### HTTP request headers
+The following table is a list of possible error codes that can be returned, along with additional information about how to resolve them for a response with 400 status code.
 
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-
-## refund_payment
-
-> PaymentOperationResponse refund_payment(id, payment_refund_request, opts)
-
-Refund the balance of a token for a given payment to the buyerAddress
-
-### Example
-
-```ruby
-# load the gem
-require 'bleumi_pay_sdk_ruby'
-# setup authorization
-BleumiPay.configure do |config|
-  # Configure API key authorization: ApiKeyAuth
-  config.api_key['x-api-key'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['x-api-key'] = 'Bearer'
-end
-
-api_instance = BleumiPay::PaymentsApi.new
-id = 'id_example' # String | Unique identifier of the payment (specified during [Create a Payment](#createPayment))
-payment_refund_request = BleumiPay::PaymentRefundRequest.new # PaymentRefundRequest | Request body - used to specify the token to refund.
-opts = {
-  chain: BleumiPay::Chain.new # Chain | Ethereum network in which payment is to be created.
-}
-
-begin
-  #Refund the balance of a token for a given payment to the buyerAddress
-  result = api_instance.refund_payment(id, payment_refund_request, opts)
-  p result
-rescue BleumiPay::ApiError => e
-  puts "Exception when calling PaymentsApi->refund_payment: #{e}"
-end
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#createPayment)) | 
- **payment_refund_request** | [**PaymentRefundRequest**](PaymentRefundRequest.md)| Request body - used to specify the token to refund. | 
- **chain** | [**Chain**](.md)| Ethereum network in which payment is to be created. | [optional] 
-
-### Return type
-
-[**PaymentOperationResponse**](PaymentOperationResponse.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
+errorCode <br> <i>errorMessage</i> | Description
+---- | ----
+MalformedRequest <br> <i>nextToken_invalid</i> | 'nextToken' value is invalid
+ValidationError <br> <i>&lt;details&gt;</i> | Details on input which does not conform to the above schema
 
 ## settle_payment
 
 > PaymentOperationResponse settle_payment(id, payment_settle_request, opts)
 
-Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
+This method settles a specific amount of a token for a given payment to the transferAddress (specified during [Create a Payment](#create_payment)) and remaining balance (if any) will be refunded to the buyerAddress (specified during [Create a Payment](#create_payment)).
+
 
 ### Example
 
@@ -364,19 +204,20 @@ require 'bleumi_pay_sdk_ruby'
 # setup authorization
 BleumiPay.configure do |config|
   # Configure API key authorization: ApiKeyAuth
-  config.api_key['x-api-key'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['x-api-key'] = 'Bearer'
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
 end
 
 api_instance = BleumiPay::PaymentsApi.new
-id = 'id_example' # String | Unique identifier of the payment (specified during [Create a Payment](#createPayment))
-payment_settle_request = BleumiPay::PaymentSettleRequest.new # PaymentSettleRequest | Request body - used to specify the amount to settle.
+
 opts = {
-  chain: BleumiPay::Chain.new # Chain | Ethereum network in which payment is to be created.
+  chain: BleumiPay::Chain::ROPSTEN # Chain | Ethereum network in which payment is to be created.
 }
 
 begin
+  id = '<ID>' # String | Unique identifier of the payment (specified during create payment)
+  payment_settle_request = BleumiPay::PaymentSettleRequest.new # PaymentSettleRequest | Request body - used to specify the amount to settle.
+  payment_settle_request.amount = '<AMT>' # String | Replace <AMT> with settle amount
+  payment_settle_request.token = BleumiPay::Token.new('<TOKEN>') # String | Replace <TOKEN> with ETH or XDAI or XDAIT or ECR-20 token contract address
   #Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
   result = api_instance.settle_payment(id, payment_settle_request, opts)
   p result
@@ -390,7 +231,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#createPayment)) | 
+ **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#create_payment)) | 
  **payment_settle_request** | [**PaymentSettleRequest**](PaymentSettleRequest.md)| Request body - used to specify the amount to settle. | 
  **chain** | [**Chain**](.md)| Ethereum network in which payment is to be created. | [optional] 
 
@@ -398,12 +239,188 @@ Name | Type | Description  | Notes
 
 [**PaymentOperationResponse**](PaymentOperationResponse.md)
 
-### Authorization
+### 400 Errors
 
-[ApiKeyAuth](../README.md#ApiKeyAuth)
+The following table is a list of possible error codes that can be returned, along with additional information about how to resolve them for a response with 400 status code.
 
-### HTTP request headers
+errorCode <br> <i>errorMessage</i> | Description
+---- | ----
+ValidationError <br> <i>&lt;details&gt;</i> | Details on input which does not conform to the above schema
+ValidationError <br> <i>no_gas_accounts</i> | No active gas accounts present in account, please activate atleast one account from the developer portal
+ValidationError <br> <i>prev_tx_inprogress</i> | A previous operation is still being processed for this wallet
+ValidationError <br> <i>invalid_token</i> | Provided token is not valid for the specified 'net' & 'chain'
 
-- **Content-Type**: application/json
-- **Accept**: application/json
+## refund_payment
 
+> PaymentOperationResponse refund_payment(id, payment_refund_request, opts)
+
+This method refunds the balance of a token for a given payment to the buyerAddress (specified during [Create a Payment](#create_payment)).
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::PaymentsApi.new
+
+opts = {
+  chain: BleumiPay::Chain::ROPSTEN # Chain | Ethereum network in which payment is to be created.
+}
+
+begin
+  id = '<ID>' # String | Unique identifier of the payment (specified during create payment)
+  payment_refund_request = BleumiPay::PaymentRefundRequest.new # PaymentRefundRequest | Request body - used to specify the token to refund.
+  payment_refund_request.token = BleumiPay::Token.new('<TOKEN>') # String | Replace <TOKEN> with ETH or XDAI or XDAIT or ECR-20 token contract address
+
+  #Refund the balance of a token for a given payment to the buyerAddress
+  result = api_instance.refund_payment(id, payment_refund_request, opts)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling PaymentsApi->refund_payment: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#create_payment)) | 
+ **payment_refund_request** | [**PaymentRefundRequest**](PaymentRefundRequest.md)| Request body - used to specify the token to refund. | 
+ **chain** | [**Chain**](Chain.md)| Ethereum network in which payment is to be created. | [optional] 
+
+### Return type
+
+[**PaymentOperationResponse**](PaymentOperationResponse.md)
+
+
+Parameter | Type | Description
+--------- | ------- | -----------
+txid |  | Unique identifier for the refund operation
+
+### 400 Errors
+
+The following table is a list of possible error codes that can be returned, along with additional information about how to resolve them for a response with 400 status code.
+
+errorCode <br> <i>errorMessage</i> | Description
+---- | ----
+ValidationError <br> <i>&lt;details&gt;</i> | Details on input which does not conform to the above schema
+ValidationError <br> <i>no_gas_accounts</i> | No active gas accounts present in account, please activate atleast one account from the developer portal
+ValidationError <br> <i>prev_tx_inprogress</i> | A previous operation is still being processed for this wallet
+ValidationError <br> <i>invalid_token</i> | Provided address is not a valid ERC-20 token
+
+
+## get_payment_operation
+
+> PaymentOperation get_payment_operation(id, txid)
+
+This method retrieves a payment operation for a specific payment.
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::PaymentsApi.new
+id = '<ID>' # String | Unique identifier of the payment (specified during create payment)
+txid = '<TXID>' # String | ID of a specific operation of the payment
+
+begin
+  #Retrieve a payment operation for a specific payment.
+  result = api_instance.get_payment_operation(id, txid)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling PaymentsApi->get_payment_operation: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#create_payment)) | 
+ **txid** | **String**| ID of a specific operation of the payment | 
+
+### Return type
+
+[**PaymentOperation**](PaymentOperation.md)
+
+
+## list_payment_operations
+
+> PaginatedPaymentOperations list_payment_operations(id, opts)
+
+This method retrieves all payment operations for a specific payment.
+
+### Pagination
+
+The list of operations is returned as an array in the 'results' field. The list is restricted to a maximum of 10 operations per page.
+
+If there are more than 10 operations for a wallet, a cursor is passed in the 'nextToken' field. Passing this as the 'nextToken' query parameter will fetch the next page. 
+
+When the value of 'nextToken' field is an empty string, there are no more operations.
+
+### Example
+
+```ruby
+# load the gem
+require 'bleumi_pay_sdk_ruby'
+# setup authorization
+BleumiPay.configure do |config|
+  # Configure API key authorization: ApiKeyAuth
+  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
+end
+
+api_instance = BleumiPay::PaymentsApi.new
+id = '<ID>' # String | Unique identifier of the payment (specified during Create payment)
+opts = {
+  next_token: '' # String | Cursor to start results from
+}
+
+begin
+  #Retrieve all payment operations for a specific payment.
+  result = api_instance.list_payment_operations(id, opts)
+  p result
+rescue BleumiPay::ApiError => e
+  puts "Exception when calling PaymentsApi->list_payment_operations: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#create_payment)) | 
+ **next_token** | **String**| Cursor to start results from | [optional] 
+
+### Return type
+
+[**PaginatedPaymentOperations**](PaginatedPaymentOperations.md)
+
+Parameter | Type | Description
+--------- | ------- | -----------
+nextToken |  | Cursor to fetch next set of results (if next set is available)
+results[] |  | Array of payment operations, output format is similar to the response of the [Retrieve a Payment Operation](#get_payment_operation) endpoint
+
+### 400 Errors
+
+The following table is a list of possible error codes that can be returned, along with additional information about how to resolve them for a response with 400 status code.
+
+errorCode <br> <i>errorMessage</i> | Description
+---- | ----
+MalformedRequest <br> <i>nextToken_invalid</i> | 'nextToken' value is invalid
+ValidationError <br> <i>&lt;details&gt;</i> | Details on input which does not conform to the above schema

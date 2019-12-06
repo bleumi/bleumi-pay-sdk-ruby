@@ -1,16 +1,11 @@
 # BleumiPay::Chain
 
-## Properties
+## Enum
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-
-## Code Sample
-
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::Chain.new()
-```
-
-
+* `MAINNET` (value: `"mainnet"`)
+* `ROPSTEN` (value: `"ropsten"`)
+* `GOERLI` (value: `"goerli"`)
+* `KOVAN` (value: `"kovan"`)
+* `RINKEBY` (value: `"rinkeby"`)
+* `XDAI` (value: `"xdai"`)
+* `XDAI_TESTNET` (value: `"xdai_testnet"`)

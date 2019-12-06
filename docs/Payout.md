@@ -7,13 +7,11 @@ Name | Type | Description | Notes
 **transfer_address** | **String** | Address of receiver. This address must be able to receive payments from smart contracts. | 
 **amount** | **String** | Amount of token to transfer | 
 
-## Code Sample
+## Example
 
-```ruby
-require 'BleumiPay'
-
-instance = BleumiPay::Payout.new(transfer_address: null,
-                                 amount: null)
+```json
+{
+    "transferAddress": "0xD15BDD17175825742A5904b21008dd3A019a060E",
+    "amount": "1"
+}
 ```
-
-

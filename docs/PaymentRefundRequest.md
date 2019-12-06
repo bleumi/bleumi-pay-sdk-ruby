@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | [**Token**](Token.md) |  | 
+**token** | [**Token**](Token.md) | <b>ETH</b> - for Ethereum  <br/> <b>XDAI</b> - for xDai <br/> <b>XDAIT</b> - for xDai Testnet <br/> <b> &lt;contract address of ERC-20 token&gt;</b> - for ERC-20 Tokens  | 
 
-## Code Sample
 
-```ruby
-require 'BleumiPay'
+## Example
 
-instance = BleumiPay::PaymentRefundRequest.new(token: null)
+```json
+{
+    "token": "XDAIT"
+}
 ```
-
-
