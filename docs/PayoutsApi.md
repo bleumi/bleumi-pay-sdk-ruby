@@ -33,16 +33,16 @@ begin
   # Creating Payout-1
   payout1 = BleumiPay::Payout.new
   payout1.amount = '<PAYOUT_AMT_1>' # str | Replace <PAYOUT_AMT_1>  with the 1st payout's amount
-  payout1.transfer_address = bleumi_pay.EthAddress.new('<PAYOUT_ADDR_1>') # str | Replace <PAYOUT_ADDR_1>  with the 1st payout's receiver's address
+  payout1.transfer_address = '<PAYOUT_ADDR_1>' # str | Replace <PAYOUT_ADDR_1>  with the 1st payout's receiver's address
   # Creating Payout-2
   payout2 = BleumiPay::Payout.new
   payout2.amount = '<PAYOUT_AMT_2>' # str | Replace <PAYOUT_AMT_2>  with the 2nd payout's amount
-  payout2.transfer_address = bleumi_pay.EthAddress.new('<PAYOUT_ADDR_2>') # str | Replace <PAYOUT_ADDR_2>  with the 2nd payout's receiver's address
+  payout2.transfer_address = '<PAYOUT_ADDR_2>' # str | Replace <PAYOUT_ADDR_2>  with the 2nd payout's receiver's address
   # Creating a payouts array with both the payouts created above 
   payouts = [payout1, payout2]
 
   create_payout_request.txid = '<TXID>' # str | Replace with unique payout ID 
-  create_payout_request.token = bleumi_pay.Token.new('<TOKEN>') # str | Replace <TOKEN> with Token. Eg. ETH or ECR-20 token contract address or XDAI or XDAIT
+  create_payout_request.token = BleumiPay::Token.new('<TOKEN>') # str | Replace <TOKEN> with Token. Eg. ETH or ECR-20 token contract address or XDAI or XDAIT
   create_payout_request.payouts = payouts # setting the payouts array to the payout create request
   
   #Create a payout.
