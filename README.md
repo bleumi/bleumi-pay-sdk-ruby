@@ -96,7 +96,6 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
  - [BleumiPay::BadRequest](docs/BadRequest.md)
  - [BleumiPay::Chain](docs/Chain.md)
  - [BleumiPay::CheckoutToken](docs/CheckoutToken.md)
- - [BleumiPay::CheckoutTokens](docs/CheckoutTokens.md)
  - [BleumiPay::CreateCheckoutUrlRequest](docs/CreateCheckoutUrlRequest.md)
  - [BleumiPay::CreateCheckoutUrlResponse](docs/CreateCheckoutUrlResponse.md)
  - [BleumiPay::CreatePaymentRequest](docs/CreatePaymentRequest.md)
