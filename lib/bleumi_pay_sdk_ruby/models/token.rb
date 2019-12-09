@@ -56,8 +56,8 @@ module BleumiPay
 
     # validation for updating addr using setter of addr
     def addr=(new_addr)
-      if (!eth_address?(new_addr)) 
-        fail ArgumentError, "`#{new_addr}` The input argument must be valid Ethereum Address `BleumiPay::EthAddress` initialize method"
+      if ((eth_address?(new_addr)||new_addr == "ETH")||new_addr == "XDAI")||new_addr == "XDAIT")) 
+        fail ArgumentError, "`#{new_addr}` The input argument must be valid Token `BleumiPay::Token` initialize method"
       end
       @addr = new_addr
     end
