@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -15,12 +15,11 @@ require 'date'
 module BleumiPay
   class Chain
     MAINNET = "mainnet".freeze
-    ROPSTEN = "ropsten".freeze
     GOERLI = "goerli".freeze
-    KOVAN = "kovan".freeze
-    RINKEBY = "rinkeby".freeze
     XDAI = "xdai".freeze
     XDAI_TESTNET = "xdai_testnet".freeze
+    ALG_MAINNET = "alg_mainnet".freeze
+    ALG_TESTNET = "alg_testnet".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

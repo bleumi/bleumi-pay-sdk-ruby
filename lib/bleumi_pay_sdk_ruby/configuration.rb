@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -127,8 +127,10 @@ module BleumiPay
 
     def initialize
       @scheme = 'https'
-      @host = 'api.pay.bleumi.com'
-      @base_path = ''
+      # @host = 'api.pay.bleumi.com'
+      # @base_path = ''
+      @host = 'ej8fsqadb7.execute-api.us-east-1.amazonaws.com'
+      @base_path = '/prod'
       @api_key = {}
       @api_key_prefix = {}
       @timeout = 0
@@ -207,8 +209,9 @@ module BleumiPay
     def server_settings
       [
         {
-          url: "https://api.pay.bleumi.com/",
-          description: "Bleumi Pay API",
+          # url: "https://api.pay.bleumi.com/",
+          url: "https://ej8fsqadb7.execute-api.us-east-1.amazonaws.com/prod/",
+          description: "Bleumi Pay REST API",
         }
       ]
     end

@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -17,6 +17,7 @@ require 'bleumi_pay_sdk_ruby/version'
 require 'bleumi_pay_sdk_ruby/configuration'
 
 # Models
+require 'bleumi_pay_sdk_ruby/models/algorand_balance'
 require 'bleumi_pay_sdk_ruby/models/bad_request'
 require 'bleumi_pay_sdk_ruby/models/chain'
 require 'bleumi_pay_sdk_ruby/models/checkout_token'
@@ -26,8 +27,7 @@ require 'bleumi_pay_sdk_ruby/models/create_payment_request'
 require 'bleumi_pay_sdk_ruby/models/create_payment_response'
 require 'bleumi_pay_sdk_ruby/models/create_payout_request'
 require 'bleumi_pay_sdk_ruby/models/create_payout_response'
-require 'bleumi_pay_sdk_ruby/models/eth_address'
-require 'bleumi_pay_sdk_ruby/models/network_balance'
+require 'bleumi_pay_sdk_ruby/models/ethereum_balance'
 require 'bleumi_pay_sdk_ruby/models/paginated_payment_operations'
 require 'bleumi_pay_sdk_ruby/models/paginated_payments'
 require 'bleumi_pay_sdk_ruby/models/paginated_payout_items'
@@ -42,7 +42,6 @@ require 'bleumi_pay_sdk_ruby/models/payment_settle_request'
 require 'bleumi_pay_sdk_ruby/models/payout'
 require 'bleumi_pay_sdk_ruby/models/payout_item'
 require 'bleumi_pay_sdk_ruby/models/payout_item_inputs'
-require 'bleumi_pay_sdk_ruby/models/token'
 require 'bleumi_pay_sdk_ruby/models/validate_checkout_request'
 require 'bleumi_pay_sdk_ruby/models/validate_checkout_response'
 require 'bleumi_pay_sdk_ruby/models/wallet_address'
@@ -52,6 +51,7 @@ require 'bleumi_pay_sdk_ruby/models/wallet_balance'
 require 'bleumi_pay_sdk_ruby/api/hosted_checkouts_api'
 require 'bleumi_pay_sdk_ruby/api/payments_api'
 require 'bleumi_pay_sdk_ruby/api/payouts_api'
+require 'bleumi_pay_sdk_ruby/api/request_validator'
 
 module BleumiPay
   class << self

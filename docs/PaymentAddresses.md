@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ethereum** | [**Hash&lt;String, WalletAddress&gt;**](WalletAddress.md) | A dictionary which gives the address of the wallet generated for each network | [optional] 
+**ethereum** | [**Hash&lt;String, WalletAddress&gt;**](WalletAddress.md) | A dictionary which gives the address of the wallet generated for each Ethereum network  | 
+**algorand** | [**Hash&lt;String, WalletAddress&gt;**](WalletAddress.md) | A dictionary which gives the address of the wallet generated for each Algorand network  | 
 
 ## Example
 

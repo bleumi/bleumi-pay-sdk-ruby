@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **txid** | **String** | Unique identifier for this payout | 
-**status** | **Boolean** | <b>null</b> - Operation in progress </br> <b>true</b> - Operation confirmed by network </br> <b>false</b> - Operation rejected by network </br> |
+**status** | **Boolean** | <b>null</b> - Operation in progress </br> <b>true</b> - Operation confirmed by network </br> <b>false</b> - Operation rejected by network </br> | 
 **hash** | **String** | Transaction hash of the operation submitted to the network. This field is blank when the operation is in progress. | 
 **created_at** | **Integer** | UNIX timestamp when the payout was created | 
 **updated_at** | **Integer** | UNIX timestamp when the lastest operation was performed | 

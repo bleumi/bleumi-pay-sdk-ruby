@@ -4,7 +4,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/bleumi/bleumi-pay-sdk-ruby/master/LICENSE)
 
-The Bleumi Pay SDK is a one-stop shop to help you integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application. The SDK bundles [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction) into one SDK to ease implementation and support.
+The Bleumi Pay SDK is a one-stop shop to help you integrate Algorand, Ethereum, ERC-20 and xDai payments and/or payouts into your business or application. The SDK bundles [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction) into one SDK to ease implementation and support.
 
 bleumi-pay-sdk-ruby is a Ruby library that provides an interface between your Rubu=y application and [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction). This tutorial covers the basics, including examples, needed to use the SDK.
 
@@ -53,14 +53,14 @@ end
 api_instance = BleumiPay::PayoutsApi.new
 create_payment_request = BleumiPay::CreatePaymentRequest.new # CreatePaymentRequest | 
 opts = {
-  chain: BleumiPay::Chain.new # Chain | Ethereum network in which payment is to be created. Please refer documentation for Supported Networks
+  chain: BleumiPay::Chain::GOERLI # Chain | Network in which payment is to be created. Please refer documentation for Supported Networks
 }
 
 begin
   
   create_payment_request.id = '<ID>'
-  create_payment_request.buyer_address = BleumiPay::EthAddress.new('<BUYER_ADDR>') # Replace <BUYER_ADDR> with the Buyer's Enthereum Network Address
-  create_payment_request.transfer_address = BleumiPay::EthAddress.new('<MERCHANT_ADDR>') # Replace <MERCHANT_ADDR> with the Merchant's Enthereum Network Address
+  create_payment_request.buyer_address = '<BUYER_ADDR>' # Replace <BUYER_ADDR> with the Buyer's Network Address
+  create_payment_request.transfer_address = '<MERCHANT_ADDR>' # Replace <MERCHANT_ADDR> with the Merchant's Network Address
 
   #Create a payout.
   result = api_instance.create_payment(create_payment_request, opts)
@@ -92,6 +92,7 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
 
 ## Documentation for Models
 
+ - [BleumiPay::AlgorandBalance](docs/AlgorandBalance.md)
  - [BleumiPay::BadRequest](docs/BadRequest.md)
  - [BleumiPay::Chain](docs/Chain.md)
  - [BleumiPay::CheckoutToken](docs/CheckoutToken.md)
@@ -101,8 +102,7 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
  - [BleumiPay::CreatePaymentResponse](docs/CreatePaymentResponse.md)
  - [BleumiPay::CreatePayoutRequest](docs/CreatePayoutRequest.md)
  - [BleumiPay::CreatePayoutResponse](docs/CreatePayoutResponse.md)
- - [BleumiPay::EthAddress](docs/EthAddress.md)
- - [BleumiPay::NetworkBalance](docs/NetworkBalance.md)
+ - [BleumiPay::EthereumBalance](docs/EthereumBalance.md)
  - [BleumiPay::PaginatedPaymentOperations](docs/PaginatedPaymentOperations.md)
  - [BleumiPay::PaginatedPayments](docs/PaginatedPayments.md)
  - [BleumiPay::PaginatedPayoutItems](docs/PaginatedPayoutItems.md)
@@ -117,7 +117,6 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
  - [BleumiPay::Payout](docs/Payout.md)
  - [BleumiPay::PayoutItem](docs/PayoutItem.md)
  - [BleumiPay::PayoutItemInputs](docs/PayoutItemInputs.md)
- - [BleumiPay::Token](docs/Token.md)
  - [BleumiPay::ValidateCheckoutRequest](docs/ValidateCheckoutRequest.md)
  - [BleumiPay::ValidateCheckoutResponse](docs/ValidateCheckoutResponse.md)
  - [BleumiPay::WalletAddress](docs/WalletAddress.md)

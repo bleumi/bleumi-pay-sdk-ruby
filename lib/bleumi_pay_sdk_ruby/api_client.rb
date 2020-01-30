@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -30,7 +30,7 @@ module BleumiPay
     # @option config [Configuration] Configuration for initializing the object, default to Configuration.default
     def initialize(config = Configuration.default)
       @config = config
-      @user_agent = "BleumiPay/#{VERSION}/ruby"
+      @user_agent = "bleumi_pay_sdk_ruby/#{VERSION}/ruby"
       @default_headers = {
         'Content-Type' => 'application/json',
         'User-Agent' => @user_agent

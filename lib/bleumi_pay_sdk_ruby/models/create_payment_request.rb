@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -17,14 +17,20 @@ module BleumiPay
     # Unique ID identifying the payment
     attr_accessor :id
 
+    # (Only for Algorand Standard Asset) Asset id which will be used for payment.
+    attr_accessor :token
+
+    # Address of buyer. Refund operations on this payment will use this address. You can set this to your address to manually handle refunds (outside of Bleumi Pay) to your buyer. This address must be able to receive payments from smart contracts.
     attr_accessor :buyer_address
 
+    # Your deposit address. Settle operations on this payment will use this address. This address must be able to receive payments from smart contracts.
     attr_accessor :transfer_address
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
+        :'token' => :'token',
         :'buyer_address' => :'buyerAddress',
         :'transfer_address' => :'transferAddress'
       }
@@ -34,8 +40,9 @@ module BleumiPay
     def self.openapi_types
       {
         :'id' => :'String',
-        :'buyer_address' => :'EthAddress',
-        :'transfer_address' => :'EthAddress'
+        :'token' => :'String',
+        :'buyer_address' => :'String',
+        :'transfer_address' => :'String'
       }
     end
 
@@ -62,6 +69,10 @@ module BleumiPay
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      end
+
+      if attributes.key?(:'token')
+        self.token = attributes[:'token']
       end
 
       if attributes.key?(:'buyer_address')
@@ -107,6 +118,7 @@ module BleumiPay
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
+          token == o.token &&
           buyer_address == o.buyer_address &&
           transfer_address == o.transfer_address
     end
@@ -120,7 +132,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, buyer_address, transfer_address].hash
+      [id, token, buyer_address, transfer_address].hash
     end
 
     # Builds the object from hash

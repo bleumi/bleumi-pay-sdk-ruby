@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **results** | [**Array&lt;PayoutItem&gt;**](PayoutItem.md) | List of payouts of the payment in the current page | 
-**next_token** | **String** | Cursor to fetch next page of results, empty if no more results | [optional] 
+**next_token** (Optional) | **String** | Cursor to fetch next page of results, empty if no more results |  
 
 ## Example
 

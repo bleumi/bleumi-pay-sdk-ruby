@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **balance** | **String** | Token balance for the wallet | 
-**token_balance** | **String** | Token balance for the wallet in Ethereum format | 
+**token_balance** | **String** | Token balance for the wallet in Network format | 
 **token_decimals** | **Integer** | Token decimal places | 
 **block_num** | **String** | Block in which the balance was last updated | 
 

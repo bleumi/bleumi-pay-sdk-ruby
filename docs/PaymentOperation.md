@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **txid** | **String** | Transaction ID of the operation | [optional] 
 **chain** | **String** | Network in which the operation was carried out | 
-**func_name** | **String** | Name of the function invoked on the Payment Processor.<br/><br/>Functions available:<br/> - createAndSettleWallet<br/> - createAndRefundWallet
+**func_name** | **String** | Name of the function invoked on the Payment Processor.<br/><br/>Functions available:<br/> - createAndSettleWallet<br/> - createAndRefundWallet 
 **status** | **Boolean** | <b>null</b> - operation in progress <br/> <b>true</b> - operation completed successfuly <br/> <b>false</b> - operation failed to process | 
 **inputs** | [**PaymentOperationInputs**](PaymentOperationInputs.md) | The inputs provided during this operation creation | 
 **hash** | **String** | Transaction hash of operation submitted to the network. This field is blank when operation is in progress. | 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 ```json
 {
       "txid": "1574828863297",
-      "chain": "ropsten",
+      "chain": "goerli",
       "funcName": "createAndSettleWallet",
       "inputs": {
         "addr": "0xbec374e0acb4b7b6fde45b11287e61beb108e868",

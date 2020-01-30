@@ -1,7 +1,6 @@
 # BleumiPay::PayoutsApi
 
-Payouts are available only for the Ethereum network today and require you to set up a Private Payment Processor and link it to your account. Please contact support@bleumi.com if you want to enable payouts for your account.
-
+Payouts are available only for the Ethereum and xDAI networks today and require you to set up a Private Payment Processor and link it to your account. Please contact support@bleumi.com if you want to enable payouts for your account.
 
 ## create_payout
 
@@ -23,7 +22,7 @@ end
 api_instance = BleumiPay::PayoutsApi.new
 
 opts = {
-  chain: BleumiPay::Chain::ROPSTEN # Chain | Ethereum network in which payment is to be created.
+  chain: BleumiPay::Chain::GOERLI # Chain | Network in which payment is to be created.
 }
 
 begin
@@ -42,14 +41,14 @@ begin
   payouts = [payout1, payout2]
 
   create_payout_request.txid = '<TXID>' # str | Replace with unique payout ID 
-  create_payout_request.token = BleumiPay::Token.new('<TOKEN>') # str | Replace <TOKEN> with Token. Eg. ETH or ECR-20 token contract address or XDAI or XDAIT
+  create_payout_request.token = '<TOKEN>' # str | Replace <TOKEN> with Token. Eg. ETH or ECR-20 token contract address or XDAI or XDAIT
   create_payout_request.payouts = payouts # setting the payouts array to the payout create request
   
   #Create a payout.
   result = api_instance.create_payout(create_payout_request, opts)
   p result
 rescue BleumiPay::ApiError => e
-  puts "Exception when calling PayoutsApi->create_payout: #{e}"
+  puts "Exception when calling create_payout: #{e}"
 end
 ```
 
@@ -58,8 +57,9 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_payout_request** | [**CreatePayoutRequest**](CreatePayoutRequest.md)| Request body - used to specify payout creation parameters. | 
- **chain** | [**Chain**](.md)| Ethereum network in which payment is to be created. Please refer documentation for Supported Networks | [optional] 
+ **create_payout_request** | [**CreatePayoutRequest**](CreatePayoutRequest.md)| Specify payout creation parameters. |
+ **chain** | [**Chain**](Chain.md)| Network in which the payout is to be made. Please refer documentation for [Supported Networks](https://pay.bleumi.com/docs/#supported-networks) |
+
 
 ### Return type
 
@@ -108,7 +108,7 @@ api_instance = BleumiPay::PayoutsApi.new
 opts = {
   next_token: '', # String | Cursor to start results from
   sort_by: '<SORT_BY>', # String | Sort payouts by (optional) | Eg. "createdAt"
-  start_at: '<START_TIMESTAMP>', # String | Get payouts from this timestamp (optional) | Eg. 1546300800 for 1-JAN-2019
+  start_at: '<START_TIMESTAMP>', # String | Get payouts from this timestamp (optional) | Eg. 1577836800 for 1-JAN-2020
   end_at: '' # String | Get payouts till this timestamp (optional) 
 }
 
@@ -117,7 +117,7 @@ begin
   result = api_instance.list_payouts(opts)
   p result
 rescue BleumiPay::ApiError => e
-  puts "Exception when calling PayoutsApi->list_payouts: #{e}"
+  puts "Exception when calling list_payouts: #{e}"
 end
 ```
 
@@ -127,7 +127,7 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **next_token** | **String**| Cursor to start results from | [optional] 
- **sort_by** | **String**| Sort payments by | [optional] 
+ **sort_by** | **String**| Sort payouts by | [optional] 'createdAt' - results will be sorted by created time in ascending order. <br>'updatedAt' - results will be sorted by last updated time in ascending order.
  **start_at** | **String**| Get payouts from this timestamp (unix) | [optional] 
  **end_at** | **String**| Get payouts till this timestamp (unix) | [optional] 
 

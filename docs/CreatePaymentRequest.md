@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | Unique ID identifying the payment | 
-**buyer_address** | [**EthAddress**](EthAddress.md) |  Address of buyer. Refund operations on this wallet will use this address. You can set this to your address to manually handle refunds (outside of Bleumi Pay) to your buyer. <br/> <b>Warning!</b> - This address must be able to receive payments from smart contracts.| 
-**transfer_address** | [**EthAddress**](EthAddress.md) | Your deposit address. Settle operations on this wallet will use this address. <br/> <b>Warning!</b> - This address must be able to receive payments from smart contracts.| 
-
+**buyer_address** | **String** | Address of buyer. Refund operations on this wallet will use this address. You can set this to your address to manually handle refunds (outside of Bleumi Pay) to your buyer. <br/> <b>Warning!</b> - This address must be able to receive payments from smart contracts.| 
+**transfer_address** | **String** | Your deposit address. Settle operations on this wallet will use this address. <br/> <b>Warning!</b> - This address must be able to receive payments from smart contracts.| 
+**token** <br> (Optional) | **String** | (Only for Algorand Standard Asset) Asset id which will be used for payment. |
 ## Example
 
 ```json

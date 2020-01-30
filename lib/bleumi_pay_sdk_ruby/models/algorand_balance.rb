@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -13,64 +13,71 @@ OpenAPI Generator version: 4.2.2
 require 'date'
 
 module BleumiPay
-  class EthAddress
-    # Valid Ethereum address string should pass validation pattern
-    attr_accessor :addr
+  class AlgorandBalance
+    attr_accessor :alg_mainnet
+
+    attr_accessor :alg_testnet
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'addr' => :'addr'
+        :'alg_mainnet' => :'alg_mainnet',
+        :'alg_testnet' => :'alg_testnet'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'addr' => :'String'
+        :'alg_mainnet' => :'Hash<String, WalletBalance>',
+        :'alg_testnet' => :'Hash<String, WalletBalance>'
       }
     end
 
-    def eth_address?(str)
-      # We use !! to convert the return value to a boolean
-      !!(str =~ /^0x[a-fA-F0-9]{40}$/)
+    # List of attributes with nullable: true
+    def self.openapi_nullable
+      Set.new([
+      ])
     end
 
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
-    def initialize(value)
-      
-      if (!eth_address?(value)) 
-        fail ArgumentError, "`#{value}` The input argument must be valid Ethereum Address `BleumiPay::EthAddress` initialize method"
+    def initialize(attributes = {})
+      if (!attributes.is_a?(Hash))
+        fail ArgumentError, "The input argument (attributes) must be a hash in `BleumiPay::AlgorandBalance` initialize method"
       end
 
-      self.addr = value
+      # check to see if the attribute exists and convert string to symbol for hash key
+      attributes = attributes.each_with_object({}) { |(k, v), h|
+        if (!self.class.attribute_map.key?(k.to_sym))
+          fail ArgumentError, "`#{k}` is not a valid attribute in `BleumiPay::AlgorandBalance`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+        end
+        h[k.to_sym] = v
+      }
 
-    end
-
-    # validation for updating addr using setter of addr
-    def addr=(new_addr)
-      if (!eth_address?(new_addr)) 
-        fail ArgumentError, "`#{new_addr}` The input argument must be valid Ethereum Address `BleumiPay::EthAddress` initialize method"
+      if attributes.key?(:'alg_mainnet')
+        if (value = attributes[:'alg_mainnet']).is_a?(Hash)
+          self.alg_mainnet = value
+        end
       end
-      @addr = new_addr
+
+      if attributes.key?(:'alg_testnet')
+        if (value = attributes[:'alg_testnet']).is_a?(Hash)
+          self.alg_testnet = value
+        end
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @addr.nil?
-        invalid_properties.push('invalid value for "addr", addr cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @addr.nil?
       true
     end
 
@@ -79,7 +86,8 @@ module BleumiPay
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          addr == o.addr
+          alg_mainnet == o.alg_mainnet &&
+          alg_testnet == o.alg_testnet
     end
 
     # @see the `==` method
@@ -91,7 +99,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [addr].hash
+      [alg_mainnet, alg_testnet].hash
     end
 
     # Builds the object from hash
@@ -177,14 +185,17 @@ module BleumiPay
     # Returns the object in the form of hash
     # @return [Hash] Returns the object in the form of hash
     def to_hash
-      # hash = {}
-      # self.class.attribute_map.each_pair do |attr, param|
-      #   value = self.send(attr)
-      #   next if value.nil?
-      #   hash[param] = _to_hash(value)
-      # end
-      # hash
-      addr
+      hash = {}
+      self.class.attribute_map.each_pair do |attr, param|
+        value = self.send(attr)
+        if value.nil?
+          is_nullable = self.class.openapi_nullable.include?(attr)
+          next if !is_nullable || (is_nullable && !instance_variable_defined?(:"@#{attr}"))
+        end
+        
+        hash[param] = _to_hash(value)
+      end
+      hash
     end
 
     # Outputs non-array value in the form of hash

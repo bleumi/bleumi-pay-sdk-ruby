@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -17,17 +17,21 @@ module BleumiPay
   class PaymentAddresses
     attr_accessor :ethereum
 
+    attr_accessor :algorand
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'ethereum' => :'ethereum'
+        :'ethereum' => :'ethereum',
+        :'algorand' => :'algorand'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'ethereum' => :'Hash<String, WalletAddress>'
+        :'ethereum' => :'Hash<String, WalletAddress>',
+        :'algorand' => :'Hash<String, WalletAddress>'
       }
     end
 
@@ -57,6 +61,12 @@ module BleumiPay
           self.ethereum = value
         end
       end
+
+      if attributes.key?(:'algorand')
+        if (value = attributes[:'algorand']).is_a?(Hash)
+          self.algorand = value
+        end
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -77,7 +87,8 @@ module BleumiPay
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          ethereum == o.ethereum
+          ethereum == o.ethereum &&
+          algorand == o.algorand
     end
 
     # @see the `==` method
@@ -89,7 +100,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [ethereum].hash
+      [ethereum, algorand].hash
     end
 
     # Builds the object from hash

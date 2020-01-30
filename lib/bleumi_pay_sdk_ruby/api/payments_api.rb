@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -15,14 +15,16 @@ require 'cgi'
 module BleumiPay
   class PaymentsApi
     attr_accessor :api_client
+    attr_accessor :request_validator
 
-    def initialize(api_client = ApiClient.default)
+    def initialize(api_client = ApiClient.default, request_validator = RequestValidator.default)
       @api_client = api_client
+      @request_validator = request_validator
     end
     # Generate a unique wallet address in the specified network to accept payment
     # @param create_payment_request [CreatePaymentRequest] 
     # @param [Hash] opts the optional parameters
-    # @option opts [Chain] :chain Ethereum network in which payment is to be created. Please refer documentation for Supported Networks
+    # @option opts [Chain] :chain Network in which payment is to be created. Please refer documentation for Supported Networks
     # @return [CreatePaymentResponse]
     def create_payment(create_payment_request, opts = {})
       data, _status_code, _headers = create_payment_with_http_info(create_payment_request, opts)
@@ -32,7 +34,7 @@ module BleumiPay
     # Generate a unique wallet address in the specified network to accept payment
     # @param create_payment_request [CreatePaymentRequest] 
     # @param [Hash] opts the optional parameters
-    # @option opts [Chain] :chain Ethereum network in which payment is to be created. Please refer documentation for Supported Networks
+    # @option opts [Chain] :chain Network in which payment is to be created. Please refer documentation for Supported Networks
     # @return [Array<(CreatePaymentResponse, Integer, Hash)>] CreatePaymentResponse data, response status code and response headers
     def create_payment_with_http_info(create_payment_request, opts = {})
       if @api_client.config.debugging
@@ -42,12 +44,20 @@ module BleumiPay
       if @api_client.config.client_side_validation && create_payment_request.nil?
         fail ArgumentError, "Missing the required parameter 'create_payment_request' when calling PaymentsApi.create_payment"
       end
+
+      # verify the values in the request body are valid
+      chain = opts[:'chain'] if !opts[:'chain'].nil?
+      msg = @request_validator.validate_create_payment_request(create_payment_request, chain)
+      if (@request_validator.is_not_empty(msg))
+        fail ArgumentError, "`#{msg}` when calling PaymentsApi.create_payment"
+      end
+
       # resource path
       local_var_path = '/v1/payment'
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'chain'] = chain
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -85,7 +95,7 @@ module BleumiPay
     end
 
     # Retrieve the wallet addresses & token balances for a given payment
-    # @param id [String] Unique identifier of the payment (specified during [Create a Payment](#createPayment)) to retrieve
+    # @param id [String] Unique identifier of the payment (specified during createPayment) to retrieve
     # @param [Hash] opts the optional parameters
     # @return [Payment]
     def get_payment(id, opts = {})
@@ -94,7 +104,7 @@ module BleumiPay
     end
 
     # Retrieve the wallet addresses &amp; token balances for a given payment
-    # @param id [String] Unique identifier of the payment (specified during [Create a Payment](#createPayment)) to retrieve
+    # @param id [String] Unique identifier of the payment (specified during createPayment) to retrieve
     # @param [Hash] opts the optional parameters
     # @return [Array<(Payment, Integer, Hash)>] Payment data, response status code and response headers
     def get_payment_with_http_info(id, opts = {})
@@ -277,6 +287,7 @@ module BleumiPay
     # @param [Hash] opts the optional parameters
     # @option opts [String] :next_token Cursor to start results from
     # @option opts [String] :sort_by Sort payments by
+    # @option opts [String] :sort_order Sort Order
     # @option opts [String] :start_at Get payments from this timestamp (unix)
     # @option opts [String] :end_at Get payments till this timestamp (unix)
     # @return [PaginatedPayments]
@@ -289,6 +300,7 @@ module BleumiPay
     # @param [Hash] opts the optional parameters
     # @option opts [String] :next_token Cursor to start results from
     # @option opts [String] :sort_by Sort payments by
+    # @option opts [String] :sort_order Sort Order
     # @option opts [String] :start_at Get payments from this timestamp (unix)
     # @option opts [String] :end_at Get payments till this timestamp (unix)
     # @return [Array<(PaginatedPayments, Integer, Hash)>] PaginatedPayments data, response status code and response headers
@@ -300,6 +312,10 @@ module BleumiPay
       if @api_client.config.client_side_validation && opts[:'sort_by'] && !allowable_values.include?(opts[:'sort_by'])
         fail ArgumentError, "invalid value for \"sort_by\", must be one of #{allowable_values}"
       end
+      allowable_values = ["ascending", "descending"]
+      if @api_client.config.client_side_validation && opts[:'sort_order'] && !allowable_values.include?(opts[:'sort_order'])
+        fail ArgumentError, "invalid value for \"sort_order\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/v1/payment'
 
@@ -307,6 +323,7 @@ module BleumiPay
       query_params = opts[:query_params] || {}
       query_params[:'nextToken'] = opts[:'next_token'] if !opts[:'next_token'].nil?
       query_params[:'sortBy'] = opts[:'sort_by'] if !opts[:'sort_by'].nil?
+      query_params[:'sortOrder'] = opts[:'sort_order'] if !opts[:'sort_order'].nil?
       query_params[:'startAt'] = opts[:'start_at'] if !opts[:'start_at'].nil?
       query_params[:'endAt'] = opts[:'end_at'] if !opts[:'end_at'].nil?
 
@@ -344,10 +361,10 @@ module BleumiPay
     end
 
     # Refund the balance of a token for a given payment to the buyerAddress
-    # @param id [String] Unique identifier of the payment (specified during [Create a Payment](#createPayment))
+    # @param id [String] Unique identifier of the payment (specified during createPayment)
     # @param payment_refund_request [PaymentRefundRequest] Request body - used to specify the token to refund.
     # @param [Hash] opts the optional parameters
-    # @option opts [Chain] :chain Ethereum network in which payment is to be created.
+    # @option opts [Chain] :chain Network in which payment is to be refunded.
     # @return [PaymentOperationResponse]
     def refund_payment(id, payment_refund_request, opts = {})
       data, _status_code, _headers = refund_payment_with_http_info(id, payment_refund_request, opts)
@@ -355,10 +372,10 @@ module BleumiPay
     end
 
     # Refund the balance of a token for a given payment to the buyerAddress
-    # @param id [String] Unique identifier of the payment (specified during [Create a Payment](#createPayment))
+    # @param id [String] Unique identifier of the payment (specified during createPayment)
     # @param payment_refund_request [PaymentRefundRequest] Request body - used to specify the token to refund.
     # @param [Hash] opts the optional parameters
-    # @option opts [Chain] :chain Ethereum network in which payment is to be created.
+    # @option opts [Chain] :chain Network in which payment is to be refunded.
     # @return [Array<(PaymentOperationResponse, Integer, Hash)>] PaymentOperationResponse data, response status code and response headers
     def refund_payment_with_http_info(id, payment_refund_request, opts = {})
       if @api_client.config.debugging
@@ -372,12 +389,18 @@ module BleumiPay
       if @api_client.config.client_side_validation && payment_refund_request.nil?
         fail ArgumentError, "Missing the required parameter 'payment_refund_request' when calling PaymentsApi.refund_payment"
       end
+      # verify the values in the request body are valid
+      chain = opts[:'chain'] if !opts[:'chain'].nil?
+      msg = @request_validator.validate_refund_payment_request(payment_refund_request, chain)
+      if (@request_validator.is_not_empty(msg))
+        fail ArgumentError, "`#{msg}` when calling PaymentsApi.refund_payment"
+      end
       # resource path
       local_var_path = '/v1/payment/{id}/refund'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
+      query_params[:'chain'] = chain
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -415,10 +438,10 @@ module BleumiPay
     end
 
     # Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
-    # @param id [String] Unique identifier of the payment (specified during [Create a Payment](#createPayment))
+    # @param id [String] Unique identifier of the payment (specified during createPayment)
     # @param payment_settle_request [PaymentSettleRequest] Request body - used to specify the amount to settle.
     # @param [Hash] opts the optional parameters
-    # @option opts [Chain] :chain Ethereum network in which payment is to be created.
+    # @option opts [Chain] :chain Network in which payment is to be settled.
     # @return [PaymentOperationResponse]
     def settle_payment(id, payment_settle_request, opts = {})
       data, _status_code, _headers = settle_payment_with_http_info(id, payment_settle_request, opts)
@@ -426,10 +449,10 @@ module BleumiPay
     end
 
     # Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
-    # @param id [String] Unique identifier of the payment (specified during [Create a Payment](#createPayment))
+    # @param id [String] Unique identifier of the payment (specified during createPayment)
     # @param payment_settle_request [PaymentSettleRequest] Request body - used to specify the amount to settle.
     # @param [Hash] opts the optional parameters
-    # @option opts [Chain] :chain Ethereum network in which payment is to be created.
+    # @option opts [Chain] :chain Network in which payment is to be settled.
     # @return [Array<(PaymentOperationResponse, Integer, Hash)>] PaymentOperationResponse data, response status code and response headers
     def settle_payment_with_http_info(id, payment_settle_request, opts = {})
       if @api_client.config.debugging
@@ -443,6 +466,12 @@ module BleumiPay
       if @api_client.config.client_side_validation && payment_settle_request.nil?
         fail ArgumentError, "Missing the required parameter 'payment_settle_request' when calling PaymentsApi.settle_payment"
       end
+      # verify the values in the request body are valid
+      chain = opts[:'chain'] if !opts[:'chain'].nil?
+      msg = @request_validator.validate_settle_payment_request(payment_settle_request, chain)
+      if (@request_validator.is_not_empty(msg))
+        fail ArgumentError, "`#{msg}` when calling PaymentsApi.settle_payment"
+      end      
       # resource path
       local_var_path = '/v1/payment/{id}/settle'.sub('{' + 'id' + '}', CGI.escape(id.to_s))
 

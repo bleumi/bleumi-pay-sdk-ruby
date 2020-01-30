@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -20,7 +20,7 @@ module BleumiPay
     # Amount (Only for settle operation)
     attr_accessor :amount
 
-    # ETH - for Ethereum ; XDAI - for xDai ; XDAIT - for xDai Testnet ; <contract address of ERC-20 token> - for ERC-20 Tokens 
+    # ETH - for Ethereum ; XDAI - for xDai ; XDAIT - for xDai Testnet ; ALGO - Algo; <asset id> - for Algorand Standard Asset; <contract address of ERC-20 token> - for ERC-20 Tokens;
     attr_accessor :token
 
     # Token amount to be settled in network format (Only for settle operation)

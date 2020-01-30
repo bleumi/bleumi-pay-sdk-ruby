@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **salt** | **String** | Unique identifier generated for the txid of the payout (specified during Create a Payout). | 
-**token** | **String** | Token used for the payout | 
+**token** | **String** | Token used for the payout | <b>ETH</b> - for Ethereum  <br/> <b>XDAI</b> - for xDai <br/> <b>XDAIT</b> - for xDai Testnet <br/> <b>ALGO</b> - for Algo <br/> <b>&lt;asset id&gt;</b> - for Algorand Standard Asset payouts <br/> <b> &lt;contract address of ERC-20 token&gt;</b> - for ERC-20 payouts; Please refer to [ERC-20 Tokens](https://pay.bleumi.com/docs/#erc-20) for contract address;  | 
 **payouts** | [**Array&lt;Payout&gt;**](Payout.md) | Array of payments to be made in this payout. This is an atomic transaction (i.e. either all payments are processed or all of them are rejected). | 
 
 ## Example

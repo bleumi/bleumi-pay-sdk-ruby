@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ethereum** | [**Hash&lt;String, NetworkBalance&gt;**](NetworkBalance.md) | A dictionary which gives the token balances in each network | [optional] 
+**ethereum** <br> (Optional) | [**EthereumBalance**](EthereumBalance.md) | A dictionary which gives the token balances in each Ethereum network |
+**algorand** <br> (Optional) | [**AlgorandBalance**](AlgorandBalance.md) | A dictionary which gives the token balances in each Algorand network |
 
 ## Example
 

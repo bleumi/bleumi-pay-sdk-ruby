@@ -21,20 +21,20 @@ end
 api_instance = BleumiPay::PayoutsApi.new
 create_payment_request = BleumiPay::CreatePaymentRequest.new # CreatePaymentRequest | 
 opts = {
-  chain: BleumiPay::Chain::ROPSTEN # Chain | Ethereum network in which payment is to be created.
+  chain: BleumiPay::Chain::GOERLI # Chain | Network in which payment is to be created.
 }
 
 begin
   
   create_payment_request.id = '<ID>'
-  create_payment_request.buyer_address = BleumiPay::EthAddress.new('<BUYER_ADDR>') # Replace <BUYER_ADDR> with the Buyer's Enthereum Network Address
-  create_payment_request.transfer_address = BleumiPay::EthAddress.new('<MERCHANT_ADDR>') # Replace <MERCHANT_ADDR> with the Merchant's Enthereum Network Address
+  create_payment_request.buyer_address = '<BUYER_ADDR>' # Replace <BUYER_ADDR> with the Buyer's Enthereum Network Address
+  create_payment_request.transfer_address = '<MERCHANT_ADDR>' # Replace <MERCHANT_ADDR> with the Merchant's Enthereum Network Address
 
   #Create a payout.
   result = api_instance.create_payment(create_payment_request, opts)
   p result
 rescue BleumiPay::ApiError => e
-  puts "Exception when calling PayoutsApi->create_payment: #{e}"
+  puts "Exception when calling create_payment: #{e}"
 end
 ```
 
@@ -87,7 +87,7 @@ begin
   result = api_instance.get_payment(id)
   p result
 rescue BleumiPay::ApiError => e
-  puts "Exception when calling PaymentsApi->get_payment: #{e}"
+  puts "Exception when calling get_payment: #{e}"
 end
 ```
 
@@ -146,10 +146,11 @@ end
 
 api_instance = BleumiPay::PaymentsApi.new
 opts = {
-  next_token: '', # String | Cursor to start results from
-  sort_by: '<SORT_BY>', # String | Sort wallets by (optional) | Eg. "createdAt"
-  start_at: '<START_TIMESTAMP>', # String | Get wallets from this timestamp (optional) | Eg. 1546300800 for 1-JAN-2019
-  end_at: '' # String | Get wallets till this timestamp (optional) 
+  next_token: '', # String | Cursor to start results from (optional) |
+  sort_by: '<SORT_BY>', # String | Sort payments by (optional) | Eg. "createdAt"
+  sort_order: '<SORT_ORDER>', # String | Sort Order for payment (optional) | Eg. "ascending"
+  start_at: '<START_TIMESTAMP>', # String | Get wallets from this timestamp (optional) | Eg. 1577836800 for 1-JAN-2020
+  end_at: nil # String | Get wallets till this timestamp (optional) 
 }
 
 begin
@@ -167,7 +168,8 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **next_token** | **String**| Cursor to start results from | [optional] 
- **sort_by** | **String**| Sort payments by | [optional] 
+ **sort_by** | **String**| Sort payments by | [optional] 'createdAt' - results will be sorted by created time. <br>'updatedAt' - results will be sorted by last updated time.
+ **sort_order** | **String**| Sort payments by | [optional] 'ascending' - results will be sorted in ascending order. <br>'descending' - results will be sorted in ascending order.
  **start_at** | **String**| Get payments from this timestamp (unix) | [optional] 
  **end_at** | **String**| Get payments till this timestamp (unix) | [optional] 
 
@@ -210,14 +212,14 @@ end
 api_instance = BleumiPay::PaymentsApi.new
 
 opts = {
-  chain: BleumiPay::Chain::ROPSTEN # Chain | Ethereum network in which payment is to be created.
+  chain: BleumiPay::Chain::GOERLI # Chain | Network in which payment is to be created.
 }
 
 begin
   id = '<ID>' # String | Unique identifier of the payment (specified during create payment)
   payment_settle_request = BleumiPay::PaymentSettleRequest.new # PaymentSettleRequest | Request body - used to specify the amount to settle.
   payment_settle_request.amount = '<AMT>' # String | Replace <AMT> with settle amount
-  payment_settle_request.token = BleumiPay::Token.new('<TOKEN>') # String | Replace <TOKEN> with ETH or XDAI or XDAIT or ECR-20 token contract address
+  payment_settle_request.token = '<TOKEN>' # String | Replace <TOKEN> with "ALGO" or "ETH" or "XDAI" or "XDAIT" or ERC-20 'Token Contract Address' or 'Algorand Standard Asset token'
   #Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
   result = api_instance.settle_payment(id, payment_settle_request, opts)
   p result
@@ -233,7 +235,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Unique identifier of the payment (specified during [Create a Payment](#create_payment)) | 
  **payment_settle_request** | [**PaymentSettleRequest**](PaymentSettleRequest.md)| Request body - used to specify the amount to settle. | 
- **chain** | [**Chain**](.md)| Ethereum network in which payment is to be created. | [optional] 
+ **chain** | [**Chain**](Chain.md)| Network in which payment is to be created. | [optional] 
 
 ### Return type
 
@@ -270,13 +272,13 @@ end
 api_instance = BleumiPay::PaymentsApi.new
 
 opts = {
-  chain: BleumiPay::Chain::ROPSTEN # Chain | Ethereum network in which payment is to be created.
+  chain: BleumiPay::Chain::GOERLI # Chain | Network in which payment is to be created.
 }
 
 begin
   id = '<ID>' # String | Unique identifier of the payment (specified during create payment)
   payment_refund_request = BleumiPay::PaymentRefundRequest.new # PaymentRefundRequest | Request body - used to specify the token to refund.
-  payment_refund_request.token = BleumiPay::Token.new('<TOKEN>') # String | Replace <TOKEN> with ETH or XDAI or XDAIT or ECR-20 token contract address
+  payment_refund_request.token = '<TOKEN>' # String | Replace <TOKEN> with "ALGO" or "ETH" or "XDAI" or "XDAIT" or ERC-20 'Token Contract Address' or 'Algorand Standard Asset token'
 
   #Refund the balance of a token for a given payment to the buyerAddress
   result = api_instance.refund_payment(id, payment_refund_request, opts)

@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -13,6 +13,7 @@ OpenAPI Generator version: 4.2.2
 require 'date'
 
 module BleumiPay
+  # Payment Operation details
   class PaymentOperation
     # Transaction ID of the operation
     attr_accessor :txid
@@ -20,7 +21,7 @@ module BleumiPay
     # Network in which the operation was carried out
     attr_accessor :chain
 
-    # The name of the function invoked on the [payment processor](https://pay.bleumi.com/docs/#payment-processor)
+    # The name of the function invoked on the payment processor
     attr_accessor :func_name
 
     # null - Operation in progress ; true - Operation completed successfuly ; false - Operation failed to process

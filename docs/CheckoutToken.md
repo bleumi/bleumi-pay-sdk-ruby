@@ -4,17 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**network** | **String** | The network in which the token is defined | 
 **chain** | **String** | The chain in which the token is defined | 
-**transfer_address** | **String** | The destination address when payments are received in this token | 
+**addr** | **String** | The address of the token | 
 **name** | **String** | Name of the token | 
 **symbol** | **String** | Symbol of the token | 
-**decimals** | **String** | The decimal places supported | 
+**decimals** | **Integer** | Token decimal places | 
+
 
 ## Example
 
 ```json
 {
-      "chain": "ropsten",
+      "network": "ethereum",
+      "chain": "goerli",
       "transferAddress": "0xd15bdd17175825742a5904b21008dd3a019a060e",
       "name": "USD p18",
       "symbol": "USD18",

@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -14,11 +14,14 @@ require 'date'
 
 module BleumiPay
   class CheckoutToken
+    # The network in which the token is defined
+    attr_accessor :network
+
     # The chain in which the token is defined
     attr_accessor :chain
 
-    # The destination address when payments are received in this token
-    attr_accessor :transfer_address
+    # The address of the token
+    attr_accessor :addr
 
     # Name of the token
     attr_accessor :name
@@ -32,8 +35,9 @@ module BleumiPay
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'network' => :'network',
         :'chain' => :'chain',
-        :'transfer_address' => :'transferAddress',
+        :'addr' => :'addr',
         :'name' => :'name',
         :'symbol' => :'symbol',
         :'decimals' => :'decimals'
@@ -43,8 +47,9 @@ module BleumiPay
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'network' => :'String',
         :'chain' => :'String',
-        :'transfer_address' => :'String',
+        :'addr' => :'String',
         :'name' => :'String',
         :'symbol' => :'String',
         :'decimals' => :'Integer'
@@ -72,12 +77,16 @@ module BleumiPay
         h[k.to_sym] = v
       }
 
+      if attributes.key?(:'network')
+        self.network = attributes[:'network']
+      end
+
       if attributes.key?(:'chain')
         self.chain = attributes[:'chain']
       end
 
-      if attributes.key?(:'transfer_address')
-        self.transfer_address = attributes[:'transfer_address']
+      if attributes.key?(:'addr')
+        self.addr = attributes[:'addr']
       end
 
       if attributes.key?(:'name')
@@ -97,12 +106,16 @@ module BleumiPay
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @network.nil?
+        invalid_properties.push('invalid value for "network", network cannot be nil.')
+      end
+
       if @chain.nil?
         invalid_properties.push('invalid value for "chain", chain cannot be nil.')
       end
 
-      if @transfer_address.nil?
-        invalid_properties.push('invalid value for "transfer_address", transfer_address cannot be nil.')
+      if @addr.nil?
+        invalid_properties.push('invalid value for "addr", addr cannot be nil.')
       end
 
       if @name.nil?
@@ -123,8 +136,9 @@ module BleumiPay
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @network.nil?
       return false if @chain.nil?
-      return false if @transfer_address.nil?
+      return false if @addr.nil?
       return false if @name.nil?
       return false if @symbol.nil?
       return false if @decimals.nil?
@@ -136,8 +150,9 @@ module BleumiPay
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          network == o.network &&
           chain == o.chain &&
-          transfer_address == o.transfer_address &&
+          addr == o.addr &&
           name == o.name &&
           symbol == o.symbol &&
           decimals == o.decimals
@@ -152,7 +167,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [chain, transfer_address, name, symbol, decimals].hash
+      [network, chain, addr, name, symbol, decimals].hash
     end
 
     # Builds the object from hash

@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **created_at** | **Integer** | UNIX timestamp when the payment was created | 
 **updated_at** | **Integer** | UNIX timestamp when the lastest operation was performed | 
 
-
 ## Example
 
 ```json

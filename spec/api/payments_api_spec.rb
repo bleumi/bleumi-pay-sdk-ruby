@@ -98,7 +98,7 @@ describe 'PaymentsApi' do
   # @param id Unique identifier of the payment (specified during [Create a Payment](#createPayment))
   # @param payment_refund_request Request body - used to specify the token to refund.
   # @param [Hash] opts the optional parameters
-  # @option opts [Chain] :chain Ethereum network in which payment is to be created.
+  # @option opts [Chain] :chain network in which payment is to be created.
   # @return [PaymentOperationResponse]
   describe 'refund_payment test' do
     it 'should work' do
@@ -111,7 +111,7 @@ describe 'PaymentsApi' do
   # @param id Unique identifier of the payment (specified during [Create a Payment](#createPayment))
   # @param payment_settle_request Request body - used to specify the amount to settle.
   # @param [Hash] opts the optional parameters
-  # @option opts [Chain] :chain Ethereum network in which payment is to be created.
+  # @option opts [Chain] :chain network in which payment is to be created.
   # @return [PaymentOperationResponse]
   describe 'settle_payment test' do
     it 'should work' do

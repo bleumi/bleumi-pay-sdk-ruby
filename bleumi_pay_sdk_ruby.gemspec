@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate Algorand, Ethereum, ERC-20 and xDai payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.email       = ["info@bleumi.com"]
   s.homepage    = "https://pay.bleumi.com/"
   s.summary     = "Bleumi Pay API Ruby Gem"
-  s.description = "A simple and powerful REST API to integrate ERC20 payments into your business or application"
+  s.description = "A simple and powerful REST API to integrate Algorand, Ethereum, ERC-20 and xDai payments into your business or application"
   s.license     = "MIT"
   s.required_ruby_version = ">= 1.9"
 

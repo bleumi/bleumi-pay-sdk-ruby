@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -17,6 +17,7 @@ module BleumiPay
     # Unique identifier for this payout
     attr_accessor :txid
 
+    # ETH - for Ethereum ; XDAI - for xDai ; XDAIT - for xDai Testnet ; ALGO - Algo; <asset id> - for Algorand Standard Asset; <contract address of ERC-20 token> - for ERC-20 Tokens;
     attr_accessor :token
 
     # Array of payments to be made in this payout. This is an atomic transaction (i.e. either all payments are processed or all of them are rejected).
@@ -35,7 +36,7 @@ module BleumiPay
     def self.openapi_types
       {
         :'txid' => :'String',
-        :'token' => :'Token',
+        :'token' => :'String',
         :'payouts' => :'Array<Payout>'
       }
     end

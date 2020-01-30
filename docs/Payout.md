@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **transfer_address** | **String** | Address of receiver. This address must be able to receive payments from smart contracts. | 
-**amount** | **String** | Amount of token to transfer | 
+**amount** | **String** | Amount of token to transfer |
+**authorization** <br> (Optional)| **String** | (Only for Algorand) Base64 serialization of an encoded LogicSig signed by the source of the payout |
 
 ## Example
 

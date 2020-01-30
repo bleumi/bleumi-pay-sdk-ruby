@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -29,11 +29,16 @@ module BleumiPay
     # Buyer will be redirected to this URL upon successfully completing the payment.
     attr_accessor :success_url
 
+    # Address of buyer. Refund operations on this payment will use this address. You can set this to your address to manually handle refunds (outside of Bleumi Pay) to your buyer. This address must be able to receive payments from smart contracts.
     attr_accessor :buyer_address
 
     attr_accessor :chain
 
+    # ETH - for Ethereum ; XDAI - for xDai ; XDAIT - for xDai Testnet ; ALGO - Algo; <asset id> - for Algorand Standard Asset; <contract address of ERC-20 token> - for ERC-20 Tokens;
     attr_accessor :token
+
+    # Base64 encode hmac_input GET parameter passed to the successUrl
+    attr_accessor :base64_transform
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -45,7 +50,8 @@ module BleumiPay
         :'success_url' => :'successUrl',
         :'buyer_address' => :'buyerAddress',
         :'chain' => :'chain',
-        :'token' => :'token'
+        :'token' => :'token',
+        :'base64_transform' => :'base64Transform'
       }
     end
 
@@ -57,9 +63,10 @@ module BleumiPay
         :'amount' => :'String',
         :'cancel_url' => :'String',
         :'success_url' => :'String',
-        :'buyer_address' => :'EthAddress',
+        :'buyer_address' => :'String',
         :'chain' => :'Chain',
-        :'token' => :'Token'
+        :'token' => :'String',
+        :'base64_transform' => :'Boolean'
       }
     end
 
@@ -115,6 +122,10 @@ module BleumiPay
       if attributes.key?(:'token')
         self.token = attributes[:'token']
       end
+
+      if attributes.key?(:'base64_transform')
+        self.base64_transform = attributes[:'base64_transform']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -167,7 +178,8 @@ module BleumiPay
           success_url == o.success_url &&
           buyer_address == o.buyer_address &&
           chain == o.chain &&
-          token == o.token
+          token == o.token &&
+          base64_transform == o.base64_transform
     end
 
     # @see the `==` method
@@ -179,7 +191,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, currency, amount, cancel_url, success_url, buyer_address, chain, token].hash
+      [id, currency, amount, cancel_url, success_url, buyer_address, chain, token, base64_transform].hash
     end
 
     # Builds the object from hash

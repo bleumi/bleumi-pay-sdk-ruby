@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay API
+#Bleumi Pay REST API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -15,9 +15,11 @@ require 'cgi'
 module BleumiPay
   class HostedCheckoutsApi
     attr_accessor :api_client
+    attr_accessor :request_validator
 
-    def initialize(api_client = ApiClient.default)
+    def initialize(api_client = ApiClient.default, request_validator = RequestValidator.default)
       @api_client = api_client
+      @request_validator = request_validator
     end
     # Generate a unique checkout URL to accept payment.
     # @param create_checkout_url_request [CreateCheckoutUrlRequest] Specify checkout URL creation parameters.
@@ -40,6 +42,11 @@ module BleumiPay
       if @api_client.config.client_side_validation && create_checkout_url_request.nil?
         fail ArgumentError, "Missing the required parameter 'create_checkout_url_request' when calling HostedCheckoutsApi.create_checkout_url"
       end
+      # verify the values in the request body are valid
+      msg = @request_validator.validate_create_checkout_url_request(create_checkout_url_request)
+      if (@request_validator.is_not_empty(msg))
+        fail ArgumentError, "`#{msg}` when calling HostedCheckoutsApi.create_checkout_url"
+      end 
       # resource path
       local_var_path = '/v1/payment/hc'
 
@@ -81,7 +88,7 @@ module BleumiPay
       return data, status_code, headers
     end
 
-    # Retrieve all tokens configured for the Hosted Checkout in your account in the [Bleumi Pay Dashboard](https://pay.bleumi.com/app/).
+    # Retrieve all tokens configured for the Hosted Checkout in your account in the Bleumi Pay Dashboard.
     # @param [Hash] opts the optional parameters
     # @return [Array<CheckoutToken>]
     def list_tokens(opts = {})
@@ -89,7 +96,7 @@ module BleumiPay
       data
     end
 
-    # Retrieve all tokens configured for the Hosted Checkout in your account in the [Bleumi Pay Dashboard](https://pay.bleumi.com/app/).
+    # Retrieve all tokens configured for the Hosted Checkout in your account in the Bleumi Pay Dashboard.
     # @param [Hash] opts the optional parameters
     # @return [Array<(Array<CheckoutToken>, Integer, Hash)>] Array<CheckoutToken> data, response status code and response headers
     def list_tokens_with_http_info(opts = {})
@@ -156,6 +163,11 @@ module BleumiPay
       if @api_client.config.client_side_validation && validate_checkout_request.nil?
         fail ArgumentError, "Missing the required parameter 'validate_checkout_request' when calling HostedCheckoutsApi.validate_checkout_payment"
       end
+      # verify the values in the request body are valid
+      msg = @request_validator.validate_checkout_payment_params(validate_checkout_request)
+      if (@request_validator.is_not_empty(msg))
+        fail ArgumentError, "`#{msg}` when calling HostedCheckoutsApi.validate_checkout_payment"
+      end 
       # resource path
       local_var_path = '/v1/payment/hc/validate'
 

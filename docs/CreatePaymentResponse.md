@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**addr** | **String** | Wallet address | The unique wallet address generated
+**addr** | **String** | Address of the newly created payment | 
 
 ## Example
 

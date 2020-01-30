@@ -29,9 +29,9 @@ create_checkout_url_request.currency = "<CURRENCY>" # Eg. USD
 create_checkout_url_request.amount = "<AMOUNT>" # Eg. 10
 create_checkout_url_request.success_url = "<SUCCESS_URL>" # Eg. https://demo.store/api/completeOrder
 create_checkout_url_request.cancel_url = "<CANCEL_URL>" # Eg. https://demo.store/api/cancelOrder
-create_checkout_url_request.token = BleumiPay::Token.new('<TOKEN>') # Replace <TOKEN> with ETH or XDAI or ERC-20 Token Contract Address or XDAIT
-create_checkout_url_request.chain = BleumiPay::Chain::ROPSTEN #
-create_checkout_url_request.buyer_address = BleumiPay::EthAddress.new('<BUYER_ADDR>') # Replace <BUYER_ADDR> with the buyer's Ethereum Address
+create_checkout_url_request.token = '<TOKEN>' # Replace <TOKEN> with ETH or XDAI or ERC-20 Token Contract Address or XDAIT
+create_checkout_url_request.chain = BleumiPay::Chain::GOERLI #
+create_checkout_url_request.buyer_address = '<BUYER_ADDR>' # Replace <BUYER_ADDR> with the buyer's Ethereum Address
 
 
   #Generate a unique checkout URL to accept payment.
@@ -62,11 +62,25 @@ url | string | URL for buyer to complete payment
 
 The hmac.input GET parameter passed to successUrl contains payment parameters as a pipe ('|') separated string in the following order,
 <ul style="font-weight: 500">
-    <li><b>Chain</b> - Please refer documentation for <a href="https://pay.bleumi.com/docs/#supported-networks" target="_blank">Supported Networks</a> </li>
-    <li><b>Wallet Address</b></li>
-    <li><b>Token</b><br> <i>ETH</i> - for Ethereum<br> <i>XDAI</i> - for xDai<br> <i>XDAIT</i> - for xDai Testnet<br> <i>&lt;contract address of ERC-20 token&gt;</i> - for ERC-20; Please refer to [ERC-20 Tokens](/docs/#erc-20) for contract address;</li>
-    <li><b>Amount</b> - Token amount for the payment</li>
-    <li><b>Number of block confirmations</b><br> <i>12</i> - for ETH<br> <i>0</i> - for XDAI<br> <i>0</i> - for XDAIT<br> <i>12</i> - for ERC-20</li></li>
+        <li><b>Chain</b> - Please refer documentation for <a href="https://pay.bleumi.com/docs/#supported-networks" target="_blank">Supported Networks</a> </li>
+        <li><b>Wallet Address</b></li>
+        <li><b>Token</b><br> 
+            <i>ETH</i> - for Ethereum<br> 
+            <i>XDAI</i> - for xDai<br> 
+            <i>XDAIT</i> - for xDai Testnet<br> 
+            <i>ALGO</i> - for Algo <br> 
+            <i>&lt;asset id&gt;</i> - for Algorand Standard Asset <br> 
+            <i>&lt;contract address of ERC-20 token&gt;</i> - for ERC-20; Please refer to <a href="https://pay.bleumi.com/docs/#erc-20" target="_blank">ERC-20 Tokens</a> for contract address; </li>
+        <li><b>Amount</b> - Token amount for the payment</li>
+        <li><b>Number of block confirmations</b><br> 
+            <i>12</i> - for ETH<br> 
+            <i>0</i> - for XDAI<br> 
+            <i>0</i> - for XDAIT<br> 
+            <i>0</i> - for ALGO<br> 
+            <i>0</i> - for Algorand Standard Asset<br> 
+            <i>12</i> - for ERC-20<br>
+        </li>
+    </li>
 </ul>
 
 <aside class="notice">
@@ -88,7 +102,7 @@ ValidationError <br> <i>invalid_token</i> | The token provided is not valid for 
 
 ## list_tokens
 
-> CheckoutTokens list_tokens
+> Array&lt;CheckoutToken&gt; list_tokens
 
 Retrieve all tokens configured for the Hosted Checkout in your account in the [Bleumi Pay Dashboard](https://pay.bleumi.com/app/).
 
@@ -120,7 +134,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**CheckoutTokens**](CheckoutTokens.md)
+[**Array&lt;CheckoutToken&gt;**](CheckoutToken.md)
 
 
 ### 400 Errors
@@ -155,9 +169,9 @@ api_instance = BleumiPay::HostedCheckoutsApi.new
 begin
   validate_checkout_request = BleumiPay::ValidateCheckoutRequest.new # ValidateCheckoutRequest | Specify validation of checkout parameters.
   validate_checkout_request.hmac_alg = '<ALD>' # Eg. HMAC-SHA256-HEX
-  validate_checkout_request.hmac_input = '<INPUT>' # Eg. ropsten|0xbe33cde200e113f4847c66e9498f2c30e81635ad|0x115615dbd0f835344725146fa6343219315f15e5|10|12
+  validate_checkout_request.hmac_input = '<INPUT>' # Eg. goerli|0xbeaea438bc2e19d097906b597219c288e8eb7b2e|0x115615dbd0f835344725146fa6343219315f15e5|10|12
   validate_checkout_request.hmac_key_id = '<VER>' # Eg. v1
-  validate_checkout_request.hmac_value = '<HMAC_VALUE>' # Eg. 0d910e8dfd087dd0d0b7c3f6504f7f4316b507afc81c09e844cfeee0f3dbaef6
+  validate_checkout_request.hmac_value = '<HMAC_VALUE>' # Eg. bdf82eb42efac09150d62ac1bcadd2fd0f64852ded2b571567c905217adf246a
   #Validate the GET parameters passed by Hosted Checkout in successUrl upon successfully completing payment.
   result = api_instance.validate_checkout_payment(validate_checkout_request)
   p result
