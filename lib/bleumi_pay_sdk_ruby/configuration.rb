@@ -127,10 +127,8 @@ module BleumiPay
 
     def initialize
       @scheme = 'https'
-      # @host = 'api.pay.bleumi.com'
-      # @base_path = ''
-      @host = 'ej8fsqadb7.execute-api.us-east-1.amazonaws.com'
-      @base_path = '/prod'
+      @host = 'api.pay.bleumi.com'
+      @base_path = ''
       @api_key = {}
       @api_key_prefix = {}
       @timeout = 0
@@ -209,8 +207,7 @@ module BleumiPay
     def server_settings
       [
         {
-          # url: "https://api.pay.bleumi.com/",
-          url: "https://ej8fsqadb7.execute-api.us-east-1.amazonaws.com/prod/",
+          url: "https://api.pay.bleumi.com/",
           description: "Bleumi Pay REST API",
         }
       ]
