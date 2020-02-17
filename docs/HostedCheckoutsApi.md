@@ -58,9 +58,9 @@ Field | Type | Description
 id | string | Unique identifier generated for this checkout URL
 url | string | URL for buyer to complete payment
 
-### Format - hmac.input GET parameter passed in successUrl
+Format - hmac_input GET parameter passed in successUrl
 
-The hmac.input GET parameter passed to successUrl contains payment parameters as a pipe ('|') separated string in the following order,
+The hmac_input GET parameter passed to successUrl contains payment parameters as a pipe ('|') separated string in the following order,
 <ul style="font-weight: 500">
         <li><b>Chain</b> - Please refer documentation for <a href="https://pay.bleumi.com/docs/#supported-networks" target="_blank">Supported Networks</a> </li>
         <li><b>Wallet Address</b></li>
@@ -83,9 +83,7 @@ The hmac.input GET parameter passed to successUrl contains payment parameters as
     </li>
 </ul>
 
-<aside class="notice">
 Call [Validate a Checkout Payment](#validate_checkout_payment) method to validate the GET parameters passed in successUrl and then cross-check the payment parameters of hmac.input GET parameter with your database.
-</aside>
 
 
 ### 400 Errors
