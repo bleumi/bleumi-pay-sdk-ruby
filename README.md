@@ -6,7 +6,7 @@
 
 The Bleumi Pay SDK is a one-stop shop to help you integrate Algorand, Ethereum, ERC-20 and xDai payments and/or payouts into your business or application. The SDK bundles [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction) into one SDK to ease implementation and support.
 
-bleumi-pay-sdk-ruby is a Ruby library that provides an interface between your Rubu=y application and [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction). This tutorial covers the basics, including examples, needed to use the SDK.
+bleumi-pay-sdk-ruby is a Ruby library that provides an interface between your Ruby application and [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction). This tutorial covers the basics, including examples, needed to use the SDK.
 
 ## Getting Started
 
@@ -93,6 +93,8 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
 ## Documentation for Models
 
  - [BleumiPay::AlgorandBalance](docs/AlgorandBalance.md)
+ - [BleumiPay::AlgorandWalletAddress](docs/AlgorandWalletAddress.md)
+ - [BleumiPay::AlgorandWalletInputs](docs/AlgorandWalletInputs.md)
  - [BleumiPay::BadRequest](docs/BadRequest.md)
  - [BleumiPay::Chain](docs/Chain.md)
  - [BleumiPay::CheckoutToken](docs/CheckoutToken.md)
@@ -103,6 +105,8 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
  - [BleumiPay::CreatePayoutRequest](docs/CreatePayoutRequest.md)
  - [BleumiPay::CreatePayoutResponse](docs/CreatePayoutResponse.md)
  - [BleumiPay::EthereumBalance](docs/EthereumBalance.md)
+ - [BleumiPay::EthereumWalletAddress](docs/EthereumWalletAddress.md)
+ - [BleumiPay::EthereumWalletInputs](docs/EthereumWalletInputs.md) 
  - [BleumiPay::PaginatedPaymentOperations](docs/PaginatedPaymentOperations.md)
  - [BleumiPay::PaginatedPayments](docs/PaginatedPayments.md)
  - [BleumiPay::PaginatedPayoutItems](docs/PaginatedPayoutItems.md)
@@ -119,7 +123,6 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
  - [BleumiPay::PayoutItemInputs](docs/PayoutItemInputs.md)
  - [BleumiPay::ValidateCheckoutRequest](docs/ValidateCheckoutRequest.md)
  - [BleumiPay::ValidateCheckoutResponse](docs/ValidateCheckoutResponse.md)
- - [BleumiPay::WalletAddress](docs/WalletAddress.md)
  - [BleumiPay::WalletBalance](docs/WalletBalance.md)
 
 

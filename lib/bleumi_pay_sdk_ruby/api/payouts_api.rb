@@ -55,7 +55,7 @@ module BleumiPay
 
       # query parameters
       query_params = opts[:query_params] || {}
-      query_params[:'chain'] = chain
+      query_params[:'chain'] = opts[:'chain'] if !opts[:'chain'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

@@ -32,6 +32,7 @@ module BleumiPay
     # Address of buyer. Refund operations on this payment will use this address. You can set this to your address to manually handle refunds (outside of Bleumi Pay) to your buyer. This address must be able to receive payments from smart contracts.
     attr_accessor :buyer_address
 
+    # (Required if specifying 'token') Network in which the hosted checkout is to be created. Please refer to the Supported Networks.
     attr_accessor :chain
 
     # ETH - for Ethereum ; XDAI - for xDai ; XDAIT - for xDai Testnet ; ALGO - Algo; <asset id> - for Algorand Standard Asset; <contract address of ERC-20 token> - for ERC-20 Tokens;
@@ -64,7 +65,7 @@ module BleumiPay
         :'cancel_url' => :'String',
         :'success_url' => :'String',
         :'buyer_address' => :'String',
-        :'chain' => :'Chain',
+        :'chain' => :'String',
         :'token' => :'String',
         :'base64_transform' => :'Boolean'
       }

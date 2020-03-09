@@ -32,6 +32,9 @@ module BleumiPay
     # Token decimal places
     attr_accessor :decimals
 
+    # Currency code of the token
+    attr_accessor :currency
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -40,7 +43,8 @@ module BleumiPay
         :'addr' => :'addr',
         :'name' => :'name',
         :'symbol' => :'symbol',
-        :'decimals' => :'decimals'
+        :'decimals' => :'decimals',
+        :'currency' => :'currency'
       }
     end
 
@@ -52,7 +56,8 @@ module BleumiPay
         :'addr' => :'String',
         :'name' => :'String',
         :'symbol' => :'String',
-        :'decimals' => :'Integer'
+        :'decimals' => :'Integer',
+        :'currency' => :'String'
       }
     end
 
@@ -100,6 +105,10 @@ module BleumiPay
       if attributes.key?(:'decimals')
         self.decimals = attributes[:'decimals']
       end
+
+      if attributes.key?(:'currency')
+        self.currency = attributes[:'currency']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -130,6 +139,10 @@ module BleumiPay
         invalid_properties.push('invalid value for "decimals", decimals cannot be nil.')
       end
 
+      if @currency.nil?
+        invalid_properties.push('invalid value for "currency", currency cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -142,6 +155,7 @@ module BleumiPay
       return false if @name.nil?
       return false if @symbol.nil?
       return false if @decimals.nil?
+      return false if @currency.nil?
       true
     end
 
@@ -155,7 +169,8 @@ module BleumiPay
           addr == o.addr &&
           name == o.name &&
           symbol == o.symbol &&
-          decimals == o.decimals
+          decimals == o.decimals &&
+          currency == o.currency
     end
 
     # @see the `==` method
@@ -167,7 +182,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [network, chain, addr, name, symbol, decimals].hash
+      [network, chain, addr, name, symbol, decimals, currency].hash
     end
 
     # Builds the object from hash

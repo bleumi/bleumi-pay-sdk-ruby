@@ -44,7 +44,7 @@ describe 'HostedCheckoutsApi' do
   end
 
   # unit tests for list_tokens
-  # Retrieve all tokens configured for the Hosted Checkout in your account in the [Bleumi Pay Dashboard](https://pay.bleumi.com/app/).
+  # Retrieve all tokens configured for the Hosted Checkout in your account in the Bleumi Pay Dashboard.
   # @param [Hash] opts the optional parameters
   # @return [Array<CheckoutToken>]
   describe 'list_tokens test' do

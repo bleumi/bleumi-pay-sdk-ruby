@@ -36,7 +36,7 @@ describe 'PaymentsApi' do
   # Generate a unique wallet address in the specified network to accept payment
   # @param create_payment_request 
   # @param [Hash] opts the optional parameters
-  # @option opts [Chain] :chain Ethereum network in which payment is to be created. Please refer documentation for Supported Networks
+  # @option opts [Chain] :chain Network in which payment is to be created. Please refer documentation for Supported Networks
   # @return [CreatePaymentResponse]
   describe 'create_payment test' do
     it 'should work' do
@@ -46,7 +46,7 @@ describe 'PaymentsApi' do
 
   # unit tests for get_payment
   # Retrieve the wallet addresses &amp; token balances for a given payment
-  # @param id Unique identifier of the payment (specified during [Create a Payment](#createPayment)) to retrieve
+  # @param id Unique identifier of the payment (specified during createPayment) to retrieve
   # @param [Hash] opts the optional parameters
   # @return [Payment]
   describe 'get_payment test' do
@@ -84,6 +84,7 @@ describe 'PaymentsApi' do
   # @param [Hash] opts the optional parameters
   # @option opts [String] :next_token Cursor to start results from
   # @option opts [String] :sort_by Sort payments by
+  # @option opts [String] :sort_order Sort Order
   # @option opts [String] :start_at Get payments from this timestamp (unix)
   # @option opts [String] :end_at Get payments till this timestamp (unix)
   # @return [PaginatedPayments]
@@ -95,10 +96,10 @@ describe 'PaymentsApi' do
 
   # unit tests for refund_payment
   # Refund the balance of a token for a given payment to the buyerAddress
-  # @param id Unique identifier of the payment (specified during [Create a Payment](#createPayment))
+  # @param id Unique identifier of the payment (specified during createPayment)
   # @param payment_refund_request Request body - used to specify the token to refund.
   # @param [Hash] opts the optional parameters
-  # @option opts [Chain] :chain network in which payment is to be created.
+  # @option opts [Chain] :chain Ethereum network in which payment is to be refunded.
   # @return [PaymentOperationResponse]
   describe 'refund_payment test' do
     it 'should work' do
@@ -108,10 +109,10 @@ describe 'PaymentsApi' do
 
   # unit tests for settle_payment
   # Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
-  # @param id Unique identifier of the payment (specified during [Create a Payment](#createPayment))
+  # @param id Unique identifier of the payment (specified during createPayment)
   # @param payment_settle_request Request body - used to specify the amount to settle.
   # @param [Hash] opts the optional parameters
-  # @option opts [Chain] :chain network in which payment is to be created.
+  # @option opts [Chain] :chain Ethereum network in which payment is to be settled.
   # @return [PaymentOperationResponse]
   describe 'settle_payment test' do
     it 'should work' do

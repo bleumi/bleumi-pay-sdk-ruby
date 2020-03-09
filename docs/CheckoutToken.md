@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **addr** | **String** | The address of the token | 
 **name** | **String** | Name of the token | 
 **symbol** | **String** | Symbol of the token | 
+**currency** | **string** | Currency of the token |
 **decimals** | **Integer** | Token decimal places | 
 
 
@@ -21,6 +22,7 @@ Name | Type | Description | Notes
       "transferAddress": "0xd15bdd17175825742a5904b21008dd3a019a060e",
       "name": "USD p18",
       "symbol": "USD18",
+      "currency": "USD",
       "decimals": 18
 }
 ```
