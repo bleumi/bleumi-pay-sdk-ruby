@@ -1,6 +1,6 @@
 # BleumiPay::PayoutsApi
 
-Payouts are available only for the Ethereum and xDAI networks today and require you to set up a Private Payment Processor and link it to your account. Please contact support@bleumi.com if you want to enable payouts for your account.
+Payouts are available only for the Ethereum, xDAI and RSK networks today and require you to set up a Private Payment Processor and link it to your account. Please contact support@bleumi.com if you want to enable payouts for your account.
 
 ## create_payout
 
@@ -41,7 +41,7 @@ begin
   payouts = [payout1, payout2]
 
   create_payout_request.txid = '<TXID>' # str | Replace with unique payout ID 
-  create_payout_request.token = '<TOKEN>' # str | Replace <TOKEN> with Token. Eg. ETH or ECR-20 token contract address or XDAI or XDAIT
+  create_payout_request.token = '<TOKEN>' # str | Replace <TOKEN>  by anyone of the following values: 'ETH' or 'XDAI' or 'XDAIT' or ECR-20 Contract Address or 'RBTC' or RSK ECR-20 Contract Address or 'Asset ID' of Algorand Standard Asset.
   create_payout_request.payouts = payouts # setting the payouts array to the payout create request
   
   #Create a payout.

@@ -20,6 +20,8 @@ module BleumiPay
     XDAI_TESTNET = "xdai_testnet".freeze
     ALG_MAINNET = "alg_mainnet".freeze
     ALG_TESTNET = "alg_testnet".freeze
+    RSK = "rsk".freeze
+    RSK_TESTNET = "rsk_testnet".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

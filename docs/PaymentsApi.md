@@ -1,70 +1,6 @@
 # BleumiPay::PaymentsApi
 
 
-## create_payment
-
-> CreatePaymentResponse create_payment(create_payment_request, opts)
-
-This method generates a unique wallet address in the specified network to accept payment.
-
-### Example
-
-```ruby
-# load the gem
-require 'bleumi_pay_sdk_ruby'
-# setup authorization
-BleumiPay.configure do |config|
-  # Configure API key authorization: ApiKeyAuth
-  config.api_key['x-api-key'] = '<YOUR_API_KEY>'
-end
-
-api_instance = BleumiPay::PayoutsApi.new
-create_payment_request = BleumiPay::CreatePaymentRequest.new # CreatePaymentRequest | 
-opts = {
-  chain: BleumiPay::Chain::GOERLI # Chain | Network in which payment is to be created.
-}
-
-begin
-  
-  create_payment_request.id = '<ID>'
-  create_payment_request.buyer_address = '<BUYER_ADDR>' # Replace <BUYER_ADDR> with the Buyer's Enthereum Network Address
-  create_payment_request.transfer_address = '<MERCHANT_ADDR>' # Replace <MERCHANT_ADDR> with the Merchant's Enthereum Network Address
-
-  #Create a payout.
-  result = api_instance.create_payment(create_payment_request, opts)
-  p result
-rescue BleumiPay::ApiError => e
-  puts "Exception when calling create_payment: #{e}"
-end
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **create_payment_request** | [**CreatePaymentRequest**](CreatePaymentRequest.md)| Specify checkout URL creation parameters. | 
-
-### Return type
-
-[**CreatePaymentResponse**](CreatePaymentResponse.md)
-
-Field | Type | Description
------ | ----- | -----
-addr | string | Wallet address
-inputs | dictionary | A dictionary containing the network specific details used to create the wallet
-
-**Note:** Bleumi recommends each merchant to keep a copy of the `inputs` map to ensure access to wallet funds at all times.
-
-### 400 Errors
-
-The following table is a list of possible error codes that can be returned, along with additional information about how to resolve them for a response with 400 status code.
-
-errorCode <br> <i>errorMessage</i> | Description
----- | ---- 
-ValidationError <br> <i>&lt;details&gt;</i> | Details on input which does not conform to the above schema
-ValidationError <br> <i>wallet_already_exists&#124;&lt;addr&gt;</i> | A wallet with address &lt;addr&gt; has already been created with the specified payment 'id' for the given network
-
 ## get_payment
 
 > Payment get_payment(id)
@@ -222,8 +158,9 @@ begin
   id = '<ID>' # String | Unique identifier of the payment (specified during create payment)
   payment_settle_request = BleumiPay::PaymentSettleRequest.new # PaymentSettleRequest | Request body - used to specify the amount to settle.
   payment_settle_request.amount = '<AMT>' # String | Replace <AMT> with settle amount
-  payment_settle_request.token = '<TOKEN>' # String | Replace <TOKEN> with "ALGO" or "ETH" or "XDAI" or "XDAIT" or ERC-20 'Token Contract Address' or 'Algorand Standard Asset token'
-  #Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
+  payment_settle_request.token = '<TOKEN>' # Replace <TOKEN>  by anyone of the following values: 'ETH' or 'XDAI' or 'XDAIT' or ECR-20 Contract Address or 'RBTC' or RSK ECR-20 Contract Address or 'Asset ID' of Algorand Standard Asset.
+  
+  # Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
   result = api_instance.settle_payment(id, payment_settle_request, opts)
   p result
 rescue BleumiPay::ApiError => e
@@ -281,7 +218,7 @@ opts = {
 begin
   id = '<ID>' # String | Unique identifier of the payment (specified during create payment)
   payment_refund_request = BleumiPay::PaymentRefundRequest.new # PaymentRefundRequest | Request body - used to specify the token to refund.
-  payment_refund_request.token = '<TOKEN>' # String | Replace <TOKEN> with "ALGO" or "ETH" or "XDAI" or "XDAIT" or ERC-20 'Token Contract Address' or 'Algorand Standard Asset token'
+  payment_refund_request.token = '<TOKEN>' # String | Replace <TOKEN>  by anyone of the following values: 'ETH' or 'XDAI' or 'XDAIT' or ECR-20 Contract Address or 'RBTC' or RSK ECR-20 Contract Address or 'Asset ID' of Algorand Standard Asset.
 
   #Refund the balance of a token for a given payment to the buyerAddress
   result = api_instance.refund_payment(id, payment_refund_request, opts)

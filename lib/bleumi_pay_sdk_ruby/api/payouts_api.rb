@@ -15,16 +15,14 @@ require 'cgi'
 module BleumiPay
   class PayoutsApi
     attr_accessor :api_client
-    attr_accessor :request_validator
 
-    def initialize(api_client = ApiClient.default, request_validator = RequestValidator.default)
+    def initialize(api_client = ApiClient.default)
       @api_client = api_client
-      @request_validator = request_validator
     end
     # Create a payout.
     # @param create_payout_request [CreatePayoutRequest] Request body - used to specify payout creation parameters.
     # @param [Hash] opts the optional parameters
-    # @option opts [Chain] :chain Network in which payment is to be created. Please refer documentation for Supported Networks
+    # @option opts [Chain] :chain Ethereum network in which payment is to be created. Please refer documentation for Supported Networks
     # @return [CreatePayoutResponse]
     def create_payout(create_payout_request, opts = {})
       data, _status_code, _headers = create_payout_with_http_info(create_payout_request, opts)
@@ -34,7 +32,7 @@ module BleumiPay
     # Create a payout.
     # @param create_payout_request [CreatePayoutRequest] Request body - used to specify payout creation parameters.
     # @param [Hash] opts the optional parameters
-    # @option opts [Chain] :chain Network in which payment is to be created. Please refer documentation for Supported Networks
+    # @option opts [Chain] :chain Ethereum network in which payment is to be created. Please refer documentation for Supported Networks
     # @return [Array<(CreatePayoutResponse, Integer, Hash)>] CreatePayoutResponse data, response status code and response headers
     def create_payout_with_http_info(create_payout_request, opts = {})
       if @api_client.config.debugging
@@ -43,12 +41,6 @@ module BleumiPay
       # verify the required parameter 'create_payout_request' is set
       if @api_client.config.client_side_validation && create_payout_request.nil?
         fail ArgumentError, "Missing the required parameter 'create_payout_request' when calling PayoutsApi.create_payout"
-      end
-      # verify the values in the request body are valid
-      chain = opts[:'chain'] if !opts[:'chain'].nil?
-      msg = @request_validator.validate_create_payout_request(create_payout_request, chain)
-      if (@request_validator.is_not_empty(msg))
-        fail ArgumentError, "`#{msg}` when calling PayoutsApi.create_payout"
       end
       # resource path
       local_var_path = '/v1/payout'

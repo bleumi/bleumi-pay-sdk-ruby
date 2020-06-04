@@ -23,6 +23,11 @@ module BleumiPay
             !!(str =~ /^[A-Z2-7+=*]{58}$/)
         end
 
+        def algo_token?(str)
+            # We use !! to convert the return value to a boolean
+            !!(str =~ /^[0-9]*$/)
+        end        
+
         def is_not_empty(str)
             if (str == nil || str == "") then
                 return false
@@ -37,15 +42,32 @@ module BleumiPay
             return nil
         end
 
-        def check_alg_addr(name, input)
-            if !((algo_address?(input))||(input == "ALGO")) then
-                return "`#{name}` is not a valid Algorand address"
+        def check_rsk_addr(name, input)
+            if !((eth_address?(input))||(input == "RBTC")) then
+                return "`#{name}` is not a valid RSK address"
+            end
+            return nil
+        end
+
+        def check_alg_addr(name, input, is_token)
+            if (is_token) 
+                if !((algo_token?(input))||(input == "ALGO")) then
+                    return "`#{name}` is not a valid Algorand token"
+                end
+            else
+                if !(algo_address?(input)) then
+                    return "`#{name}` is not a valid Algorand address"
+                end
             end
             return nil
         end
 
         def is_algo_network(chain)
             return ((chain == "alg_mainnet")||(chain == "alg_testnet")) 
+        end
+
+        def is_rsk_network(chain)
+            return ((chain == "rsk")||(chain == "rsk_testnet")) 
         end
 
         def check_req_param(name, input)
@@ -55,7 +77,7 @@ module BleumiPay
             return nil
         end
 
-        def check_network_addr(name, input, chain, mandatory)
+        def check_network_addr(name, input, chain, mandatory, is_token)
             if mandatory then
                 msg = check_req_param(name, input)
                 if is_not_empty(msg) then
@@ -65,7 +87,9 @@ module BleumiPay
             if is_not_empty(input) then
                 msg = nil
                 if is_algo_network(chain) then
-                    msg =  check_alg_addr(name, input)
+                    msg =  check_alg_addr(name, input, is_token)
+                elsif is_rsk_network(chain) then
+                    msg =  check_rsk_addr(name, input)
                 else
                     msg =  check_eth_addr(name, input)
                 end    
@@ -83,19 +107,19 @@ module BleumiPay
                 return msg 
             end
             # check if buyer_address is valid address in the network  
-            msg = check_network_addr("BuyerAddress", params.buyer_address, chain, mandatory=true)
+            msg = check_network_addr("BuyerAddress", params.buyer_address, chain, mandatory=true, is_token=false)
             if is_not_empty(msg) then
                 return msg 
             end
             # check if transfer_address is valid address in the network  
-            msg = check_network_addr("TransferAddress", params.transfer_address, chain, mandatory=true)
+            msg = check_network_addr("TransferAddress", params.transfer_address, chain, mandatory=true, is_token=false)
             if is_not_empty(msg) then
                 return msg 
             end
 
             # check if token is valid address in the network (if provided) 
             if is_not_empty(params.token) then
-                msg = check_network_addr("Token", params.token, chain, mandatory=false)
+                msg = check_network_addr("Token", params.token, chain, mandatory=false, is_token=true)
                 if is_not_empty(msg) then
                     return msg 
                 end
@@ -110,7 +134,7 @@ module BleumiPay
                 return msg 
             end
             # check if token is valid address in the network 
-            msg = check_network_addr("Token", params.token, chain, mandatory=true)
+            msg = check_network_addr("Token", params.token, chain, mandatory=true, is_token=true)
             if is_not_empty(msg) then
                 return msg 
             end
@@ -124,7 +148,7 @@ module BleumiPay
                 return msg 
             end
             # check if token is valid address in the network 
-            msg = check_network_addr("Token", params.token, chain, mandatory=true)
+            msg = check_network_addr("Token", params.token, chain, mandatory=true, is_token=true)
             if is_not_empty(msg) then
                 return msg 
             end
@@ -177,14 +201,14 @@ module BleumiPay
                 end
 
                 # check if token is valid address in the network (if provided) 
-                msg = check_network_addr("Token", params.token, params.chain, mandatory=false)
+                msg = check_network_addr("Token", params.token, params.chain, mandatory=false, is_token=true)
                 if is_not_empty(msg) then
                     return msg 
                 end
 
                 # check if buyer_address is valid address in the network (if provided) 
                 if is_not_empty(params.buyer_address) then
-                    msg = check_network_addr("BuyerAddress", params.buyer_address, params.chain, mandatory=false)
+                    msg = check_network_addr("BuyerAddress", params.buyer_address, params.chain, mandatory=false, is_token=false)
                     if is_not_empty(msg) then
                         return msg 
                     end
@@ -227,7 +251,7 @@ module BleumiPay
                 return msg 
             end
             # check if token is valid address in the network 
-            msg = check_network_addr("Token", params.token, chain, mandatory=true)
+            msg = check_network_addr("Token", params.token, chain, mandatory=true, is_token=true)
             if is_not_empty(msg) then
                 return msg 
             end
@@ -239,7 +263,7 @@ module BleumiPay
 
             for payout in payouts
                 # check if payout.transfer_address is valid address in the network  
-                msg = check_network_addr("TransferAddress", payout.transfer_address, chain, mandatory=true)
+                msg = check_network_addr("TransferAddress", payout.transfer_address, chain, mandatory=true, is_token=false)
                 if is_not_empty(msg) then
                     return msg 
                 end

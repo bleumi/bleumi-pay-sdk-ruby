@@ -19,11 +19,14 @@ module BleumiPay
 
     attr_accessor :algorand
 
+    attr_accessor :rsk
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'ethereum' => :'ethereum',
-        :'algorand' => :'algorand'
+        :'algorand' => :'algorand',
+        :'rsk' => :'rsk'
       }
     end
 
@@ -31,7 +34,8 @@ module BleumiPay
     def self.openapi_types
       {
         :'ethereum' => :'EthereumBalance',
-        :'algorand' => :'AlgorandBalance'
+        :'algorand' => :'AlgorandBalance',
+        :'rsk' => :'RskBalance'
       }
     end
 
@@ -63,6 +67,10 @@ module BleumiPay
       if attributes.key?(:'algorand')
         self.algorand = attributes[:'algorand']
       end
+
+      if attributes.key?(:'rsk')
+        self.rsk = attributes[:'rsk']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -84,7 +92,8 @@ module BleumiPay
       return true if self.equal?(o)
       self.class == o.class &&
           ethereum == o.ethereum &&
-          algorand == o.algorand
+          algorand == o.algorand &&
+          rsk == o.rsk
     end
 
     # @see the `==` method
@@ -96,7 +105,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [ethereum, algorand].hash
+      [ethereum, algorand, rsk].hash
     end
 
     # Builds the object from hash

@@ -26,13 +26,17 @@ module BleumiPay
     # Block in which the balance was last updated
     attr_accessor :block_num
 
+    # Safety level indicator
+    attr_accessor :safety
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'balance' => :'balance',
         :'token_balance' => :'token_balance',
         :'token_decimals' => :'token_decimals',
-        :'block_num' => :'blockNum'
+        :'block_num' => :'blockNum',
+        :'safety' => :'safety'
       }
     end
 
@@ -42,7 +46,8 @@ module BleumiPay
         :'balance' => :'String',
         :'token_balance' => :'String',
         :'token_decimals' => :'Integer',
-        :'block_num' => :'String'
+        :'block_num' => :'String',
+        :'safety' => :'String'
       }
     end
 
@@ -82,6 +87,10 @@ module BleumiPay
       if attributes.key?(:'block_num')
         self.block_num = attributes[:'block_num']
       end
+
+      if attributes.key?(:'safety')
+        self.safety = attributes[:'safety']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -104,6 +113,10 @@ module BleumiPay
         invalid_properties.push('invalid value for "block_num", block_num cannot be nil.')
       end
 
+      if @safety.nil?
+        invalid_properties.push('invalid value for "safety", safety cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -114,6 +127,7 @@ module BleumiPay
       return false if @token_balance.nil?
       return false if @token_decimals.nil?
       return false if @block_num.nil?
+      return false if @safety.nil?
       true
     end
 
@@ -125,7 +139,8 @@ module BleumiPay
           balance == o.balance &&
           token_balance == o.token_balance &&
           token_decimals == o.token_decimals &&
-          block_num == o.block_num
+          block_num == o.block_num &&
+          safety == o.safety
     end
 
     # @see the `==` method
@@ -137,7 +152,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [balance, token_balance, token_decimals, block_num].hash
+      [balance, token_balance, token_decimals, block_num, safety].hash
     end
 
     # Builds the object from hash

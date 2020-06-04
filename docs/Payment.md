@@ -46,6 +46,7 @@ Name | Type | Description | Notes
           "balance": "0",
           "token_decimals": 6,
           "blockNum": "2314477",
+          "safety": "high",
           "token_balance": "0"
         }
       },
@@ -54,6 +55,7 @@ Name | Type | Description | Notes
           "token_decimals": 15,
           "blockNum": "2314454",
           "token_balance": "5000000000000000",
+          "safety": "high",
           "balance": "5"
         }
       }

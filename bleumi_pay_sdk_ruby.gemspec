@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.email       = ["info@bleumi.com"]
   s.homepage    = "https://pay.bleumi.com/"
   s.summary     = "Bleumi Pay API Ruby Gem"
-  s.description = "The Bleumi Pay SDK is a one-stop shop to help you integrate Algorand, Ethereum, ERC-20 and xDai payments and/or payouts into your business."
+  s.description = "The Bleumi Pay SDK helps you integrate Algo, Algorand Standard Asset, Ethereum, ERC-20, RSK, RSK ERC-20 & xDai payments and payouts into your business or application. The SDK bundles 'Bleumi Pay API' into one SDK to ease implementation and support."
   s.license     = "MIT"
   s.required_ruby_version = ">= 1.9"
 

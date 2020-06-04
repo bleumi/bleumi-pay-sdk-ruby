@@ -1,12 +1,12 @@
-<img src="https://pay.bleumi.com/wp-content/uploads/2019/04/logo_dark_bleumi_invoice_6797x1122.png" height="30">
+<img src="./assets/images/BleumiPay.png" height="30">
 
 # Bleumi Pay SDK for Ruby
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/bleumi/bleumi-pay-sdk-ruby/master/LICENSE)
 
-The Bleumi Pay SDK is a one-stop shop to help you integrate Algorand, Ethereum, ERC-20 and xDai payments and/or payouts into your business or application. The SDK bundles [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction) into one SDK to ease implementation and support.
+The Bleumi Pay SDK helps you integrate Algo, Algorand Standard Asset, Ethereum, ERC-20, RSK, RSK ERC-20 & xDai payments and payouts into your business or application. The SDK bundles [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction) into one SDK to ease implementation and support.
 
-bleumi-pay-sdk-ruby is a Ruby library that provides an interface between your Ruby application and [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction). This tutorial covers the basics, including examples, needed to use the SDK.
+**bleumi-pay-sdk-ruby** is a Ruby library that provides an interface between your Ruby application and [Bleumi Pay API](https://pay.bleumi.com/docs/#introduction). This tutorial covers the basics, including examples, needed to use the SDK.
 
 ## Getting Started
 
@@ -38,7 +38,7 @@ Add the following in the Gemfile:
 
 ### Run Sample Code
 
-The following code generates a payment request to accept payment from the buyer:
+The following code generates an unique checkout URL to accept payment from the buyer:
 
 
 ```ruby
@@ -50,23 +50,25 @@ BleumiPay.configure do |config|
   config.api_key['x-api-key'] = '<YOUR_API_KEY>'
 end
 
-api_instance = BleumiPay::PayoutsApi.new
-create_payment_request = BleumiPay::CreatePaymentRequest.new # CreatePaymentRequest | 
-opts = {
-  chain: BleumiPay::Chain::GOERLI # Chain | Network in which payment is to be created. Please refer documentation for Supported Networks
-}
+api_instance = BleumiPay::HostedCheckoutsApi.new
+create_checkout_url_request = BleumiPay::CreateCheckoutUrlRequest.new # CreateCheckoutUrlRequest | Specify checkout URL creation parameters.
 
 begin
-  
-  create_payment_request.id = '<ID>'
-  create_payment_request.buyer_address = '<BUYER_ADDR>' # Replace <BUYER_ADDR> with the Buyer's Network Address
-  create_payment_request.transfer_address = '<MERCHANT_ADDR>' # Replace <MERCHANT_ADDR> with the Merchant's Network Address
 
-  #Create a payout.
-  result = api_instance.create_payment(create_payment_request, opts)
+  create_checkout_url_request = BleumiPay::CreateCheckoutUrlRequest.new # CreatePayoutRequest | Specify payout creation parameters.
+  create_checkout_url_request.id = '<ID>' # Eg. 1
+  create_checkout_url_request.currency = "<CURRENCY>" # Eg. USD
+  create_checkout_url_request.amount = "<AMOUNT>" # Eg. 10
+  create_checkout_url_request.success_url = "<SUCCESS_URL>" # Eg. https://demo.store/api/completeOrder
+  create_checkout_url_request.cancel_url = "<CANCEL_URL>" # Eg. https://demo.store/api/cancelOrder
+  create_checkout_url_request.token = '<TOKEN>' # Replace <TOKEN>  by anyone of the following values: 'ETH' or 'XDAI' or 'XDAIT' or ECR-20 Contract Address or 'RBTC' or RSK ECR-20 Contract Address or 'Asset ID' of Algorand Standard Asset. | Optional
+  create_checkout_url_request.chain = BleumiPay::Chain::GOERLI # Replace with any Chain as required
+
+  #Generate a unique checkout URL to accept payment.
+  result = api_instance.create_checkout_url(create_checkout_url_request)
   p result
 rescue BleumiPay::ApiError => e
-  puts "Exception when calling PayoutsApi->create_payment: #{e}"
+  puts "Exception when calling HostedCheckoutsApi->create_checkout_url: #{e}"
 end
 ```
 
@@ -76,16 +78,15 @@ More examples can be found under each method in [SDK Classes](#sdk-classes) sect
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-BleumiPay::PaymentsApi | [**create_payment**](docs/PaymentsApi.md#create_payment) | **POST** /v1/payment | Generate a unique wallet address in the specified network to accept payment
+BleumiPay::HostedCheckoutsApi | [**create_checkout_url**](docs/HostedCheckoutsApi.md#create_checkout_url) | **POST** /v1/payment/hc | Generate a unique checkout URL to accept payment.
+BleumiPay::HostedCheckoutsApi | [**list_tokens**](docs/HostedCheckoutsApi.md#list_tokens) | **GET** /v1/payment/hc/tokens | Retrieve all tokens configured for the Hosted Checkout in your account in the [Bleumi Pay Dashboard](https://pay.bleumi.com/app/).
+BleumiPay::HostedCheckoutsApi | [**validate_checkout_payment**](docs/HostedCheckoutsApi.md#validate_checkout_payment) | **POST** /v1/payment/hc/validate | Validate the GET parameters passed by Hosted Checkout in successUrl upon successfully completing payment.
 BleumiPay::PaymentsApi | [**get_payment**](docs/PaymentsApi.md#get_payment) | **GET** /v1/payment/{id} | Retrieve the wallet addresses & token balances for a given payment
 BleumiPay::PaymentsApi | [**list_payments**](docs/PaymentsApi.md#list_payments) | **GET** /v1/payment | Retrieve all payments created.
 BleumiPay::PaymentsApi | [**settle_payment**](docs/PaymentsApi.md#settle_payment) | **POST** /v1/payment/{id}/settle | Settle a specific amount of a token for a given payment to the transferAddress and remaining balance (if any) will be refunded to the buyerAddress
 BleumiPay::PaymentsApi | [**refund_payment**](docs/PaymentsApi.md#refund_payment) | **POST** /v1/payment/{id}/refund | Refund the balance of a token for a given payment to the buyerAddress
 BleumiPay::PaymentsApi | [**get_payment_operation**](docs/PaymentsApi.md#get_payment_operation) | **GET** /v1/payment/{id}/operation/{txid} | Retrieve a payment operation for a specific payment.
 BleumiPay::PaymentsApi | [**list_payment_operations**](docs/PaymentsApi.md#list_payment_operations) | **GET** /v1/payment/{id}/operation | Retrieve all payment operations for a specific payment.
-BleumiPay::HostedCheckoutsApi | [**create_checkout_url**](docs/HostedCheckoutsApi.md#create_checkout_url) | **POST** /v1/payment/hc | Generate a unique checkout URL to accept payment.
-BleumiPay::HostedCheckoutsApi | [**list_tokens**](docs/HostedCheckoutsApi.md#list_tokens) | **GET** /v1/payment/hc/tokens | Retrieve all tokens configured for the Hosted Checkout in your account in the [Bleumi Pay Dashboard](https://pay.bleumi.com/app/).
-BleumiPay::HostedCheckoutsApi | [**validate_checkout_payment**](docs/HostedCheckoutsApi.md#validate_checkout_payment) | **POST** /v1/payment/hc/validate | Validate the GET parameters passed by Hosted Checkout in successUrl upon successfully completing payment.
 BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | **POST** /v1/payout | Create a payout.
 *BleumiPay::PayoutsApi* | [**list_payouts**](docs/PayoutsApi.md#list_payouts) | **GET** /v1/payout | Returns a list of payouts
 
@@ -100,8 +101,6 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
  - [BleumiPay::CheckoutToken](docs/CheckoutToken.md)
  - [BleumiPay::CreateCheckoutUrlRequest](docs/CreateCheckoutUrlRequest.md)
  - [BleumiPay::CreateCheckoutUrlResponse](docs/CreateCheckoutUrlResponse.md)
- - [BleumiPay::CreatePaymentRequest](docs/CreatePaymentRequest.md)
- - [BleumiPay::CreatePaymentResponse](docs/CreatePaymentResponse.md)
  - [BleumiPay::CreatePayoutRequest](docs/CreatePayoutRequest.md)
  - [BleumiPay::CreatePayoutResponse](docs/CreatePayoutResponse.md)
  - [BleumiPay::EthereumBalance](docs/EthereumBalance.md)
@@ -121,6 +120,7 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
  - [BleumiPay::Payout](docs/Payout.md)
  - [BleumiPay::PayoutItem](docs/PayoutItem.md)
  - [BleumiPay::PayoutItemInputs](docs/PayoutItemInputs.md)
+ - [BleumiPay::RskBalance](docs/RskBalance.md)
  - [BleumiPay::ValidateCheckoutRequest](docs/ValidateCheckoutRequest.md)
  - [BleumiPay::ValidateCheckoutResponse](docs/ValidateCheckoutResponse.md)
  - [BleumiPay::WalletBalance](docs/WalletBalance.md)

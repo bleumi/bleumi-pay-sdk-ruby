@@ -23,16 +23,14 @@ create_checkout_url_request = BleumiPay::CreateCheckoutUrlRequest.new # CreateCh
 
 begin
 
-create_checkout_url_request = BleumiPay::CreateCheckoutUrlRequest.new # CreatePayoutRequest | Specify payout creation parameters.
-create_checkout_url_request.id = '<ID>' # Eg. 1
-create_checkout_url_request.currency = "<CURRENCY>" # Eg. USD
-create_checkout_url_request.amount = "<AMOUNT>" # Eg. 10
-create_checkout_url_request.success_url = "<SUCCESS_URL>" # Eg. https://demo.store/api/completeOrder
-create_checkout_url_request.cancel_url = "<CANCEL_URL>" # Eg. https://demo.store/api/cancelOrder
-create_checkout_url_request.token = '<TOKEN>' # Replace <TOKEN> with ETH or XDAI or ERC-20 Token Contract Address or XDAIT
-create_checkout_url_request.chain = BleumiPay::Chain::GOERLI #
-create_checkout_url_request.buyer_address = '<BUYER_ADDR>' # Replace <BUYER_ADDR> with the buyer's Ethereum Address
-
+  create_checkout_url_request = BleumiPay::CreateCheckoutUrlRequest.new # CreatePayoutRequest | Specify payout creation parameters.
+  create_checkout_url_request.id = '<ID>' # Eg. 1
+  create_checkout_url_request.currency = "<CURRENCY>" # Eg. USD
+  create_checkout_url_request.amount = "<AMOUNT>" # Eg. 10
+  create_checkout_url_request.success_url = "<SUCCESS_URL>" # Eg. https://demo.store/api/completeOrder
+  create_checkout_url_request.cancel_url = "<CANCEL_URL>" # Eg. https://demo.store/api/cancelOrder
+  create_checkout_url_request.token = '<TOKEN>' # Replace <TOKEN>  by anyone of the following values: 'ETH' or 'XDAI' or 'XDAIT' or ECR-20 Contract Address or 'RBTC' or RSK ECR-20 Contract Address or 'Asset ID' of Algorand Standard Asset. | Optional
+  create_checkout_url_request.chain = BleumiPay::Chain::GOERLI # Replace with any Chain as required
 
   #Generate a unique checkout URL to accept payment.
   result = api_instance.create_checkout_url(create_checkout_url_request)
@@ -69,16 +67,13 @@ The hmac_input GET parameter passed to successUrl contains payment parameters as
             <i>XDAI</i> - for xDai<br> 
             <i>XDAIT</i> - for xDai Testnet<br> 
             <i>ALGO</i> - for Algo <br> 
+            <i>RBTC</i> - for R-BTC <br> 
             <i>&lt;asset id&gt;</i> - for Algorand Standard Asset <br> 
-            <i>&lt;contract address of ERC-20 token&gt;</i> - for ERC-20; Please refer to <a href="https://pay.bleumi.com/docs/#erc-20" target="_blank">ERC-20 Tokens</a> for contract address; </li>
+            <i>&lt;contract address of ERC-20 token&gt;</i> - for ERC-20; Please refer to <a href="https://pay.bleumi.com/docs/#erc-20" target="_blank">ERC-20 Tokens</a> for contract address;<br> 
+            <i>&lt;contract address of RSK ERC-20 token&gt;</i> - for RSK ERC-20; Please refer to <a href="https://pay.bugnet.work/docs/#rsk-tokens-erc-20" target="_blank">RSK ERC-20 Tokens</a> for contract address;<br> 
+        </li>
         <li><b>Amount</b> - Token amount for the payment</li>
         <li><b>Number of block confirmations</b><br> 
-            <i>12</i> - for ETH<br> 
-            <i>0</i> - for XDAI<br> 
-            <i>0</i> - for XDAIT<br> 
-            <i>0</i> - for ALGO<br> 
-            <i>0</i> - for Algorand Standard Asset<br> 
-            <i>12</i> - for ERC-20<br>
         </li>
     </li>
 </ul>

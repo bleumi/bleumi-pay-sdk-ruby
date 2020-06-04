@@ -5,17 +5,21 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **balance** | **String** | Token balance for the wallet | 
-**token_balance** | **String** | Token balance for the wallet in Network format | 
+**token_balance** | **String** | Token balance for the wallet in Ethereum format | 
 **token_decimals** | **Integer** | Token decimal places | 
 **block_num** | **String** | Block in which the balance was last updated | 
+**safety** | **String** | Safety level indicator | 
 
-## Example
+## Code Sample
 
-```json
-{
-    "balance": "1",
-    "token_decimals": 15,
-    "blockNum": "1698324",
-    "token_balance": "1000000000000000"
-}
+```ruby
+require 'BleumiPay'
+
+instance = BleumiPay::WalletBalance.new(balance: null,
+                                 token_balance: null,
+                                 token_decimals: null,
+                                 block_num: null,
+                                 safety: null)
 ```
+
+

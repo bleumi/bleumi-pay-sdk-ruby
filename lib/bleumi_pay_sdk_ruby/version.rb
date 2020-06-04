@@ -11,5 +11,5 @@ OpenAPI Generator version: 4.2.2
 =end
 
 module BleumiPay
-  VERSION = '1.0.6'
+  VERSION = '1.0.7'
 end

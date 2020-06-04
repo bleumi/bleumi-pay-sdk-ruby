@@ -35,12 +35,14 @@ Name | Type | Description | Notes
               "blockNum": "5388041",
               "token_balance": "10000000",
               "balance": "10",
+              "safety": "high",
               "token_decimals": 6
             },
             "ALGO": {
               "blockNum": "5388035",
               "token_balance": "209000",
               "balance": "0.209",
+              "safety": "high",
               "token_decimals": 6
             }
           }
@@ -72,12 +74,14 @@ Name | Type | Description | Notes
               "balance": "4",
               "token_decimals": 18,
               "blockNum": "2313213",
+              "safety": "high",
               "token_balance": "4000000000000000000"
             },
             "0x115615dbd0f835344725146fa6343219315f15e5": {
               "balance": "9",
               "token_decimals": 6,
               "blockNum": "2313213",
+              "safety": "high",
               "token_balance": "9000000"
             }
           }
