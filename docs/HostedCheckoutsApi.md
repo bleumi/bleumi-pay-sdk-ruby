@@ -73,7 +73,8 @@ The hmac_input GET parameter passed to successUrl contains payment parameters as
             <i>&lt;contract address of RSK ERC-20 token&gt;</i> - for RSK ERC-20; Please refer to <a href="https://pay.bugnet.work/docs/#rsk-tokens-erc-20" target="_blank">RSK ERC-20 Tokens</a> for contract address;<br> 
         </li>
         <li><b>Amount</b> - Token amount for the payment</li>
-        <li><b>Number of block confirmations</b><br> 
+        <li><b>Number of block confirmations</b><br>
+        <li><b>Transaction Hash</b><br> 
         </li>
     </li>
 </ul>
@@ -162,9 +163,9 @@ api_instance = BleumiPay::HostedCheckoutsApi.new
 begin
   validate_checkout_request = BleumiPay::ValidateCheckoutRequest.new # ValidateCheckoutRequest | Specify validation of checkout parameters.
   validate_checkout_request.hmac_alg = '<ALD>' # Eg. HMAC-SHA256-HEX
-  validate_checkout_request.hmac_input = '<INPUT>' # Eg. goerli|0xbeaea438bc2e19d097906b597219c288e8eb7b2e|0x115615dbd0f835344725146fa6343219315f15e5|10|12
+  validate_checkout_request.hmac_input = '<INPUT>' # Eg. rsk_testnet|0xbed61c55cc290b55c1c4c327148bdede56a831f4|0xb9f624160bb2755aa25366cc307ed27e39a4f296|10|0|0x16e54beb3ea4b4206b62ca32b1d2cf4ad15d9af2234564c2166ff3ccc817d5c1
   validate_checkout_request.hmac_key_id = '<VER>' # Eg. v1
-  validate_checkout_request.hmac_value = '<HMAC_VALUE>' # Eg. bdf82eb42efac09150d62ac1bcadd2fd0f64852ded2b571567c905217adf246a
+  validate_checkout_request.hmac_value = '<HMAC_VALUE>' # Eg. c782cbad4394383599b7cf9f9d62990f289649b35edd82cd1c7d58dd65e9fc03
   #Validate the GET parameters passed by Hosted Checkout in successUrl upon successfully completing payment.
   result = api_instance.validate_checkout_payment(validate_checkout_request)
   p result

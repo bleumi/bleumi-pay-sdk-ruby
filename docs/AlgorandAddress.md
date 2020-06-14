@@ -1,33 +1,17 @@
-# BleumiPay::PaymentAddresses
+# BleumiPay::AlgorandAddress
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ethereum** <br> (Optional)| [**EthereumAddress**](EthereumAddress.md) | A dictionary which gives the wallet addresses in Ethereum Network|
-**algorand** <br> (Optional)| [**AlgorandAddress**](AlgorandAddress.md) | A dictionary which gives the wallet addresses in Algorand Network|
-**rsk** <br> (Optional)| [**RskAddress**](RskAddress.md) | A dictionary which gives the wallet addresses in Rsk Network|
+**alg_mainnet** <br> (Optional)| [**Hash&lt;String, AlgorandWalletAddress&gt;**](AlgorandWalletAddress.md) | A dictionary which gives the address of the wallet generated for Algorand MainNet |
+**alg_testnet** <br> (Optional)| [**Hash&lt;String, AlgorandWalletAddress&gt;**](AlgorandWalletAddress.md) | A dictionary which gives the address of the wallet generated for Algorand TestNet |
 
 ## Example
 
 ```json
 {
-    "ethereum": {
-      "xdai_testnet": {
-        "0x13e4acefe6a6700604929946e70e6443e4e73447|0x13e4acefe6a6700604929946e70e6443e4e73447":{
-          "addr": "0xbe1fa332f24ba568108ba55a25eccf93d882f54e",
-          "inputs": {
-            "buyer": "0x13e4acefe6a6700604929946e70e6443e4e73447",
-            "walletLibrary": "0xb33893fdf59b634653fcbed27b5d38d86710fc40",
-            "merchant": "0x13e4acefe6a6700604929946e70e6443e4e73447",
-            "salt": "0x4d5afc486391108fd9af8e33cec2caa8038899c7974fae22a3c3bb0d127ab8a7",
-            "walletProxy": "0xfaac6b338f79cfd8a53dfec95263f12ef046a049"
-          }
-        }
-      }
-    },
-    "algorand": {
-      "alg_testnet": {
+    "alg_testnet": {
         "IZYYKSQO3GRZQ4SMAUVV5SVK6N7WUIDBZJCVZEVCHJ2XO22ARMQ3IEEGAQ|QTYQRYMFCS5FT63RUZXBR3MKEEQLHKMHMGMYS4UAPM5CKK27KELGP62QUY": {
           "addr": "BE2CX2DSRWNNQH6YEAEIDCXKESHJMJTL7BA7U74RUXBEOPLYV4JQA26XXI",
           "inputs": {

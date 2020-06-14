@@ -93,6 +93,7 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
 
 ## Documentation for Models
 
+ - [BleumiPay::AlgorandAddress](docs/AlgorandAddress.md)
  - [BleumiPay::AlgorandBalance](docs/AlgorandBalance.md)
  - [BleumiPay::AlgorandWalletAddress](docs/AlgorandWalletAddress.md)
  - [BleumiPay::AlgorandWalletInputs](docs/AlgorandWalletInputs.md)
@@ -103,6 +104,7 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
  - [BleumiPay::CreateCheckoutUrlResponse](docs/CreateCheckoutUrlResponse.md)
  - [BleumiPay::CreatePayoutRequest](docs/CreatePayoutRequest.md)
  - [BleumiPay::CreatePayoutResponse](docs/CreatePayoutResponse.md)
+ - [BleumiPay::EthereumAddress](docs/EthereumAddress.md)
  - [BleumiPay::EthereumBalance](docs/EthereumBalance.md)
  - [BleumiPay::EthereumWalletAddress](docs/EthereumWalletAddress.md)
  - [BleumiPay::EthereumWalletInputs](docs/EthereumWalletInputs.md) 
@@ -120,6 +122,7 @@ BleumiPay::PayoutsApi | [**create_payout**](docs/PayoutsApi.md#create_payout) | 
  - [BleumiPay::Payout](docs/Payout.md)
  - [BleumiPay::PayoutItem](docs/PayoutItem.md)
  - [BleumiPay::PayoutItemInputs](docs/PayoutItemInputs.md)
+ - [BleumiPay::RskAddress](docs/RskAddress.md)
  - [BleumiPay::RskBalance](docs/RskBalance.md)
  - [BleumiPay::ValidateCheckoutRequest](docs/ValidateCheckoutRequest.md)
  - [BleumiPay::ValidateCheckoutResponse](docs/ValidateCheckoutResponse.md)

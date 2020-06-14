@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay REST API
+#Bleumi Pay API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -13,36 +13,24 @@ OpenAPI Generator version: 4.2.2
 require 'date'
 
 module BleumiPay
-  class CreatePaymentRequest
-    # Unique ID identifying the payment
-    attr_accessor :id
+  class RskAddress
+    attr_accessor :rsk
 
-    # (Only for Algorand Standard Asset) Asset id which will be used for payment.
-    attr_accessor :token
-
-    # Address of buyer. Refund operations on this payment will use this address. You can set this to your address to manually handle refunds (outside of Bleumi Pay) to your buyer. This address must be able to receive payments from smart contracts.
-    attr_accessor :buyer_address
-
-    # Your deposit address. Settle operations on this payment will use this address. This address must be able to receive payments from smart contracts.
-    attr_accessor :transfer_address
+    attr_accessor :rsk_testnet
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'id' => :'id',
-        :'token' => :'token',
-        :'buyer_address' => :'buyerAddress',
-        :'transfer_address' => :'transferAddress'
+        :'rsk' => :'rsk',
+        :'rsk_testnet' => :'rsk_testnet'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'id' => :'String',
-        :'token' => :'String',
-        :'buyer_address' => :'String',
-        :'transfer_address' => :'String'
+        :'rsk' => :'Hash<String, EthereumWalletAddress>',
+        :'rsk_testnet' => :'Hash<String, EthereumWalletAddress>'
       }
     end
 
@@ -56,31 +44,27 @@ module BleumiPay
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `BleumiPay::CreatePaymentRequest` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `BleumiPay::RskAddress` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `BleumiPay::CreatePaymentRequest`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `BleumiPay::RskAddress`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'id')
-        self.id = attributes[:'id']
+      if attributes.key?(:'rsk')
+        if (value = attributes[:'rsk']).is_a?(Hash)
+          self.rsk = value
+        end
       end
 
-      if attributes.key?(:'token')
-        self.token = attributes[:'token']
-      end
-
-      if attributes.key?(:'buyer_address')
-        self.buyer_address = attributes[:'buyer_address']
-      end
-
-      if attributes.key?(:'transfer_address')
-        self.transfer_address = attributes[:'transfer_address']
+      if attributes.key?(:'rsk_testnet')
+        if (value = attributes[:'rsk_testnet']).is_a?(Hash)
+          self.rsk_testnet = value
+        end
       end
     end
 
@@ -88,27 +72,12 @@ module BleumiPay
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @buyer_address.nil?
-        invalid_properties.push('invalid value for "buyer_address", buyer_address cannot be nil.')
-      end
-
-      if @transfer_address.nil?
-        invalid_properties.push('invalid value for "transfer_address", transfer_address cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @id.nil?
-      return false if @buyer_address.nil?
-      return false if @transfer_address.nil?
       true
     end
 
@@ -117,10 +86,8 @@ module BleumiPay
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          id == o.id &&
-          token == o.token &&
-          buyer_address == o.buyer_address &&
-          transfer_address == o.transfer_address
+          rsk == o.rsk &&
+          rsk_testnet == o.rsk_testnet
     end
 
     # @see the `==` method
@@ -132,7 +99,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, token, buyer_address, transfer_address].hash
+      [rsk, rsk_testnet].hash
     end
 
     # Builds the object from hash

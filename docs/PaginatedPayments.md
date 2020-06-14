@@ -12,58 +12,21 @@ Name | Type | Description | Notes
 ```json
 {
   "results": [
- {
-      "id": "1412",
-      "addresses": {
-        "algorand": {
-          "alg_testnet": {
-            "inputs": {
-              "merchant": "CQRMTAHZJA3SIEOTEMZXCAIZKUWE2CCLBCFYQI4NINU43IOTEWT4LOT4IY",
-              "salt": "b1929e6dd3956e0a3abeedb2bd53adc6sHQp0Ksuc4Zyf3Elzdgogqah2hA80y/61+rgF3vRE3YWu/JFPJfM8w==",
-              "gas": "ZGXGUNO47C2E7EUO2B3UAY6DETVBI5E2RFDKT4KC3VTWNENE7IVF2F43WY",
-              "programBytes": "ASYGIBQiyYD5SDckEdMjM3EBGVUsTQhLCIuII41Dac2h0yWnIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIMmuajXc+LRPko7Qd0BjwyTqFHSaiUap8ULdZ2aRpPoqA3BheQVheGZlciASpk2P8CvJS+NGPcbU9eXjbT2KyTUtTvztmxRR3ShmODEHKBIxBygSETEJKRIxCSgSMQkoEhExCSoSEREQMQ8rEhAxFCgSMRQoEhExFSkSMRUoEjEVKBIRERAxDycEEhARMQUBJwUSEDEUMQASEQ==",
-              "buyer": "CQRMTAHZJA3SIEOTEMZXCAIZKUWE2CCLBCFYQI4NINU43IOTEWT4LOT4IY"
-            },
-            "addr": "BE4XD5QRRXOSAMWJRFHUVZ6DHIP2GQ6YHOHNEP3V3OPEM7SQ4PZMT6WTD4"
-          }
-        }
-      },
-      "balances": {
-        "algorand": {
-          "alg_testnet": {
-            "127647": {
-              "blockNum": "5388041",
-              "token_balance": "10000000",
-              "balance": "10",
-              "safety": "high",
-              "token_decimals": 6
-            },
-            "ALGO": {
-              "blockNum": "5388035",
-              "token_balance": "209000",
-              "balance": "0.209",
-              "safety": "high",
-              "token_decimals": 6
-            }
-          }
-        }
-      },
-      "createdAt": 1583731367,
-      "updatedAt": 1583731695
-    },
     {
-      "id": "1411",
+      "id": "2",
       "addresses": {
         "ethereum": {
           "goerli": {
-            "inputs": {
-              "walletLibrary": "0xb33893fdf59b634653fcbed27b5d38d86710fc40",
-              "merchant": "0x5db2d6542d55b2aec1f10d0c0df3b0169bf41e41",
-              "salt": "0xc866b93db0433948f8a47ecb98aac4690999112f8da7ee31a2106cfdd789c2d0",
-              "walletProxy": "0xfaac6b338f79cfd8a53dfec95263f12ef046a049",
-              "buyer": "0x5db2d6542d55b2aec1f10d0c0df3b0169bf41e41"
-            },
-            "addr": "0xbe22e5c3347b25d16918a841fada2bd76a70d9ac"
+            "0x13e4acefe6a6700604929946e70e6443e4e73447|0x13e4acefe6a6700604929946e70e6443e4e73447": {
+              "addr": "0xbe02daaf993b29302c2e983b63eca1465c227245",
+              "inputs": {
+                "buyer": "0x13e4acefe6a6700604929946e70e6443e4e73447",
+                "walletLibrary": "0xb33893fdf59b634653fcbed27b5d38d86710fc40",
+                "merchant": "0x13e4acefe6a6700604929946e70e6443e4e73447",
+                "salt": "0x4d5afc486391108fd9af8e33cec2caa8038899c7974fae22a3c3bb0d127ab8a7",
+                "walletProxy": "0xfaac6b338f79cfd8a53dfec95263f12ef046a049"
+              }
+            }
           }
         }
       },
@@ -71,24 +34,65 @@ Name | Type | Description | Notes
         "ethereum": {
           "goerli": {
             "0x84df8548086ec9025e9c93297058bed706e90ddd": {
-              "balance": "4",
+              "blockNum": "6831652",
+              "token_balance": "0",
+              "balance": "0",
               "token_decimals": 18,
-              "blockNum": "2313213",
-              "safety": "high",
-              "token_balance": "4000000000000000000"
-            },
-            "0x115615dbd0f835344725146fa6343219315f15e5": {
-              "balance": "9",
-              "token_decimals": 6,
-              "blockNum": "2313213",
-              "safety": "high",
-              "token_balance": "9000000"
+              "safety": "high"
             }
           }
         }
       },
-      "createdAt": 1583730573,
-      "updatedAt": 1583730823
+      "createdAt": 1574493797,
+      "updatedAt": 1574502335
+    },
+    {
+      "id": "1",
+      "addresses": {
+        "ethereum": {
+          "xdai_testnet": {
+            "0x13e4acefe6a6700604929946e70e6443e4e73447|0x13e4acefe6a6700604929946e70e6443e4e73447": {
+              "addr": "0xbe1fa332f24ba568108ba55a25eccf93d882f54e",
+              "inputs": {
+                "buyer": "0x13e4acefe6a6700604929946e70e6443e4e73447",
+                "walletLibrary": "0xb33893fdf59b634653fcbed27b5d38d86710fc40",
+                "merchant": "0x13e4acefe6a6700604929946e70e6443e4e73447",
+                "salt": "0x4d5afc486391108fd9af8e33cec2caa8038899c7974fae22a3c3bb0d127ab8a7",
+                "walletProxy": "0xfaac6b338f79cfd8a53dfec95263f12ef046a049"
+              }
+            }
+          }
+        },
+        "algorand": {
+          "alg_testnet": {
+            "IZYYKSQO3GRZQ4SMAUVV5SVK6N7WUIDBZJCVZEVCHJ2XO22ARMQ3IEEGAQ|QTYQRYMFCS5FT63RUZXBR3MKEEQLHKMHMGMYS4UAPM5CKK27KELGP62QUY": {
+              "addr": "BE2CX2DSRWNNQH6YEAEIDCXKESHJMJTL7BA7U74RUXBEOPLYV4JQA26XXI",
+              "inputs": {
+                "merchant": "IZYYKSQO3GRZQ4SMAUVV5SVK6N7WUIDBZJCVZEVCHJ2XO22ARMQ3IEEGAQ",
+                "salt": "b73cb93c774b6c5fa4fcf2e02acff50fK9gTTRyoF64g1YANSZcydHjzXbRyfCPQNxpDIBegczRdb6Oosfr18g==",
+                "gas": "ARHKCC34GGEDB7ZZE73QMAUKWNXAK3SZWDRECYRVN6AXTPQ7JTFSRDEYCI",
+                "programBytes": "ASYHIEZxhUoO2aOYckwFK17KqvN/aiBhykVckqI6dXdrQIshIITxCOGFFLpZ+3GmbhjtiiEgs6mHYZmJcoB7OiUrX1EWIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAROoQt8MYgw/zkn9wYCirNuBW5ZsOJBYjVvgXm+H0zLA3BheQVheGZlciDb1gr1RfLUa+ziM7438kcaEMopE3DXemdxEpiWWKhvkzEHKBIxBykSETEJKhIxCSgSMQkpEhExCSsSEREQMQ8nBBIQMRQoEjEUKRIRMRUqEjEVKBIxFSkSEREQMQ8nBRIQETEFAScGEhAxFDEAEhE=",
+                "buyer": "QTYQRYMFCS5FT63RUZXBR3MKEEQLHKMHMGMYS4UAPM5CKK27KELGP62QUY"
+              }
+            }
+          }
+        }
+      },
+      "balances": {
+        "ethereum": {
+          "xdai_testnet": {
+            "XDAIT": {
+              "blockNum": "1698324",
+              "token_balance": "1000000000000000",
+              "balance": "1",
+              "token_decimals": 15,
+              "safety": "low"
+            }
+          }
+        }
+      },
+      "createdAt": 1574493617,
+      "updatedAt": 1574494588
     }
   ]
 }

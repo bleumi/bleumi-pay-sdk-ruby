@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay REST API
+#Bleumi Pay API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -13,29 +13,24 @@ OpenAPI Generator version: 4.2.2
 require 'date'
 
 module BleumiPay
-  # Payment addresses
-  class PaymentAddresses
-    attr_accessor :ethereum
+  class AlgorandAddress
+    attr_accessor :alg_mainnet
 
-    attr_accessor :algorand
-
-    attr_accessor :rsk
+    attr_accessor :alg_testnet
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'ethereum' => :'ethereum',
-        :'algorand' => :'algorand',
-        :'rsk' => :'rsk'
+        :'alg_mainnet' => :'alg_mainnet',
+        :'alg_testnet' => :'alg_testnet'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'ethereum' => :'EthereumAddress',
-        :'algorand' => :'AlgorandAddress',
-        :'rsk' => :'RskAddress'
+        :'alg_mainnet' => :'Hash<String, AlgorandWalletAddress>',
+        :'alg_testnet' => :'Hash<String, AlgorandWalletAddress>'
       }
     end
 
@@ -49,27 +44,27 @@ module BleumiPay
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `BleumiPay::PaymentAddresses` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `BleumiPay::AlgorandAddress` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `BleumiPay::PaymentAddresses`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `BleumiPay::AlgorandAddress`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'ethereum')
-        self.ethereum = attributes[:'ethereum']
+      if attributes.key?(:'alg_mainnet')
+        if (value = attributes[:'alg_mainnet']).is_a?(Hash)
+          self.alg_mainnet = value
+        end
       end
 
-      if attributes.key?(:'algorand')
-        self.algorand = attributes[:'algorand']
-      end
-
-      if attributes.key?(:'rsk')
-        self.rsk = attributes[:'rsk']
+      if attributes.key?(:'alg_testnet')
+        if (value = attributes[:'alg_testnet']).is_a?(Hash)
+          self.alg_testnet = value
+        end
       end
     end
 
@@ -91,9 +86,8 @@ module BleumiPay
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          ethereum == o.ethereum &&
-          algorand == o.algorand &&
-          rsk == o.rsk
+          alg_mainnet == o.alg_mainnet &&
+          alg_testnet == o.alg_testnet
     end
 
     # @see the `==` method
@@ -105,7 +99,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [ethereum, algorand, rsk].hash
+      [alg_mainnet, alg_testnet].hash
     end
 
     # Builds the object from hash

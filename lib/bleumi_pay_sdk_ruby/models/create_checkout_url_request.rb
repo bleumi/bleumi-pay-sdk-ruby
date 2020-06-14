@@ -29,8 +29,8 @@ module BleumiPay
     # Buyer will be redirected to this URL upon successfully completing the payment.
     attr_accessor :success_url
 
-    # Address of buyer. Refund operations on this payment will use this address. You can set this to your address to manually handle refunds (outside of Bleumi Pay) to your buyer. This address must be able to receive payments from smart contracts.
-    attr_accessor :buyer_address
+    # Payment transfer address (only used in case of Marketplace payments). Use this field to override the token's settlement address specified in the Bleumi Pay Dashboard for the payment.
+    attr_accessor :transfer_address
 
     # (Required if specifying 'token') Network in which the hosted checkout is to be created. Please refer to the Supported Networks.
     attr_accessor :chain
@@ -49,7 +49,7 @@ module BleumiPay
         :'amount' => :'amount',
         :'cancel_url' => :'cancelUrl',
         :'success_url' => :'successUrl',
-        :'buyer_address' => :'buyerAddress',
+        :'transfer_address' => :'transferAddress',
         :'chain' => :'chain',
         :'token' => :'token',
         :'base64_transform' => :'base64Transform'
@@ -64,7 +64,7 @@ module BleumiPay
         :'amount' => :'String',
         :'cancel_url' => :'String',
         :'success_url' => :'String',
-        :'buyer_address' => :'String',
+        :'transfer_address' => :'String',
         :'chain' => :'String',
         :'token' => :'String',
         :'base64_transform' => :'Boolean'
@@ -112,8 +112,8 @@ module BleumiPay
         self.success_url = attributes[:'success_url']
       end
 
-      if attributes.key?(:'buyer_address')
-        self.buyer_address = attributes[:'buyer_address']
+      if attributes.key?(:'transfer_address')
+        self.transfer_address = attributes[:'transfer_address']
       end
 
       if attributes.key?(:'chain')
@@ -177,7 +177,7 @@ module BleumiPay
           amount == o.amount &&
           cancel_url == o.cancel_url &&
           success_url == o.success_url &&
-          buyer_address == o.buyer_address &&
+          transfer_address == o.transfer_address &&
           chain == o.chain &&
           token == o.token &&
           base64_transform == o.base64_transform
@@ -192,7 +192,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, currency, amount, cancel_url, success_url, buyer_address, chain, token, base64_transform].hash
+      [id, currency, amount, cancel_url, success_url, transfer_address, chain, token, base64_transform].hash
     end
 
     # Builds the object from hash

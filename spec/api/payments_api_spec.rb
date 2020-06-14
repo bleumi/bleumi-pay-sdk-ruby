@@ -32,18 +32,6 @@ describe 'PaymentsApi' do
     end
   end
 
-  # unit tests for create_payment
-  # Generate a unique wallet address in the specified network to accept payment
-  # @param create_payment_request 
-  # @param [Hash] opts the optional parameters
-  # @option opts [Chain] :chain Network in which payment is to be created. Please refer documentation for Supported Networks
-  # @return [CreatePaymentResponse]
-  describe 'create_payment test' do
-    it 'should work' do
-      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
-    end
-  end
-
   # unit tests for get_payment
   # Retrieve the wallet addresses &amp; token balances for a given payment
   # @param id Unique identifier of the payment (specified during createPayment) to retrieve

@@ -100,33 +100,6 @@ module BleumiPay
             return nil
         end
 
-        def validate_create_payment_request(params, chain)
-            # check if chain is provided 
-            msg = check_req_param("Chain", chain)
-            if is_not_empty(msg) then
-                return msg 
-            end
-            # check if buyer_address is valid address in the network  
-            msg = check_network_addr("BuyerAddress", params.buyer_address, chain, mandatory=true, is_token=false)
-            if is_not_empty(msg) then
-                return msg 
-            end
-            # check if transfer_address is valid address in the network  
-            msg = check_network_addr("TransferAddress", params.transfer_address, chain, mandatory=true, is_token=false)
-            if is_not_empty(msg) then
-                return msg 
-            end
-
-            # check if token is valid address in the network (if provided) 
-            if is_not_empty(params.token) then
-                msg = check_network_addr("Token", params.token, chain, mandatory=false, is_token=true)
-                if is_not_empty(msg) then
-                    return msg 
-                end
-            end    
-            return nil
-        end
-        
         def validate_refund_payment_request(params, chain)
             # check if chain is provided 
             msg = check_req_param("Chain", chain)
@@ -206,9 +179,9 @@ module BleumiPay
                     return msg 
                 end
 
-                # check if buyer_address is valid address in the network (if provided) 
-                if is_not_empty(params.buyer_address) then
-                    msg = check_network_addr("BuyerAddress", params.buyer_address, params.chain, mandatory=false, is_token=false)
+                # check if transfer_address is valid address in the network (if provided) 
+                if is_not_empty(params.transfer_address) then
+                    msg = check_network_addr("TransferAddress", params.transfer_address, params.chain, mandatory=false, is_token=false)
                     if is_not_empty(msg) then
                         return msg 
                     end

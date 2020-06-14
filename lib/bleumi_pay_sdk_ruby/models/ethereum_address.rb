@@ -1,7 +1,7 @@
 =begin
-#Bleumi Pay REST API
+#Bleumi Pay API
 
-#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai, Algorand payments and/or payouts into your business or application
+#A simple and powerful REST API to integrate ERC-20, Ethereum, xDai payments and/or payouts into your business or application
 
 The version of the OpenAPI document: 1.0.0
 Contact: info@bleumi.com
@@ -13,21 +13,32 @@ OpenAPI Generator version: 4.2.2
 require 'date'
 
 module BleumiPay
-  class CreatePaymentResponse
-    # Address of the newly created payment
-    attr_accessor :addr
+  class EthereumAddress
+    attr_accessor :mainnet
+
+    attr_accessor :goerli
+
+    attr_accessor :xdai
+
+    attr_accessor :xdai_testnet
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'addr' => :'addr'
+        :'mainnet' => :'mainnet',
+        :'goerli' => :'goerli',
+        :'xdai' => :'xdai',
+        :'xdai_testnet' => :'xdai_testnet'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'addr' => :'String'
+        :'mainnet' => :'Hash<String, EthereumWalletAddress>',
+        :'goerli' => :'Hash<String, EthereumWalletAddress>',
+        :'xdai' => :'Hash<String, EthereumWalletAddress>',
+        :'xdai_testnet' => :'Hash<String, EthereumWalletAddress>'
       }
     end
 
@@ -41,19 +52,39 @@ module BleumiPay
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `BleumiPay::CreatePaymentResponse` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `BleumiPay::EthereumAddress` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `BleumiPay::CreatePaymentResponse`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `BleumiPay::EthereumAddress`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'addr')
-        self.addr = attributes[:'addr']
+      if attributes.key?(:'mainnet')
+        if (value = attributes[:'mainnet']).is_a?(Hash)
+          self.mainnet = value
+        end
+      end
+
+      if attributes.key?(:'goerli')
+        if (value = attributes[:'goerli']).is_a?(Hash)
+          self.goerli = value
+        end
+      end
+
+      if attributes.key?(:'xdai')
+        if (value = attributes[:'xdai']).is_a?(Hash)
+          self.xdai = value
+        end
+      end
+
+      if attributes.key?(:'xdai_testnet')
+        if (value = attributes[:'xdai_testnet']).is_a?(Hash)
+          self.xdai_testnet = value
+        end
       end
     end
 
@@ -61,17 +92,12 @@ module BleumiPay
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @addr.nil?
-        invalid_properties.push('invalid value for "addr", addr cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @addr.nil?
       true
     end
 
@@ -80,7 +106,10 @@ module BleumiPay
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          addr == o.addr
+          mainnet == o.mainnet &&
+          goerli == o.goerli &&
+          xdai == o.xdai &&
+          xdai_testnet == o.xdai_testnet
     end
 
     # @see the `==` method
@@ -92,7 +121,7 @@ module BleumiPay
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [addr].hash
+      [mainnet, goerli, xdai, xdai_testnet].hash
     end
 
     # Builds the object from hash
